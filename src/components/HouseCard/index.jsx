@@ -9,7 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import CompareArrowsIcon from '@material-ui/icons/CompareArrows';
 
 import defaultImage from "assets/img/home/home.jpg";
 
@@ -26,12 +26,14 @@ function HouseCard({ title, city, rooms, price, area, image}) {
   const classes = useStyles();
   
   const [favorite, setFavorite] = useState(false);
+  const [compare, setCompare] = useState(false);
 
   if(image === undefined) {
     image = defaultImage;
   }
 
-  let buttonColor = favorite === true ? "red" : "";
+  let favoriteButton = favorite === true ? "red" : "";
+  let compareButton = compare === true ? "#3f51b5" : "";
 
   return (
     <Card className={classes.root}>
@@ -39,7 +41,7 @@ function HouseCard({ title, city, rooms, price, area, image}) {
         <CardMedia
           className={classes.media}
           image={image}
-          title="Contemplative Reptile"
+          title={title}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h3">
@@ -64,11 +66,14 @@ function HouseCard({ title, city, rooms, price, area, image}) {
         <IconButton aria-label="add to favorites">
           <FavoriteIcon
           onClick={() => setFavorite(!favorite)}
-          style={{color: buttonColor}}
+          style={{color: favoriteButton}}
           />
         </IconButton>
         <IconButton aria-label="add to favorites">
-          <ShoppingCartIcon />
+          <CompareArrowsIcon 
+          onClick={() => setCompare(!compare)}
+          style={{color: compareButton}}
+          />
         </IconButton>
         <Button size="small" style={{ backgroundColor: "#3f51b5", color: "white" }}>
           Details
