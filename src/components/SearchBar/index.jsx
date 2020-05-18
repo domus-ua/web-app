@@ -22,11 +22,15 @@ class SearchBar extends React.Component {
             rooms: "",
             foundHouses: [],
             houseNotFound: false,
-            searching: false
+            searching: false,
+            sortingAttribute: "rating",
+            descendent: true,
+            orderBy: "",
         }
 
         this.searchHouses = this.searchHouses.bind(this);
         this.searching = this.searching.bind(this);
+        this.orderHouses = this.orderHouses.bind(this);
     }
 
     cities = [
@@ -40,22 +44,22 @@ class SearchBar extends React.Component {
 
 
     searchHouses() {
-        let parameters = "?";
+        let parameters = "?desc=" + this.state.descendent + "&orderAttribute=" + this.state.sortingAttribute;
 
         if (document.getElementById("city").value !== "") {
-            parameters += "city=" + document.getElementById("city").value + "&";
+            parameters += "&city=" + document.getElementById("city").value;
         }
 
         if (document.getElementById("min-price").value !== "") {
-            parameters += "minPrice=" + parseFloat(document.getElementById("min-price").value) + "&";
+            parameters += "&minPrice=" + parseFloat(document.getElementById("min-price").value);
         }
 
         if (document.getElementById("max-price").value !== "") {
-            parameters += "maxPrice=" + parseFloat(document.getElementById("max-price").value) + "&";
+            parameters += "&maxPrice=" + parseFloat(document.getElementById("max-price").value);
         }
 
         if (this.state.rooms !== "") {
-            parameters += "nRooms=" + parseInt(this.state.rooms);
+            parameters += "&nRooms=" + parseInt(this.state.rooms);
         }
 
         fetch(uris.restApi.houses + parameters, {
@@ -74,8 +78,65 @@ class SearchBar extends React.Component {
                 this.setState({
                     foundHouses: data,
                     city: document.getElementById("city").value,
+                    minPrice: document.getElementById("min-price").value,
+                    maxPrice: document.getElementById("max-price").value,
+                    rooms: this.state.rooms,
                     searching: false,
                     houseNotFound: data.length === 0
+                })
+            })
+            .catch(error => {
+                console.log("Fetch error: " + error);
+            })
+    }
+
+
+    orderHouses(event) {
+        let orderBy = event.target.value;
+
+        let sortingAttribute = orderBy.includes("rating") ? "rating" : "price";
+        let descendent = orderBy.includes("Higher") ? true : false;
+
+        let parameters = "?desc=" + descendent + "&orderAttribute=" + sortingAttribute;
+
+        if (this.state.city !== "") {
+            parameters += "&city=" + this.state.city;
+        }
+
+        if (this.state.minPrice !== "") {
+            parameters += "&minPrice=" + this.state.minPrice;
+        }
+
+        if (this.state.maxPrice !== "") {
+            parameters += "&maxPrice=" + this.state.maxPrice;
+        }
+
+        if (this.state.rooms !== "") {
+            parameters += "&nRooms=" + parseInt(this.state.rooms);
+        }
+
+        fetch(uris.restApi.houses + parameters, {
+            method: "GET",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (!response.ok) throw new Error(response.status);
+                else return response.json();
+
+            })
+            .then(data => {
+                this.setState({
+                    foundHouses: data,
+                    city: this.state.city,
+                    minPrice: this.state.minPrice,
+                    maxPrice: this.state.maxPrice,
+                    rooms: this.state.rooms,
+                    sortingAttribute: sortingAttribute,
+                    descendent: descendent,
+                    orderBy: orderBy,
                 })
             })
             .catch(error => {
@@ -163,8 +224,25 @@ class SearchBar extends React.Component {
                         this.state.foundHouses.length !== 0 ?
                             <div>
                                 <div className="row" style={{ marginTop: "30px" }}>
-                                    <div className="col-sm-12">
+                                    <div className="col-sm-9">
                                         <h3 style={{ color: "#252525" }}>{this.state.city === "" ? "All houses" : "Houses in " + this.state.city}</h3>
+                                    </div>
+                                    <div className="col-sm-3">
+                                        <FormControl variant="outlined" style={{ width: "100%" }}>
+                                            <InputLabel id="orderBy">Order by</InputLabel>
+                                            <Select
+                                                labelId="orderBy"
+                                                id="orderBy-select-outlined"
+                                                value={this.state.orderBy}
+                                                onChange={this.orderHouses}
+                                                label="orderBy"
+                                            >
+                                                <MenuItem value={"Higher rating"}>Higher rating</MenuItem>
+                                                <MenuItem value={"Lower rating"}>Lower rating</MenuItem>
+                                                <MenuItem value={"Higher price"}>Higher price</MenuItem>
+                                                <MenuItem value={"Lower price"}>Lower price</MenuItem>
+                                            </Select>
+                                        </FormControl>
                                     </div>
                                 </div>
                                 <div className="row">
