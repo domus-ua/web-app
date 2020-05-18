@@ -48,8 +48,11 @@ class SearchBar extends React.Component {
             parameters += "city=" + document.getElementById("city").value + "&";
         }
 
-        if (document.getElementById("min-price").value !== "" && document.getElementById("max-price").value !== "") {
+        if (document.getElementById("min-price").value !== "") {
             parameters += "minPrice=" + parseFloat(document.getElementById("min-price").value) + "&";
+        }
+
+        if (document.getElementById("max-price").value !== "") {
             parameters += "maxPrice=" + parseFloat(document.getElementById("max-price").value) + "&";
         }
 
