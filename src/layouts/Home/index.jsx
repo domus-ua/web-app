@@ -1,6 +1,4 @@
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
-import Grid from '@material-ui/core/Grid';
 
 import Navbar from "components/Navbar";
 import SearchBar from "components/SearchBar";

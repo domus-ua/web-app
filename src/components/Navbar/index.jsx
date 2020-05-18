@@ -8,8 +8,8 @@ function Navbar() {
                </div>
             <div class="menu">
                 <ul>
-                    <li><a href="#">Sign In</a></li>
-                    <li><a href="#">Register</a></li>
+                    <li><a href="/signin">Sign In</a></li>
+                    <li><a href="/signup">Register</a></li>
                 </ul>
             </div>
         </nav>
