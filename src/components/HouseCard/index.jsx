@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -25,9 +25,13 @@ const useStyles = makeStyles({
 function HouseCard({ title, city, rooms, price, area, image}) {
   const classes = useStyles();
   
+  const [favorite, setFavorite] = useState(false);
+
   if(image === undefined) {
     image = defaultImage;
   }
+
+  let buttonColor = favorite === true ? "red" : "";
 
   return (
     <Card className={classes.root}>
@@ -58,7 +62,10 @@ function HouseCard({ title, city, rooms, price, area, image}) {
       </CardActionArea>
       <CardActions>
         <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+          <FavoriteIcon
+          onClick={() => setFavorite(!favorite)}
+          style={{color: buttonColor}}
+          />
         </IconButton>
         <IconButton aria-label="add to favorites">
           <ShoppingCartIcon />
