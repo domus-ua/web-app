@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
-import i from "assets/img/home/home.jpg";
+import defaultImage from "assets/img/home/home.jpg";
 
 const useStyles = makeStyles({
   root: {
@@ -22,15 +22,19 @@ const useStyles = makeStyles({
   },
 });
 
-function HouseCard({ title, city, rooms, price, area }) {
+function HouseCard({ title, city, rooms, price, area, image}) {
   const classes = useStyles();
+  
+  if(image === undefined) {
+    image = defaultImage;
+  }
 
   return (
     <Card className={classes.root}>
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image={i}
+          image={image}
           title="Contemplative Reptile"
         />
         <CardContent>
