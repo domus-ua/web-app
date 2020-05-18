@@ -86,7 +86,7 @@ class SearchBar extends React.Component {
     }
 
     searching() {
-        this.setState({ searching: true })
+        this.setState({ searching: true, foundHouses: [] })
         setTimeout(() => {
             this.searchHouses();
         }, 1500);
