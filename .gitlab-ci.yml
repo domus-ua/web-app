@@ -1,10 +1,10 @@
 image: node:latest
 
 stages:
-  - Lint
-  - Test
-  - Docker
-  - Deploy
+  - lint
+  - test
+  - registry
+  - deploy
 
 # This folder is cached between builds
 # http://docs.gitlab.com/ce/ci/yaml/README.html#cache
@@ -13,7 +13,7 @@ cache:
     - ~/.cache/
 
 lint:
-  stage: Lint
+  stage: lint
   script:
     - npm install eslint -g
     - npm install -g --only=dev
@@ -21,12 +21,12 @@ lint:
     - eslint --fix --max-warnings 20 src/ || echo "Skipping errors for now..."
 
 test:
-  stage: Test
+  stage: test
   script:
     - echo "Testing..."
 
 .docker:
-  stage: Docker
+  stage: registry
   image: docker:stable
   only:
     - master
@@ -45,7 +45,7 @@ test:
     - docker push $CI_REGISTRY/$CI_PROJECT_PATH
 
 .deploy:
-  stage: Deploy
-  trigger: my-life-ua/compose
+  stage: deploy
+  trigger: tqs-domus/compose
   only:
     - master
