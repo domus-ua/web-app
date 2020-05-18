@@ -3,9 +3,6 @@ import React from "react";
 function Navbar() {
     return (
         <nav>
-            <div class="menu-icon">
-                <i class="fa fa-bars fa-2x"></i>
-            </div>
             <div class="logo">
                 DOMUS
                </div>

@@ -4,6 +4,8 @@ import Grid from '@material-ui/core/Grid';
 
 import Navbar from "components/Navbar";
 import SearchBar from "components/SearchBar";
+import TopHouses from "components/TopHouses";
+import Footer from "components/Footer";
 
 class Home extends React.Component {
 
@@ -28,6 +30,8 @@ class Home extends React.Component {
                     <Navbar />
                 </header>
                 <SearchBar />
+                <TopHouses />
+                <Footer />
             </div>
         )
     }

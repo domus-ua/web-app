@@ -63,3 +63,17 @@ header {
     height: 400px;
 }
 
+section {
+    min-height: 300px;
+    padding: 50px 0;
+}
+
+section.alternate {
+    background-color: rgb(243, 243, 243);
+}
+
+footer {
+    background-color: #252525;
+    padding: 20px;
+    color: white;
+}
