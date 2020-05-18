@@ -11,6 +11,10 @@ class TopHouses extends React.Component {
 
     constructor(props) {
         super(props);
+        this.allHouses = [];
+        this.state = {
+            houses: []
+        }
         this.fetchAllHouses = this.fetchAllHouses.bind(this);
     }
 
@@ -32,7 +36,10 @@ class TopHouses extends React.Component {
 
             })
             .then(data => {
-                console.log(data);
+                this.allHouses = data;
+                this.setState({
+                    houses: this.allHouses.slice(0, 3) // FIXME: change later to 4
+                })
             })
             .catch(error => {
                 console.log("Fetch error: " + error);
@@ -56,15 +63,19 @@ class TopHouses extends React.Component {
                         </div>
                     </div>
                     <div className="row" style={{ marginTop: "15px" }}>
-                        <div className="col-sm-3">
-
-                            <HouseCard />
-                        </div>
-                        <div className="col-sm-3"><HouseCard /></div>
-                        <div className="col-sm-3"><HouseCard /></div>
-                        <div className="col-sm-3"><HouseCard /></div>
+                        {this.state.houses.map(house => {
+                            return <div className="col-sm-3">
+                                <HouseCard 
+                                title={house.name}
+                                city={house.city}
+                                rooms={house.noRooms}
+                                price={house.price}
+                                area={house.habitableArea}
+                                />
+                            </div>
+                        })}
                     </div>
-                    <div className="row" style={{marginTop: "10px"}}>
+                    <div className="row" style={{ marginTop: "10px" }}>
                         <div className="col-sm-6 text-right">
                             <IconButton aria-label="backward">
                                 <ArrowBackIosIcon />

@@ -22,7 +22,7 @@ const useStyles = makeStyles({
   },
 });
 
-function HouseCard() {
+function HouseCard({ title, city, rooms, price, area }) {
   const classes = useStyles();
 
   return (
@@ -35,19 +35,19 @@ function HouseCard() {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h3">
-            Quarto c/ 2 quartos em Aveiro
+            {title}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            <strong>City:</strong> Aveiro
+            <strong>City:</strong> {city}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            <strong>Rooms:</strong> 2
+            <strong>Rooms:</strong> {rooms}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            <strong>Price:</strong> 230 euros
+            <strong>Price:</strong> {price} €
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            <strong>Area:</strong> 500m2
+            <strong>Habitable area:</strong> {area}m2
           </Typography>
 
         </CardContent>
