@@ -211,30 +211,30 @@ class NewHouse extends React.Component {
                         </div>
                         <div className="row" style={{ marginTop: "20px" }}>
                             <div className="col-sm-8">
-                                <img src={defaultImage} className="new-house-photo" onClick={() => this.uploadPicture(1)} />
+                                <img src={defaultImage} className="new-house-photo" onClick={() => this.uploadPicture(1)} alt="House 1" />
                             </div>
                             <div className="col-sm-4">
-                                <img src={defaultImage} className="new-house-photo" onClick={() => this.uploadPicture(2)} />
+                                <img src={defaultImage} className="new-house-photo" onClick={() => this.uploadPicture(2)} alt="House 2" />
                             </div>
                         </div>
                         <div className="row" style={{ marginTop: "25px" }}>
                             <div className="col-sm-2">
-                                <img src={defaultImage} id="hello" className="new-house-small-photo" onClick={() => this.uploadPicture(3)} />
+                                <img src={defaultImage} id="hello" className="new-house-small-photo" onClick={() => this.uploadPicture(3)} alt="House 3" />
                             </div>
                             <div className="col-sm-2">
-                                <img src={defaultImage} id="hello" className="new-house-small-photo" onClick={() => this.uploadPicture(4)} />
+                                <img src={defaultImage} id="hello" className="new-house-small-photo" onClick={() => this.uploadPicture(4)} alt="House 4" />
                             </div>
                             <div className="col-sm-2">
-                                <img src={defaultImage} id="hello" className="new-house-small-photo" onClick={() => this.uploadPicture(5)} />
+                                <img src={defaultImage} id="hello" className="new-house-small-photo" onClick={() => this.uploadPicture(5)} alt="House 5" />
                             </div>
                             <div className="col-sm-2">
-                                <img src={defaultImage} id="hello" className="new-house-small-photo" onClick={() => this.uploadPicture(6)} />
+                                <img src={defaultImage} id="hello" className="new-house-small-photo" onClick={() => this.uploadPicture(6)} alt="House 6" />
                             </div>
                             <div className="col-sm-2">
-                                <img src={defaultImage} id="hello" className="new-house-small-photo" onClick={() => this.uploadPicture(7)} />
+                                <img src={defaultImage} id="hello" className="new-house-small-photo" onClick={() => this.uploadPicture(7)} alt="House 7" />
                             </div>
                             <div className="col-sm-2">
-                                <img src={defaultImage} id="hello" className="new-house-small-photo" onClick={() => this.uploadPicture(8)} />
+                                <img src={defaultImage} id="hello" className="new-house-small-photo" onClick={() => this.uploadPicture(8)} alt="House 8" />
                             </div>
                         </div>
                         <input id="upload" type="file" style={{ display: "none" }} />
