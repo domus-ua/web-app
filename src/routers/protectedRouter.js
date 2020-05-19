@@ -2,10 +2,14 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
 import Auth from "layouts/Auth";
+
+
+
+// Locatario router
 import HomeLocatario from "layouts/Locatario/Home";
-import HomeLocador from "layouts/Locador/Home";
 
 // Locador router
+import HomeLocador from "layouts/Locador/Home";
 import NewHouse from "layouts/Locador/NewHouse";
 
 function PrivateRoute(props) {
