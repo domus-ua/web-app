@@ -3,6 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 
 import Auth from "layouts/Auth";
 import HomeLocatario from "layouts/Locatario/Home";
+import HomeLocador from "layouts/Locador/Home";
 
 function PrivateRoute(props) {
     const path = props.path;
@@ -22,6 +23,8 @@ function PrivateRoute(props) {
 }
 
 export default [
+    { path: '/locador/auth', layout: <PrivateRoute path='/locador/auth' component={Auth} /> },
     { path: '/locatario/auth', layout: <PrivateRoute path='/locatario/auth' component={Auth} /> },
+    { path: '/locador', layout: <PrivateRoute path='/locador' component={HomeLocador} /> },
     { path: '/locatario', layout: <PrivateRoute path='/locatario' component={HomeLocatario} /> },
 ]

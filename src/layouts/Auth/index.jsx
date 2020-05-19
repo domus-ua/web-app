@@ -30,6 +30,9 @@ class Auth extends React.Component {
         if (this.state.loaded) {
             if (this.state.authUser.role === "locatario")
                 return <Redirect to="/locatario" />
+            else if (this.state.authUser.role === "locador") {
+                return <Redirect to="/locador" />
+            }
         }
         return (
             <section className="auth-banner">
