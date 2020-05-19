@@ -13,9 +13,11 @@ class TopHouses extends React.Component {
         super(props);
         this.allHouses = [];
         this.state = {
-            houses: []
+            houses: [],
         }
         this.fetchAllHouses = this.fetchAllHouses.bind(this);
+        this.changeRight = this.changeRight.bind(this);
+        this.changeLeft = this.changeLeft.bind(this);
     }
 
     componentDidMount() {
@@ -38,7 +40,7 @@ class TopHouses extends React.Component {
             .then(data => {
                 this.allHouses = data;
                 this.setState({
-                    houses: this.allHouses.slice(0, 3) // FIXME: change later to 4
+                    houses: this.allHouses.slice(0, 4) // FIXME: change later to 4
                 })
             })
             .catch(error => {
@@ -47,6 +49,34 @@ class TopHouses extends React.Component {
 
     }
 
+    changeRight() {
+        let lastHouse = this.allHouses[this.allHouses.length - 1];
+        let updatedHouses = [lastHouse];
+        for (var i = 0; i < this.allHouses.length - 1; i++) {
+            updatedHouses.push(this.allHouses[i]);
+        }
+        
+        this.allHouses = updatedHouses;
+        
+        this.setState({
+            houses: this.allHouses.slice(0, 4)
+        })
+    }
+
+    changeLeft() {
+        let firstHouse = this.allHouses[0];
+        let updatedHouses = [];
+        for (var i = 1; i < this.allHouses.length ; i++) {
+            updatedHouses.push(this.allHouses[i]);
+        }
+        updatedHouses.push(firstHouse);
+
+        this.allHouses = updatedHouses;
+        
+        this.setState({
+            houses: this.allHouses.slice(0, 4)
+        })
+    }
 
     render() {
         return (
@@ -54,7 +84,7 @@ class TopHouses extends React.Component {
                 <div className="container">
                     <div className="row">
                         <div className="col-sm-4">
-                            <h3 style={{ color: "#3f51b5" }}>Top houses</h3>
+                            <h3 style={{ color: "#3f51b5" }}>Trending houses</h3>
                         </div>
                     </div>
                     <div className="row">
@@ -77,12 +107,12 @@ class TopHouses extends React.Component {
                     </div>
                     <div className="row" style={{ marginTop: "10px" }}>
                         <div className="col-sm-6 text-right">
-                            <IconButton aria-label="backward">
+                            <IconButton aria-label="backward" onClick={this.changeLeft}>
                                 <ArrowBackIosIcon />
                             </IconButton>
                         </div>
                         <div className="col-sm-6">
-                            <IconButton aria-label="forward">
+                            <IconButton aria-label="forward" onClick={this.changeRight}>
                                 <ArrowForwardIosIcon />
                             </IconButton>
                         </div>

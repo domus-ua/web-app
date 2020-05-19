@@ -1,11 +1,12 @@
-import React from "react";
+import React, {useState} from "react";
 
 function Navbar() {
+
     return (
         <nav>
             <div class="logo">
-                DOMUS
-               </div>
+                <a href="/" style={{color: "white"}}>DOMUS</a>
+            </div>
             <div class="menu">
                 <ul>
                     <li><a href="/signin">Sign In</a></li>
