@@ -18,6 +18,4 @@ function PrivateRoute(props) {
     return isAuthenticated === true ? <Route path={path} component={component} /> : <Redirect to="/" /> 
 }
 
-export default [
-    { path: '/signin', layout: <PrivateRoute path='/signin' component={<div>Private</div>} /> },
-]
+export default []

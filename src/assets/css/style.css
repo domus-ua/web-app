@@ -31,6 +31,10 @@ nav {
     position: absolute;
 }
 
+nav.white-navbar {
+    background-color: #3f51b5;
+}
+
 nav ul {
     line-height: 60px;
     list-style: none;
@@ -75,6 +79,10 @@ header {
 #all-houses > header {
     height: 200px;
     background-image: url('../img/banners/all-houses.png');
+}
+
+#signin > header {
+    height: 60px;
 }
 
 section {
@@ -123,3 +131,23 @@ footer {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
+
+.signin-button {
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    background-color: #3f51b5;
+    cursor: pointer;
+    border-radius: 5px;
+    color: white;
+}
+
+.signin-button > span {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 50px;
+}
+
+.signin-button:hover {
+    background-color: #252525;
+}
