@@ -1,11 +1,48 @@
 import React from "react";
 
 import Navbar from "components/Navbar2";
+import Footer from "components/Footer";
 
 import TextField from '@material-ui/core/TextField';
 
+import uris from "variables/uris";
 
 class SignIn extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.signIn = this.signIn.bind(this);
+    }
+
+    signIn() {
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+
+        const credentials = "Basic " + btoa(username + ':' + password);
+        
+        fetch(uris.restApi.signin, {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                Authorization: credentials
+            }
+        })
+        .then(response => {
+            if(!response.ok) throw new Error(response.status);
+            else return response.json();
+        })
+        .then(data => {
+            console.log(data);
+            document.getElementById("invalid-credentials").style.visibility = "hidden";
+        })
+        .catch(error => {
+            console.log("SignIn error: " + error);
+            document.getElementById("invalid-credentials").style.visibility = "visible";
+        })
+
+    }
 
     render() {
         return (
@@ -55,13 +92,20 @@ class SignIn extends React.Component {
                         <div className="row" style={{ marginTop: "30px" }}>
                             <div className="col-sm-3"></div>
                             <div className="col-sm-6">
-                                <div className="signin-button">
-                                    <span>Sign In</span>
+                                <div className="signin-button" onClick={this.signIn}>
+                                    <span><i className="fas fa-sign-in-alt"></i> Sign In</span>
                                 </div>
+                            </div>
+                        </div>
+                        <div className="row" style={{ marginTop: "30px" }}>
+                            <div className="col-sm-3"></div>
+                            <div className="col-sm-6 text-center">
+                                <h6 id="invalid-credentials" className="invalid-credentials">Invalid credentials!</h6>
                             </div>
                         </div>
                     </div>
                 </section>
+                <Footer />
             </div>
         );
     }

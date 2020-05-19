@@ -151,3 +151,8 @@ footer {
 .signin-button:hover {
     background-color: #252525;
 }
+
+.invalid-credentials {
+    color: red;
+    visibility: hidden;
+}
