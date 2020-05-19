@@ -72,6 +72,11 @@ header {
     height: 400px;
 }
 
+#all-houses > header {
+    height: 200px;
+    background-image: url('../img/banners/all-houses.png');
+}
+
 section {
     min-height: 300px;
     padding: 50px 0;
@@ -82,8 +87,11 @@ section.alternate {
 }
 
 footer {
+    bottom: 0px;
+    position: relative;
     background-color: #252525;
     padding: 20px;
+    width: 100%;
     color: white;
 }
 
