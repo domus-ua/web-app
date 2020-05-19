@@ -48,7 +48,7 @@ class AllHouses extends React.Component {
             .then(data => {
                 this.allHouses = data;
                 this.setState({
-                    houses: this.allHouses.slice(0, 3) // FIXME: change later to 4
+                    houses: this.allHouses
                 })
             })
             .catch(error => {
@@ -84,7 +84,7 @@ class AllHouses extends React.Component {
                     sortingAttribute: sortingAttribute,
                     descendent: descendent,
                     orderBy: orderBy,
-                    houses: this.allHouses.slice(0, 3) // FIXME: change later to 4
+                    houses: this.allHouses 
                 })
             })
             .catch(error => {
@@ -130,7 +130,7 @@ class AllHouses extends React.Component {
                         <div className="row" style={{ marginTop: "15px" }}>
                             {this.state.houses.map(house => {
                                 return <div className="col-sm-3">
-                                    <HouseCard
+                                    <HouseCard 
                                         title={house.name}
                                         city={house.city}
                                         rooms={house.noRooms}

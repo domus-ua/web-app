@@ -16,6 +16,7 @@ import defaultImage from "assets/img/home/home.jpg";
 const useStyles = makeStyles({
   root: {
     maxWidth: "100%",
+    marginTop: "30px",
   },
   media: {
     height: 180,
@@ -43,8 +44,8 @@ function HouseCard({ title, city, rooms, price, area, image}) {
           image={image}
           title={title}
         />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h3">
+        <CardContent style={{minHeight: "200px"}}>
+          <Typography gutterBottom variant="h5" component="h5">
             {title}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
