@@ -12,7 +12,7 @@ cache:
   paths:
     - ~/.cache/
 
-.lint:
+lint:
   stage: lint
   script:
     - npm install eslint -g
