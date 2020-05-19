@@ -31,6 +31,10 @@ nav {
     position: absolute;
 }
 
+nav.white-navbar {
+    background-color: #3f51b5;
+}
+
 nav ul {
     line-height: 60px;
     list-style: none;
@@ -75,6 +79,10 @@ header {
 #all-houses > header {
     height: 200px;
     background-image: url('../img/banners/all-houses.png');
+}
+
+#signin > header {
+    height: 60px;
 }
 
 section {
@@ -123,3 +131,88 @@ footer {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
+
+.signin-button {
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    background-color: #3f51b5;
+    cursor: pointer;
+    border-radius: 5px;
+    color: white;
+}
+
+.signin-button > span {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 50px;
+}
+
+.signin-button:hover {
+    background-color: #252525;
+}
+
+.invalid-credentials {
+    color: red;
+    visibility: hidden;
+}
+
+.auth-banner {
+    height: 100vh;
+    background-color: transparent;
+    background-size: cover;
+    background-attachment: fixed;
+    background-image: url("../img/gradient.jpg");
+    position: relative;
+    width: 100%;
+    background-color: #7A7EBC;
+    color: #fff;
+    overflow: hidden;  
+}
+
+
+.auth-banner .gradient {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    opacity: .9;
+    -webkit-backface-visibility: hidden;
+    background-color: #7A7EBC;
+    /* IE9, iOS 3.2+ */
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxIDEiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxsaW5lYXJHcmFkaWVudCBpZD0idnNnZyIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIHN0b3AtY29sb3I9IiMzZjk1ZWEiIHN0b3Atb3BhY2l0eT0iMSIgb2Zmc2V0PSIwIi8+PHN0b3Agc3RvcC1jb2xvcj0iIzUyZDNhYSIgc3RvcC1vcGFjaXR5PSIxIiBvZmZzZXQ9IjEiLz48L2xpbmVhckdyYWRpZW50PjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9InVybCgjdnNnZykiIC8+PC9zdmc+);
+    background-image: -webkit-gradient(linear, 0% 0%, 100% 100%, color-stop(0, #413C90), color-stop(1, #7A7EBC));
+    /* Android 2.3 */
+    background-image: -webkit-repeating-linear-gradient(top left, #413C90 0%, #7A7EBC 100%);
+    /* IE10+ */
+    background-image: repeating-linear-gradient(to bottom right, #413C90 0%, #7A7EBC 100%);
+    background-image: -ms-repeating-linear-gradient(top left, #413C90 0%, #7A7EBC 100%);
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+  
+    
+  }
+  
+  .loading {
+    width: 120px;
+    height: 120px;
+    animation: resize 1.5s ease-in-out infinite;
+  }
+
+  
+@keyframes resize {
+    0% { transform: scale(0.5); }
+    50% {transform: scale(1.5);}
+    100% { transform: scale(0.5); }
+  }
+  
+  

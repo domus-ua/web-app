@@ -1,6 +1,9 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
+import Auth from "layouts/Auth";
+import HomeLocatario from "layouts/Locatario/Home";
+
 function PrivateRoute(props) {
     const path = props.path;
     const component = props.component;
@@ -8,9 +11,9 @@ function PrivateRoute(props) {
     let isAuthenticated = false;
 
     try {
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const authUser = JSON.parse(localStorage.getItem('authUser'));
 
-        if(path.includes(currentUser.role))
+        if(path.includes(authUser.role))
             isAuthenticated = true;
     }
     catch(error) {}
@@ -19,5 +22,6 @@ function PrivateRoute(props) {
 }
 
 export default [
-    { path: '/signin', layout: <PrivateRoute path='/signin' component={<div>Private</div>} /> },
+    { path: '/locatario/auth', layout: <PrivateRoute path='/locatario/auth' component={Auth} /> },
+    { path: '/locatario', layout: <PrivateRoute path='/locatario' component={HomeLocatario} /> },
 ]
