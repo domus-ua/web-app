@@ -3,7 +3,6 @@ import { Redirect } from "react-router-dom";
 
 import Navbar from "components/Navbar2";
 import Footer from "components/Footer";
-import Auth from "layouts/Auth";
 
 import TextField from '@material-ui/core/TextField';
 
