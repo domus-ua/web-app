@@ -2,7 +2,7 @@ import React from "react";
 
 function Navbar() {
     return (
-        <nav className="white-navbar">
+        <nav className="purple-navbar">
             <div class="logo">
                 <a href="/" style={{color: "white"}}>DOMUS</a>
             </div>

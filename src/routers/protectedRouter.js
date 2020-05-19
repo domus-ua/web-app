@@ -5,6 +5,9 @@ import Auth from "layouts/Auth";
 import HomeLocatario from "layouts/Locatario/Home";
 import HomeLocador from "layouts/Locador/Home";
 
+// Locador router
+import NewHouse from "layouts/Locador/NewHouse";
+
 function PrivateRoute(props) {
     const path = props.path;
     const component = props.component;
@@ -23,6 +26,7 @@ function PrivateRoute(props) {
 }
 
 export default [
+    { path: '/locador/new-house', layout: <PrivateRoute path='/locador/new-house' component={NewHouse} /> },
     { path: '/locador/auth', layout: <PrivateRoute path='/locador/auth' component={Auth} /> },
     { path: '/locatario/auth', layout: <PrivateRoute path='/locatario/auth' component={Auth} /> },
     { path: '/locador', layout: <PrivateRoute path='/locador' component={HomeLocador} /> },
