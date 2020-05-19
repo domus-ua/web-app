@@ -60,6 +60,9 @@ class SignIn extends React.Component {
             if(this.state.authUser.role === "locatario") {
                 return <Redirect to="/locatario/auth" />
             }
+            else if(this.state.authUser.role === "locador") {
+                return <Redirect to="/locador/auth" />
+            }
         } 
         return (
             <div id="signin">
