@@ -1,7 +1,9 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 
 import Navbar from "components/Navbar2";
 import Footer from "components/Footer";
+import Auth from "layouts/Auth";
 
 import TextField from '@material-ui/core/TextField';
 
@@ -11,6 +13,11 @@ class SignIn extends React.Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            redirect: JSON.parse(localStorage.getItem('authUser')) !== null,
+            authUser: JSON.parse(localStorage.getItem('authUser'))
+        }
 
         this.signIn = this.signIn.bind(this);
     }
@@ -34,8 +41,13 @@ class SignIn extends React.Component {
             else return response.json();
         })
         .then(data => {
-            console.log(data);
-            document.getElementById("invalid-credentials").style.visibility = "hidden";
+            localStorage.setItem('authUser', JSON.stringify(data));
+
+            this.setState({
+                redirect: true,
+                authUser: data
+            })
+
         })
         .catch(error => {
             console.log("SignIn error: " + error);
@@ -45,6 +57,11 @@ class SignIn extends React.Component {
     }
 
     render() {
+        if(this.state.redirect) {
+            if(this.state.authUser.role === "locatario") {
+                return <Redirect to="/locatario/auth" />
+            }
+        } 
         return (
             <div id="signin">
                 <header>
