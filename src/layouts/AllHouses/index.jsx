@@ -95,7 +95,7 @@ class AllHouses extends React.Component {
     render() {
         return (
             <div id="all-houses">
-                <header>
+                <header className="with-banner">
                     <Navbar />
                 </header>
                 <section className="alternate">

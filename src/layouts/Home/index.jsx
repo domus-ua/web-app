@@ -10,7 +10,7 @@ class Home extends React.Component {
     render() {
         return (
             <div id="home">
-                <header>
+                <header className="with-banner">
                     <Navbar />
                 </header>
                 <SearchBar />
