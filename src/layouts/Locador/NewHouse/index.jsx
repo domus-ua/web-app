@@ -16,7 +16,7 @@ import Footer from "components/Footer";
 import IconButton from '@material-ui/core/IconButton';
 import ArrowBack from '@material-ui/icons/ArrowBackIos';
 
-import defaultImage from "assets/img/home/home.jpg";
+import defaultImage from "assets/img/dashboards/new-house-2.png";
 
 
 class NewHouse extends React.Component {
@@ -26,11 +26,23 @@ class NewHouse extends React.Component {
 
         this.state = {
             return: false,
+            next: false,
             bedrooms: "",
             bathrooms: "",
             garages: "",
+            price: 100,
             wifi: false,
-            price: 100
+            phone: false,
+            television: false,
+            warmWater: false,
+            alarm: false,
+            fireExtinguisher: false,
+            parking: false,
+            balcony: false,
+            airConditioning: false,
+            washingMachine: false,
+            vacuumCleaner: false,
+            currentPic: null
         }
 
         this.prices = [
@@ -60,15 +72,20 @@ class NewHouse extends React.Component {
             },
         ]
 
+        this.event = new MouseEvent('click', {
+            view: window,
+            bubbles: true,
+            cancelable: true
+        });
 
         this.authUser = JSON.parse(localStorage.getItem('authUser'));
 
         this.uploadPicture = this.uploadPicture.bind(this);
+        this.triggerUpload = this.triggerUpload.bind(this);
         this.handleSliderChange = this.handleSliderChange.bind(this);
     }
 
     componentDidMount() {
-        document.getElementById("hello").style.height = document.getElementById("hello").style.width;
     }
 
     handleSliderChange = (event, newPrice) => {
@@ -78,17 +95,34 @@ class NewHouse extends React.Component {
     };
 
 
-    uploadPicture(id) {
-        let event = new MouseEvent('click', {
-            view: window,
-            bubbles: true,
-            cancelable: true
-        });
-        var cb = document.getElementById('upload');
-        var cancelled = !cb.dispatchEvent(event);
+    triggerUpload(id) {
+        let fileInput = document.getElementById('upload');
+        fileInput.click();
+        this.setState({
+            currentPic: "photo" + id
+        })
     }
 
+    uploadPicture(event) {
+        let fileInput = document.getElementById('upload');
+        const file = fileInput.files[0];
+
+        // Check if the file is an image.
+        if (file.type && file.type.indexOf('image') === -1) {
+            console.log('File is not an image.', file.type, file);
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.addEventListener('load', (event) => {
+            document.getElementById(this.state.currentPic).src = event.target.result;
+        });
+        reader.readAsDataURL(file);
+    }
+
+
     render() {
+        if (this.state.next) return <Redirect to="/locador/confirm-house" />
         if (this.state.return) return <Redirect to="/locador" />
         return (
             <div id="new-house">
@@ -211,33 +245,33 @@ class NewHouse extends React.Component {
                         </div>
                         <div className="row" style={{ marginTop: "20px" }}>
                             <div className="col-sm-8">
-                                <img src={defaultImage} className="new-house-photo" onClick={() => this.uploadPicture(1)} alt="House 1" />
+                                <img src={defaultImage} id="photo1" className="new-house-photo" onClick={() => this.triggerUpload(1)} alt="House 1" />
                             </div>
                             <div className="col-sm-4">
-                                <img src={defaultImage} className="new-house-photo" onClick={() => this.uploadPicture(2)} alt="House 2" />
+                                <img src={defaultImage} id="photo2" className="new-house-photo" onClick={() => this.triggerUpload(2)} alt="House 2" />
                             </div>
                         </div>
                         <div className="row" style={{ marginTop: "25px" }}>
                             <div className="col-sm-2">
-                                <img src={defaultImage} id="hello" className="new-house-small-photo" onClick={() => this.uploadPicture(3)} alt="House 3" />
+                                <img src={defaultImage} id="photo3" className="new-house-small-photo" onClick={() => this.triggerUpload(3)} alt="House 3" />
                             </div>
                             <div className="col-sm-2">
-                                <img src={defaultImage} id="hello" className="new-house-small-photo" onClick={() => this.uploadPicture(4)} alt="House 4" />
+                                <img src={defaultImage} id="photo4" className="new-house-small-photo" onClick={() => this.triggerUpload(4)} alt="House 4" />
                             </div>
                             <div className="col-sm-2">
-                                <img src={defaultImage} id="hello" className="new-house-small-photo" onClick={() => this.uploadPicture(5)} alt="House 5" />
+                                <img src={defaultImage} id="photo5" className="new-house-small-photo" onClick={() => this.triggerUpload(5)} alt="House 5" />
                             </div>
                             <div className="col-sm-2">
-                                <img src={defaultImage} id="hello" className="new-house-small-photo" onClick={() => this.uploadPicture(6)} alt="House 6" />
+                                <img src={defaultImage} id="photo6" className="new-house-small-photo" onClick={() => this.triggerUpload(6)} alt="House 6" />
                             </div>
                             <div className="col-sm-2">
-                                <img src={defaultImage} id="hello" className="new-house-small-photo" onClick={() => this.uploadPicture(7)} alt="House 7" />
+                                <img src={defaultImage} id="photo7" className="new-house-small-photo" onClick={() => this.triggerUpload(7)} alt="House 7" />
                             </div>
                             <div className="col-sm-2">
-                                <img src={defaultImage} id="hello" className="new-house-small-photo" onClick={() => this.uploadPicture(8)} alt="House 8" />
+                                <img src={defaultImage} id="photo8" className="new-house-small-photo" onClick={() => this.triggerUpload(8)} alt="House 8" />
                             </div>
                         </div>
-                        <input id="upload" type="file" style={{ display: "none" }} />
+                        <input id="upload" type="file" style={{ display: "none" }} onChange={(event) => this.uploadPicture(event)} />
                         <div className="row" style={{ marginTop: "50px" }}>
                             <div className="col-sm-12">
                                 <h5>Property features</h5>
@@ -260,90 +294,112 @@ class NewHouse extends React.Component {
                                     <FormControlLabel
                                         control={
                                             <Checkbox
-                                                checked={this.state.wifi}
-                                                onChange={() => this.setState({ wifi: !this.state.wifi })}
-                                                name="wifi"
+                                                checked={this.state.phone}
+                                                onChange={() => this.setState({ phone: !this.state.phone })}
+                                                name="phone"
                                                 color="primary"
                                             />
                                         }
-                                        label="Telefone"
+                                        label="Phone"
                                     />
                                     <FormControlLabel
                                         control={
                                             <Checkbox
-                                                checked={this.state.wifi}
-                                                onChange={() => this.setState({ wifi: !this.state.wifi })}
-                                                name="wifi"
+                                                checked={this.state.television}
+                                                onChange={() => this.setState({ television: !this.state.television })}
+                                                name="television"
                                                 color="primary"
                                             />
                                         }
-                                        label="Televisão"
+                                        label="Television"
                                     />
                                     <FormControlLabel
                                         control={
                                             <Checkbox
-                                                checked={this.state.wifi}
-                                                onChange={() => this.setState({ wifi: !this.state.wifi })}
-                                                name="wifi"
+                                                checked={this.state.warmWater}
+                                                onChange={() => this.setState({ warmWater: !this.state.warmWater })}
+                                                name="warmWater"
                                                 color="primary"
                                             />
                                         }
-                                        label="Água quente"
+                                        label="Warm water"
                                     />
                                     <FormControlLabel
                                         control={
                                             <Checkbox
-                                                checked={this.state.wifi}
-                                                onChange={() => this.setState({ wifi: !this.state.wifi })}
-                                                name="wifi"
+                                                checked={this.state.alarm}
+                                                onChange={() => this.setState({ alarm: !this.state.alarm })}
+                                                name="alarm"
                                                 color="primary"
                                             />
                                         }
-                                        label="Alarme"
+                                        label="Alarm"
                                     />
                                     <FormControlLabel
                                         control={
                                             <Checkbox
-                                                checked={this.state.wifi}
-                                                onChange={() => this.setState({ wifi: !this.state.wifi })}
-                                                name="wifi"
+                                                checked={this.state.fireExtinguisher}
+                                                onChange={() => this.setState({ fireExtinguisher: !this.state.fireExtinguisher })}
+                                                name="fireExtinguisher"
                                                 color="primary"
                                             />
                                         }
-                                        label="Extintor de incêndio"
+                                        label="Fire extinguisher"
                                     />
                                     <FormControlLabel
                                         control={
                                             <Checkbox
-                                                checked={this.state.wifi}
-                                                onChange={() => this.setState({ wifi: !this.state.wifi })}
-                                                name="wifi"
+                                                checked={this.state.parking}
+                                                onChange={() => this.setState({ parking: !this.state.parking })}
+                                                name="parking"
                                                 color="primary"
                                             />
                                         }
-                                        label="Estacionamento"
+                                        label="Parking"
                                     />
                                     <FormControlLabel
                                         control={
                                             <Checkbox
-                                                checked={this.state.wifi}
-                                                onChange={() => this.setState({ wifi: !this.state.wifi })}
-                                                name="wifi"
+                                                checked={this.state.balcony}
+                                                onChange={() => this.setState({ balcony: !this.state.balcony })}
+                                                name="balcony"
                                                 color="primary"
                                             />
                                         }
-                                        label="Varanda"
+                                        label="Balcony"
                                     />
                                     <FormControlLabel
                                         control={
                                             <Checkbox
-                                                checked={this.state.wifi}
-                                                onChange={() => this.setState({ wifi: !this.state.wifi })}
-                                                name="wifi"
+                                                checked={this.state.airConditioning}
+                                                onChange={() => this.setState({ airConditioning: !this.state.airConditioning })}
+                                                name="airConditioning"
                                                 color="primary"
                                             />
                                         }
-                                        label="Ar condicionado"
+                                        label="Air conditioning"
+                                    />
+                                    <FormControlLabel
+                                        control={
+                                            <Checkbox
+                                                checked={this.state.washingMachine}
+                                                onChange={() => this.setState({ washingMachine: !this.state.washingMachine })}
+                                                name="washingMachine"
+                                                color="primary"
+                                            />
+                                        }
+                                        label="Washing machine"
+                                    />
+                                    <FormControlLabel
+                                        control={
+                                            <Checkbox
+                                                checked={this.state.vacuumCleaner}
+                                                onChange={() => this.setState({ vacuumCleaner: !this.state.vacuumCleaner })}
+                                                name="vacuumCleaner"
+                                                color="primary"
+                                            />
+                                        }
+                                        label="Vacuum cleaner"
                                     />
                                 </FormGroup>
                             </div>
@@ -351,9 +407,6 @@ class NewHouse extends React.Component {
                         <div className="row" style={{ marginTop: "50px" }}>
                             <div className="col-sm-6">
                                 <h5>Price</h5>
-                            </div>
-                            <div className="col-sm-6">
-                                <h5>Confirmation</h5>
                             </div>
                         </div>
                         <div className="row" style={{ marginTop: "20px" }}>
@@ -363,7 +416,7 @@ class NewHouse extends React.Component {
                                     onChange={this.handleSliderChange}
                                     id="slider"
                                     aria-labelledby="discrete-slider-custom"
-                                    step={50}
+                                    step={5}
                                     min={0}
                                     max={1000}
                                     valueLabelDisplay="auto"
@@ -373,8 +426,8 @@ class NewHouse extends React.Component {
                             </div>
                             <div className="col-sm-1"></div>
                             <div className="col-sm-6">
-                                <div className="signin-button">
-                                    <span><i className="fas fa-arrow-circle-up"></i> Upload new house</span>
+                                <div className="signin-button" onClick={() => this.setState({next: true})}>
+                                    <span>Next <i className="fas fa-arrow-circle-right"></i></span>
                                 </div>
                             </div>
 

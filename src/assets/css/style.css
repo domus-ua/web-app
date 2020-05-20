@@ -258,6 +258,7 @@ footer {
 
 .new-house-small-photo {
     width: 100%;
+    height: 100px;
     object-fit: cover;
 }
 
