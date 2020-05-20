@@ -1,5 +1,6 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
+import { Button, Modal } from "react-bootstrap";
 
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -42,7 +43,8 @@ class NewHouse extends React.Component {
             airConditioning: false,
             washingMachine: false,
             vacuumCleaner: false,
-            currentPic: null
+            currentPic: null,
+            modalOpen: false
         }
 
         this.prices = [
@@ -114,11 +116,47 @@ class NewHouse extends React.Component {
 
         let photos = [];
 
-        for(var i = 1; i <= 8; i++) {
+        for (var i = 1; i <= 8; i++) {
             const photo = document.getElementById("photo" + i);
-            if(photo.src !== "http://localhost:3000/static/media/new-house-2.ecb65e11.png") {
+            if (photo.src !== "http://localhost:3000/static/media/new-house-2.ecb65e11.png") {
                 photos.push(photo.src);
             }
+        }
+
+        // validations
+        let emptyFields = [];
+
+        if (title === "")
+            emptyFields.push("Title not found!");
+
+        if (description === "")
+            emptyFields.push("Description not found!");
+
+        if (city === "")
+            emptyFields.push("City not found!");
+
+        if (street === "")
+            emptyFields.push("Street not found!");
+
+        if (habitableArea === "" || !habitableArea.match(/^[0-9]+$/) || parseInt(habitableArea) <= 0)
+            emptyFields.push("Invalid habitable area!");
+
+        if (photos.length === 0)
+            emptyFields.push("Insert at least one picture!");
+
+        const postalCode1 = document.getElementById("postal-code-1").value;
+        const postalCode2 = document.getElementById("postal-code-2").value;
+
+        if (postalCode1 === "" || postalCode2 === "" ||
+            !postalCode1.match(/^[0-9]+$/) || !postalCode2.match(/^[0-9]+$/) ||
+            parseInt(postalCode1) <= 0 || parseInt(postalCode2) <= 0 ||
+            parseInt(postalCode1) > 9999 || parseInt(postalCode2) > 999) {
+            emptyFields.push("Invalid postal code!");
+        }
+
+        if (emptyFields.length !== 0) {
+            console.log(emptyFields);
+            return;
         }
 
         this.house["title"] = title;
@@ -133,7 +171,7 @@ class NewHouse extends React.Component {
         this.house["habitableArea"] = habitableArea;
         this.house["photos"] = photos;
         this.house["wifi"] = this.state.wifi;
-        this.house["phone"]= this.state.phone;
+        this.house["phone"] = this.state.phone;
         this.house["television"] = this.state.television;
         this.house["warmWater"] = this.state.warmWater;
         this.house["alarm"] = this.state.alarm;
@@ -456,7 +494,7 @@ class NewHouse extends React.Component {
                         </div>
                         <div className="row" style={{ marginTop: "50px" }}>
                             <div className="col-sm-6">
-                                <h5>Price per month</h5>
+                                <h5>Price per month: {this.state.price} €</h5>
                             </div>
                         </div>
                         <div className="row" style={{ marginTop: "20px" }}>
@@ -485,6 +523,29 @@ class NewHouse extends React.Component {
                     </div>
                 </section>
                 <Footer />
+                <Modal
+                    show={this.state.modalOpen}
+                    size="lg"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title id="contained-modal-title-vcenter">
+                            Modal heading
+        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <h4>Centered Modal</h4>
+                        <p>
+                            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+                            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
+                            consectetur ac, vestibulum at eros.
+        </p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button onClick={this.setState({ modalOpen: false })}>Close</Button>
+                    </Modal.Footer>
+                </Modal>
             </div >
         )
     }
