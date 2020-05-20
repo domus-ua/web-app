@@ -1,5 +1,6 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
+import { Button, Modal } from "react-bootstrap";
 
 import UserNavbar from "components/UserNavbar";
 import Footer from "components/Footer";
@@ -15,7 +16,9 @@ class ConfirmHouse extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            return: false
+            return: false,
+            modalOpen: false,
+            redirect: false
         }
 
         this.authUser = JSON.parse(localStorage.getItem('authUser'));
@@ -81,16 +84,29 @@ class ConfirmHouse extends React.Component {
 
             })
             .then(data => {
-                console.log(data);
+                this.setState({
+                    modalOpen: true
+                })
             })
             .catch(error => {
                 console.log("Fetch error: " + error);
             })
-        console.log(payload);
 
     }
 
+    componentDidUpdate() {
+        if (this.state.modalOpen) {
+            setTimeout(() => {
+                this.setState({
+                    modalOpen: false,
+                    redirect: true
+                })
+            }, 3500)
+        }
+    }
+
     render() {
+        if (this.state.redirect) return <Redirect to="/locador" />
         if (this.state.return) return <Redirect to="/locador/new-house" />
         return (
             <div id="confirm-house">
@@ -177,6 +193,24 @@ class ConfirmHouse extends React.Component {
                     </div>
                 </section>
                 <Footer />
+                <Modal
+                    show={this.state.modalOpen}
+                    size="lg"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title id="contained-modal-title-vcenter">
+                            <i class="fas fa-check-circle"></i> House uploaded with success!
+        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <h5>Your house was uploaded in our system and it is now available for potential buyers.<br />You will be redirected.</h5>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button onClick={() => this.setState({ modalOpen: false })}>Close</Button>
+                    </Modal.Footer>
+                </Modal>
             </div>
         )
     }
