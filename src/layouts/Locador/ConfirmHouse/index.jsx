@@ -97,6 +97,19 @@ class ConfirmHouse extends React.Component {
                             <div className="col-sm-2">
                                 <img src={defaultImage} id="photo4" className="new-house-small-photo" alt="House 1" />
                             </div>
+                            <div className="col-sm-6 text-right" style={{marginTop: "20px"}}>
+                                <div className="col-sm-12"><h5>Price per month</h5></div>
+                                <div className="col-sm-12"><h1>{this.house.price} €</h1></div>
+                            </div>
+                        </div>
+                        <div className="row" style={{ marginTop: "15px" }}>
+                            <div className="col-sm-6"></div>
+                            <div className="col-sm-6">
+                                <div className="signin-button">
+                                    <span><i className="fas fa-arrow-circle-up"></i> Upload house</span>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </section>

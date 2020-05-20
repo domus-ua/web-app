@@ -140,6 +140,7 @@ class NewHouse extends React.Component {
         this.house["airConditioning"] = this.state.airConditioning;
         this.house["washingMachine"] = this.state.washingMachine;
         this.house["vacuumCleaner"] = this.state.vacuumCleaner;
+        this.house["price"] = this.state.price;
 
         localStorage.setItem('confirmHouse', JSON.stringify(this.house));
 
@@ -452,7 +453,7 @@ class NewHouse extends React.Component {
                         </div>
                         <div className="row" style={{ marginTop: "50px" }}>
                             <div className="col-sm-6">
-                                <h5>Price</h5>
+                                <h5>Price per month</h5>
                             </div>
                         </div>
                         <div className="row" style={{ marginTop: "20px" }}>
