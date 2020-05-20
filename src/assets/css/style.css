@@ -266,3 +266,8 @@ footer {
     opacity: 60%;
     cursor: pointer;
 }
+
+.house-description {
+    color: #99999b;
+    text-align: justify;
+}

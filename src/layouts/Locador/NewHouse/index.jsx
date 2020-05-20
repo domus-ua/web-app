@@ -72,6 +72,8 @@ class NewHouse extends React.Component {
             },
         ]
 
+        this.house = {};
+
         this.event = new MouseEvent('click', {
             view: window,
             bubbles: true,
@@ -82,11 +84,10 @@ class NewHouse extends React.Component {
 
         this.uploadPicture = this.uploadPicture.bind(this);
         this.triggerUpload = this.triggerUpload.bind(this);
+        this.fieldsValidation = this.fieldsValidation.bind(this);
         this.handleSliderChange = this.handleSliderChange.bind(this);
     }
 
-    componentDidMount() {
-    }
 
     handleSliderChange = (event, newPrice) => {
         this.setState({
@@ -101,6 +102,40 @@ class NewHouse extends React.Component {
         this.setState({
             currentPic: "photo" + id
         })
+    }
+
+    fieldsValidation() {
+        let title = document.getElementById("title").value;
+        let description = document.getElementById("description").value;
+        let city = document.getElementById("city").value;
+        let street = document.getElementById("street").value;
+        let postalCode = document.getElementById("postal-code-1").value + "-" + document.getElementById("postal-code-2").value;
+        let habitableArea = document.getElementById("habitable-area").value;
+
+        let photos = [];
+
+        for(var i = 1; i <= 8; i++) {
+            const photo = document.getElementById("photo" + i);
+            if(photo.src !== "http://localhost:3000/static/media/new-house-2.ecb65e11.png") {
+                photos.push(photo.src);
+            }
+        }
+
+        this.house["title"] = title;
+        this.house["description"] = description;
+        this.house["location"] = city + ", " + street + ", " + postalCode;
+        this.house["bedrooms"] = this.state.bedrooms;
+        this.house["bathrooms"] = this.state.bathrooms;
+        this.house["garages"] = this.state.garages;
+        this.house["habitableArea"] = habitableArea;
+        this.house["photos"] = photos;
+
+        localStorage.setItem('confirmHouse', JSON.stringify(this.house));
+
+        this.setState({
+            next: true
+        })
+
     }
 
     uploadPicture(event) {
@@ -188,7 +223,7 @@ class NewHouse extends React.Component {
                                 <TextField id="description" label="Description" variant="outlined" style={{ width: "100%" }} />
                             </div>
                             <div className="col-sm-3">
-                                <TextField id="stree" label="Street" variant="outlined" style={{ width: "100%" }} />
+                                <TextField id="street" label="Street" variant="outlined" style={{ width: "100%" }} />
                             </div>
                             <div className="col-sm-3">
                                 <FormControl variant="outlined" style={{ width: "100%" }}>
@@ -426,7 +461,7 @@ class NewHouse extends React.Component {
                             </div>
                             <div className="col-sm-1"></div>
                             <div className="col-sm-6">
-                                <div className="signin-button" onClick={() => this.setState({next: true})}>
+                                <div className="signin-button" onClick={this.fieldsValidation}>
                                     <span>Next <i className="fas fa-arrow-circle-right"></i></span>
                                 </div>
                             </div>
