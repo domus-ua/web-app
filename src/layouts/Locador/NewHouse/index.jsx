@@ -123,6 +123,9 @@ class NewHouse extends React.Component {
 
         this.house["title"] = title;
         this.house["description"] = description;
+        this.house["city"] = city;
+        this.house["street"] = street;
+        this.house["postalCode"] = postalCode;
         this.house["location"] = city + ", " + street + ", " + postalCode;
         this.house["bedrooms"] = this.state.bedrooms;
         this.house["bathrooms"] = this.state.bathrooms;

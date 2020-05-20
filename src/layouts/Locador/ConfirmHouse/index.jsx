@@ -6,6 +6,7 @@ import Footer from "components/Footer";
 import IconButton from '@material-ui/core/IconButton';
 import ArrowBack from '@material-ui/icons/ArrowBackIos';
 
+import uris from "variables/uris";
 
 import defaultImage from "assets/img/dashboards/new-house-2.png";
 
@@ -17,14 +18,76 @@ class ConfirmHouse extends React.Component {
             return: false
         }
 
+        this.authUser = JSON.parse(localStorage.getItem('authUser'));
+
         this.house = JSON.parse(localStorage.getItem('confirmHouse'));
         this.housePhotos = this.house.photos;
+        this.uploadHouse = this.uploadHouse.bind(this);
     }
 
     componentDidMount() {
-        for (var i = 0; i < this.housePhotos.length; i++) {
+        let imagesLenght = this.housePhotos.length <= 4 ? this.housePhotos.length : 4;
+        for (var i = 0; i < imagesLenght; i++) {
             document.getElementById("photo" + (i + 1)).src = this.housePhotos[i];
         }
+    }
+
+    uploadHouse() {
+
+        let propertyFeatures = "";
+
+        if (this.house.wifi) propertyFeatures += "Wi-Fi;";
+        if (this.house.balcony) propertyFeatures += "Balcony;";
+        if (this.house.parking) propertyFeatures += "Parking;";
+        if (this.house.phone) propertyFeatures += "Phone;";
+        if (this.house.television) propertyFeatures += "Television;";
+        if (this.house.airConditioning) propertyFeatures += "Air conditioning;";
+        if (this.house.warmWater) propertyFeatures += "Warm water;";
+        if (this.house.washingMachine) propertyFeatures += "Washing machine;";
+        if (this.house.alarm) propertyFeatures += "Alarm;";
+        if (this.house.fireExtinguisher) propertyFeatures += "Fire extinguisher;";
+        if (this.house.vacuumCleaner) propertyFeatures += "Vacuum cleaner;";
+
+        let payload = {
+            available: true,
+            city: this.house.city,
+            description: this.house.description,
+            habitableArea: parseFloat(this.house.habitableArea),
+            locador: {
+                id: parseInt(this.authUser.user.id)
+            },
+            name: this.house.title,
+            noBathrooms: parseInt(this.house.bathrooms),
+            noGarages: parseInt(this.house.garages),
+            noRooms: parseInt(this.house.bedrooms),
+            photos: this.house.photos,
+            postalCode: this.house.postalCode,
+            price: parseInt(this.house.price),
+            propertyFeatures: propertyFeatures,
+            street: this.house.street
+        }
+
+        fetch(uris.restApi.houses, {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        })
+            .then(response => {
+                if (!response.ok) throw new Error(response.status);
+                else return response.json();
+
+            })
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.log("Fetch error: " + error);
+            })
+        console.log(payload);
+
     }
 
     render() {
@@ -97,7 +160,7 @@ class ConfirmHouse extends React.Component {
                             <div className="col-sm-2">
                                 <img src={defaultImage} id="photo4" className="new-house-small-photo" alt="House 1" />
                             </div>
-                            <div className="col-sm-6 text-right" style={{marginTop: "20px"}}>
+                            <div className="col-sm-6 text-right" style={{ marginTop: "20px" }}>
                                 <div className="col-sm-12"><h5>Price per month</h5></div>
                                 <div className="col-sm-12"><h1>{this.house.price} €</h1></div>
                             </div>
@@ -105,7 +168,7 @@ class ConfirmHouse extends React.Component {
                         <div className="row" style={{ marginTop: "15px" }}>
                             <div className="col-sm-6"></div>
                             <div className="col-sm-6">
-                                <div className="signin-button">
+                                <div className="signin-button" onClick={this.uploadHouse}>
                                     <span><i className="fas fa-arrow-circle-up"></i> Upload house</span>
                                 </div>
                             </div>
