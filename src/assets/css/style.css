@@ -271,3 +271,17 @@ footer {
     color: #99999b;
     text-align: justify;
 }
+
+.house-details-list {
+    list-style: none;
+    color: #99999b;
+    margin-left: -40px;
+}
+
+.align-icons {
+    min-width: 30px;
+}
+
+.house-details-list span {
+    margin-left: 5px;
+}

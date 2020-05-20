@@ -22,9 +22,9 @@ class ConfirmHouse extends React.Component {
     }
 
     componentDidMount() {
-        for(var i = 0; i < this.housePhotos.length; i++) {
-            document.getElementById("photo" + (i+1)).src = this.housePhotos[i];
-        } 
+        for (var i = 0; i < this.housePhotos.length; i++) {
+            document.getElementById("photo" + (i + 1)).src = this.housePhotos[i];
+        }
     }
 
     render() {
@@ -71,16 +71,23 @@ class ConfirmHouse extends React.Component {
                                     <h5>House properties</h5>
                                 </div>
                                 <div className="col-sm-12">
-                                    <ul>
-                                        <li>{this.house.habitableArea} m2</li>
-                                        <li>{this.house.bedrooms} bedrooms</li>
-                                        <li>{this.house.bathrooms} bathrooms</li>
-                                        <li>{this.house.garages} garages</li>
+                                    <ul className="house-details-list">
+                                        <li><i className="fas fa-home align-icons"></i> <span>{this.house.habitableArea} m2</span></li>
+                                        <li><i className="fas fa-bed align-icons"></i> <span></span>{this.house.bedrooms} bedrooms</li>
+                                        <li><i className="fas fa-toilet align-icons"></i> <span></span>{this.house.bathrooms} bathrooms</li>
+                                        <li><i className="fas fa-warehouse align-icons"></i> <span></span>{this.house.garages} garages</li>
+                                        {this.house.wifi && <li><i className="fas fa-wifi align-icons"></i> <span></span>Wi-Fi</li>}
+                                        {this.house.balcony && <li><i className="fas fa-tree align-icons"></i> <span></span>Balcony</li>}
+                                        {this.house.parking && <li><i className="fas fa-car-alt align-icons"></i> <span></span>Parking</li>}
+                                        {this.house.phone && <li><i className="fas fa-phone align-icons"></i> <span></span>Phone</li>}
+                                        {this.house.television && <li><i className="fas fa-tv align-icons"></i> <span></span>Television</li>}
+                                        {(this.house.warmWater || this.house.airConditioning || this.house.washingMachine) && <li><i className="fas fa-hands-wash align-icons"></i> <span></span>{this.house.airConditioning && "Air conditioning, "}{this.house.warmWater && "Warm water, "}{this.house.washingMachine && "Washing machine"}</li>}
+                                        {(this.house.alarm || this.house.fireExtinguisher || this.house.vacuumCleaner) && <li><i className="fas fa-fire-extinguisher align-icons"></i> <span></span> {this.house.alarm && "Alarm, "}{this.house.fireExtinguisher && "Fire extinguisher, "}{this.house.vacuumCleaner && "Vacuum cleaner"}</li>}
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                        <div className="row" style={{ marginTop: "20px" }}>
+                        <div className="row" style={{ marginTop: "15px" }}>
                             <div className="col-sm-2">
                                 <img src={defaultImage} id="photo2" className="new-house-small-photo" alt="House 1" />
                             </div>

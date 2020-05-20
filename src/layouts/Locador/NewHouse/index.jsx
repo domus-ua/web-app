@@ -129,6 +129,17 @@ class NewHouse extends React.Component {
         this.house["garages"] = this.state.garages;
         this.house["habitableArea"] = habitableArea;
         this.house["photos"] = photos;
+        this.house["wifi"] = this.state.wifi;
+        this.house["phone"]= this.state.phone;
+        this.house["television"] = this.state.television;
+        this.house["warmWater"] = this.state.warmWater;
+        this.house["alarm"] = this.state.alarm;
+        this.house["fireExtinguisher"] = this.state.fireExtinguisher;
+        this.house["parking"] = this.state.parking;
+        this.house["balcony"] = this.state.balcony;
+        this.house["airConditioning"] = this.state.airConditioning;
+        this.house["washingMachine"] = this.state.washingMachine;
+        this.house["vacuumCleaner"] = this.state.vacuumCleaner;
 
         localStorage.setItem('confirmHouse', JSON.stringify(this.house));
 
