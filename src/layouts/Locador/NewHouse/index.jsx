@@ -44,7 +44,8 @@ class NewHouse extends React.Component {
             washingMachine: false,
             vacuumCleaner: false,
             currentPic: null,
-            modalOpen: false
+            modalOpen: false,
+            errors: []
         }
 
         this.prices = [
@@ -141,6 +142,15 @@ class NewHouse extends React.Component {
         if (habitableArea === "" || !habitableArea.match(/^[0-9]+$/) || parseInt(habitableArea) <= 0)
             emptyFields.push("Invalid habitable area!");
 
+        if (this.state.bedrooms === "")
+            emptyFields.push("Bedrooms not found!");
+
+        if (this.state.bathrooms === "")
+            emptyFields.push("Bathrooms not found!");
+
+        if (this.state.garages === "")
+            emptyFields.push("Garages not found!");
+
         if (photos.length === 0)
             emptyFields.push("Insert at least one picture!");
 
@@ -156,6 +166,10 @@ class NewHouse extends React.Component {
 
         if (emptyFields.length !== 0) {
             console.log(emptyFields);
+            this.setState({
+                modalOpen: true,
+                errors: emptyFields
+            })
             return;
         }
 
@@ -531,19 +545,19 @@ class NewHouse extends React.Component {
                 >
                     <Modal.Header closeButton>
                         <Modal.Title id="contained-modal-title-vcenter">
-                            Modal heading
+                            <i class="fas fa-exclamation-triangle"></i> There are incomplete fields
         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <h4>Centered Modal</h4>
-                        <p>
-                            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-                            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-                            consectetur ac, vestibulum at eros.
-        </p>
+                        <h5>You need to correct the following errors to upload your house:</h5>
+                        <ul>
+                            {this.state.errors.map((error) => {
+                                return <li>{error}</li>
+                            })}
+                        </ul>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button onClick={this.setState({ modalOpen: false })}>Close</Button>
+                        <Button onClick={() => this.setState({ modalOpen: false })}>Close</Button>
                     </Modal.Footer>
                 </Modal>
             </div >
