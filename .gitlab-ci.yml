@@ -25,9 +25,9 @@ cache:
     - eslint --fix --max-warnings 20 src/ || echo "Skipping errors for now..."
 
 code_quality:
-  stage: test
+  stage: analysis
 
-code_quality:
+.code_quality:
   stage: analysis
   image: docker:stable
   variables:
