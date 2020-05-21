@@ -1,4 +1,4 @@
-FROM node
+FROM node:latest
 
 # set working directory
 WORKDIR /app
@@ -10,10 +10,9 @@ ENV PATH /app/node_modules/.bin:$PATH
 
 RUN ls -la /app
 
-RUN yarn install 
-RUN yarn global add serve
+RUN npm install -g serve
 
-RUN yarn run build # compile
+RUN npm run build # compile
 
 # start app
 # CMD ["npm", "start"]
