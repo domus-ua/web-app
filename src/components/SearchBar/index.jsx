@@ -153,7 +153,7 @@ class SearchBar extends React.Component {
 
     render() {
         return (
-            <section>
+            <section style={{marginTop: "10px"}}>
                 <div className="container">
                     <div className="row">
                         <div className="col-sm-4">

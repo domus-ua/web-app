@@ -7,7 +7,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-
+import UserNavbar from "components/UserNavbar";
 import uris from "variables/uris";
 
 class AllHouses extends React.Component {
@@ -21,6 +21,9 @@ class AllHouses extends React.Component {
             orderBy: "",
             houses: []
         }
+
+        this.authUser = JSON.parse(localStorage.getItem('authUser'));
+
         this.fetchAllHouses = this.fetchAllHouses.bind(this);
         this.orderHouses = this.orderHouses.bind(this);
     }
@@ -95,9 +98,15 @@ class AllHouses extends React.Component {
     render() {
         return (
             <div id="all-houses">
-                <header className="with-banner">
-                    <Navbar />
-                </header>
+                {this.authUser === null ?
+                    <header className="with-banner">
+                        <Navbar />
+                    </header>
+
+                    : <header>
+                        <UserNavbar />
+                    </header>
+                }
                 <section className="alternate">
                     <div className="container">
                         <div className="row">
