@@ -17,9 +17,6 @@ import Footer from "components/Footer";
 import IconButton from '@material-ui/core/IconButton';
 import ArrowBack from '@material-ui/icons/ArrowBackIos';
 
-import defaultImage from "assets/img/dashboards/new-house-2.png";
-
-
 class NewHouse extends React.Component {
 
     constructor(props) {
@@ -76,12 +73,7 @@ class NewHouse extends React.Component {
         ]
 
         this.house = {};
-
-        this.event = new MouseEvent('click', {
-            view: window,
-            bubbles: true,
-            cancelable: true
-        });
+        this.housePhotos = [];
 
         this.authUser = JSON.parse(localStorage.getItem('authUser'));
 
@@ -115,15 +107,9 @@ class NewHouse extends React.Component {
         let postalCode = document.getElementById("postal-code-1").value + "-" + document.getElementById("postal-code-2").value;
         let habitableArea = document.getElementById("habitable-area").value;
 
-        let photos = [];
+        let photos = this.housePhotos;
 
-        for (var i = 1; i <= 8; i++) {
-            const photo = document.getElementById("photo" + i);
-            if (photo.src !== "http://localhost:3000/static/media/new-house-2.ecb65e11.png") {
-                photos.push(photo.src);
-            }
-        }
-
+    
         // validations
         let emptyFields = [];
 
@@ -218,6 +204,7 @@ class NewHouse extends React.Component {
         const reader = new FileReader();
         reader.addEventListener('load', (event) => {
             document.getElementById(this.state.currentPic).src = event.target.result;
+            this.housePhotos.push(document.getElementById(this.state.currentPic).src);
         });
         reader.readAsDataURL(file);
     }
@@ -347,30 +334,30 @@ class NewHouse extends React.Component {
                         </div>
                         <div className="row" style={{ marginTop: "20px" }}>
                             <div className="col-sm-8">
-                                <img src={defaultImage} id="photo1" className="new-house-photo" onClick={() => this.triggerUpload(1)} alt="House 1" />
+                                <img id="photo1" className="new-house-photo" onClick={() => this.triggerUpload(1)} alt="House 1" />
                             </div>
                             <div className="col-sm-4">
-                                <img src={defaultImage} id="photo2" className="new-house-photo" onClick={() => this.triggerUpload(2)} alt="House 2" />
+                                <img  id="photo2" className="new-house-photo" onClick={() => this.triggerUpload(2)} alt="House 2" />
                             </div>
                         </div>
                         <div className="row" style={{ marginTop: "25px" }}>
                             <div className="col-sm-2">
-                                <img src={defaultImage} id="photo3" className="new-house-small-photo" onClick={() => this.triggerUpload(3)} alt="House 3" />
+                                <img  id="photo3" className="new-house-small-photo" onClick={() => this.triggerUpload(3)} alt="House 3" />
                             </div>
                             <div className="col-sm-2">
-                                <img src={defaultImage} id="photo4" className="new-house-small-photo" onClick={() => this.triggerUpload(4)} alt="House 4" />
+                                <img  id="photo4" className="new-house-small-photo" onClick={() => this.triggerUpload(4)} alt="House 4" />
                             </div>
                             <div className="col-sm-2">
-                                <img src={defaultImage} id="photo5" className="new-house-small-photo" onClick={() => this.triggerUpload(5)} alt="House 5" />
+                                <img  id="photo5" className="new-house-small-photo" onClick={() => this.triggerUpload(5)} alt="House 5" />
                             </div>
                             <div className="col-sm-2">
-                                <img src={defaultImage} id="photo6" className="new-house-small-photo" onClick={() => this.triggerUpload(6)} alt="House 6" />
+                                <img  id="photo6" className="new-house-small-photo" onClick={() => this.triggerUpload(6)} alt="House 6" />
                             </div>
                             <div className="col-sm-2">
-                                <img src={defaultImage} id="photo7" className="new-house-small-photo" onClick={() => this.triggerUpload(7)} alt="House 7" />
+                                <img  id="photo7" className="new-house-small-photo" onClick={() => this.triggerUpload(7)} alt="House 7" />
                             </div>
                             <div className="col-sm-2">
-                                <img src={defaultImage} id="photo8" className="new-house-small-photo" onClick={() => this.triggerUpload(8)} alt="House 8" />
+                                <img  id="photo8" className="new-house-small-photo" onClick={() => this.triggerUpload(8)} alt="House 8" />
                             </div>
                         </div>
                         <input id="upload" type="file" style={{ display: "none" }} onChange={(event) => this.uploadPicture(event)} />

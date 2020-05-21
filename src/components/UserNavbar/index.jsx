@@ -1,7 +1,5 @@
 import React from "react";
 
-import defaultUser from "assets/img/default-user.png"
-
 class UserNavbar extends React.Component {
 
     render() {
@@ -13,7 +11,7 @@ class UserNavbar extends React.Component {
             <div className="menu">
                 <ul>
                     <li><a href="/signin">Houses</a></li>
-                    <li><img className="user-image" src={defaultUser} alt="Current user"/></li>
+                    <li><img className="user-image" alt="Current user"/></li>
                 </ul>
             </div>
         </nav>
