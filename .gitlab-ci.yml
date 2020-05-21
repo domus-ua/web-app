@@ -1,5 +1,8 @@
 image: node:latest
 
+include:
+  - template: Code-Quality.gitlab-ci.yml
+
 stages:
   - lint
   - test
@@ -24,6 +27,11 @@ test:
   stage: test
   script:
     - echo "Testing..."
+    
+static-analysis:
+  stage: test
+  artifacts:
+    paths: [gl-code-quality-report.json]
 
 docker:
   stage: registry
