@@ -16,7 +16,7 @@ cache:
   paths:
     - ~/.cache/
 
-.lint:
+lint:
   stage: lint
   script:
     - npm install eslint -g
@@ -26,25 +26,6 @@ cache:
 
 code_quality:
   stage: analysis
-
-.code_quality:
-  stage: analysis
-  image: docker:stable
-  variables:
-    DOCKER_DRIVER: overlay2
-    SP_VERSION: 0.85.6
-  allow_failure: true
-  services:
-    - docker:stable-dind
-  script:
-    - docker run
-        --env SOURCE_CODE="$PWD"
-        --volume "$PWD":/code
-        --volume /var/run/docker.sock:/var/run/docker.sock
-        "registry.gitlab.com/gitlab-org/ci-cd/codequality:$SP_VERSION" /src
-  artifacts:
-    reports:
-      codequality: gl-code-quality-report.json
 
 test:
   stage: test
