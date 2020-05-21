@@ -9,8 +9,6 @@ import ArrowBack from '@material-ui/icons/ArrowBackIos';
 
 import uris from "variables/uris";
 
-import defaultImage from "assets/img/dashboards/new-house2.png";
-
 class ConfirmHouse extends React.Component {
 
     constructor(props) {
