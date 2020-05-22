@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 
 import UserNavbar from "components/UserNavbar";
 import Footer from "components/Footer";
@@ -14,11 +15,17 @@ class Home extends React.Component {
     constructor(props) {
         super(props);
 
-        this.authUser = JSON.parse(localStorage.getItem('authUser'));
+        this.state = {
+            redirect: false,
+            page: 0
+        }
 
+        this.authUser = JSON.parse(localStorage.getItem('authUser'));
     }
 
+
     render() {
+        if(this.state.redirect && this.state.page === 1) return <Redirect to="locador/profile"/>
         return (
             <div id="home-locatario">
                 <header>
@@ -29,7 +36,7 @@ class Home extends React.Component {
                     <div className="container">
                         <div className="row">
                             <div className="col-sm-12">
-                                <h4 style={{ color: "#252525" }}>Welcome, <span className="user-name">{this.authUser.user.firstName + " " + this.authUser.user.lastName}!</span></h4>
+                                <h4 style={{ color: "#252525" }}>Welcome, <span className="user-name" onClick={() => this.setState({redirect: true, page: 1})}>{this.authUser.user.firstName + " " + this.authUser.user.lastName}!</span></h4>
                             </div>
                         </div>
                         <div className="row">
@@ -41,7 +48,7 @@ class Home extends React.Component {
                             <div className="col-sm-8">
                                 <DashboardCard 
                                 title="My houses"
-                                href="/houses"
+                                href="/locador/houses"
                                 description="See all your houses in Domus"
                                 />
                             </div>
@@ -59,6 +66,7 @@ class Home extends React.Component {
                                 <DashboardCard 
                                 title="Profile"
                                 image={profile}
+                                href="/locador/profile"
                                 description="See your profile details"
                                 />
                             </div>
@@ -66,6 +74,7 @@ class Home extends React.Component {
                                 <DashboardCard 
                                 title="Reviews"
                                 image={reviews}
+                                href="/locador/reviews"
                                 description="See past reviews of your houses"
                                 />
                             </div>
@@ -73,6 +82,7 @@ class Home extends React.Component {
                                 <DashboardCard 
                                 title="Contracts"
                                 image={contract}
+                                href="/locador/contracts"
                                 description="See all your current and past contracts"
                                 />
                             </div>
