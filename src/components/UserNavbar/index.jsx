@@ -10,24 +10,23 @@ class UserNavbar extends React.Component {
             redirect: false,
             page: 0
         }
+        
+        this.authUser = JSON.parse(localStorage.getItem('authUser'));
 
         this.signOut = this.signOut.bind(this);
     }
 
     signOut() {
         localStorage.clear();
-        this.setState({
-            redirect: true,
-            page: 3
-        })
+        window.location.reload();
     }
 
 
     render() {
         if (this.state.redirect) {
             switch (this.state.page) {
-                case 3:
-                    return <Redirect to="/" />
+                case 1:
+                    return <Redirect to={"/" + this.authUser.role + "/profile"} />
                 default:
                     break;
             }
@@ -45,7 +44,7 @@ class UserNavbar extends React.Component {
                                 <div className="my-dropdown">
                                     <img className="user-image" alt="Current user" />
                                     <div className="my-dropdown-content">
-                                        <div>Profile</div>
+                                        <div onClick={() => this.setState({redirect: true, page: 1})}>Profile</div>
                                         <div>Settings</div>
                                         <div onClick={this.signOut}>Sign out</div>
                                     </div>
