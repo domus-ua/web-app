@@ -26,6 +26,12 @@ lint:
 
 code_quality:
   stage: analysis
+  variables:
+    DOCKER_HOST: tcp://docker:2375/
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
+  artifacts:
+    paths: [gl-code-quality-report.json]
 
 test:
   stage: test
