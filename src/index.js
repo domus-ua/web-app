@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { createBrowserHistory } from "history";
 import { Router, Switch } from "react-router-dom";
 
-import 'assets/css/style.css';
+import 'assets/css/mystyle.css';
 
 import mainRouter from 'routers/mainRouter.js';
 
