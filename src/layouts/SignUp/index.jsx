@@ -7,6 +7,7 @@ import Footer from "components/Footer";
 import TextField from '@material-ui/core/TextField';
 
 import uris from "variables/uris";
+import {Button, Modal} from "react-bootstrap";
 
 class SignUp extends React.Component {
 
@@ -15,20 +16,122 @@ class SignUp extends React.Component {
 
         this.state = {
             redirect: JSON.parse(localStorage.getItem('authUser')) !== null,
-            authUser: JSON.parse(localStorage.getItem('authUser'))
+            authUser: JSON.parse(localStorage.getItem('authUser')),
+            errors: []
         }
 
-        this.housePhotos = [];
+        this.user = {};
+        this.profilePhotos = [];
         this.uploadPicture = this.uploadPicture.bind(this);
         this.triggerUpload = this.triggerUpload.bind(this);
         this.signUp = this.signUp.bind(this);
     }
 
     signUp() {
-        alert("Sign up!");
-        /**
-         * Fazer aqui o fetch do sign up
-         */
+        let email = document.getElementById("username").value;
+        let firstName = document.getElementById("firstName").value;
+        let lastName = document.getElementById("lastName").value;
+        let password = document.getElementById("password").value;
+        let confirmPassword = document.getElementById("confirmPassword").value;
+        let phoneNumber = document.getElementById("phoneNumber").value;
+        let male = document.getElementById("male");
+        let female = document.getElementById("female");
+        let other = document.getElementById("other");
+        let photos = this.profilePhotos;
+        let locador = document.getElementById("locador");
+        let locatario = document.getElementById("locatario");
+        let gender = ""
+        let userType = "";
+
+        let emptyFields = [];
+
+        if (email === "")
+            emptyFields.push("Email/Username is empty!");
+
+        if (firstName === "")
+            emptyFields.push("First name is empty!");
+
+        if (lastName === "")
+            emptyFields.push("Last name is empty!");
+
+        if (password === "")
+            emptyFields.push("Password is empty!");
+        else if(confirmPassword === "")
+            emptyFields.push("Confirm password is empty!");
+        else if(password !== confirmPassword)
+            emptyFields.push("Passwords are different!");
+
+        if (phoneNumber === "" || !phoneNumber.match(/^[0-9]+$/) || parseInt(phoneNumber) <= 0 || phoneNumber.length !== 9)
+            emptyFields.push("Invalid phone number!");
+
+        if (male.checked)
+            gender = male.value;
+        else if (female.checked)
+            gender = female.value;
+        else if (other.checked)
+            gender = other.value;
+        else
+            emptyFields.push("Gender not chosen!");
+
+        if (photos.length === 0)
+            emptyFields.push("Insert a picture!");
+
+        if (locador.checked)
+            userType = locador.value;
+        else if (locatario.checked)
+            userType = locatario.value;
+        else
+            emptyFields.push("User type not chosen!");
+
+        if (emptyFields.length !== 0) {
+            console.log(emptyFields);
+            this.setState({
+                modalOpenErrors: true,
+                errors: emptyFields
+            })
+            return;
+        }
+
+        let payload = {
+
+            email: email,
+            firstName: firstName,
+            lastName: lastName,
+            password: password,
+            phoneNumber: phoneNumber,
+            photo: photos[0],
+            sex: gender
+        }
+
+
+        let api;
+        if (userType === "locador")
+            api = uris.restApi.locadores;
+        else
+            api = uris.restApi.locatarios;
+
+        fetch(api, {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload)
+        })
+            .then(response => {
+                if (!response.ok) throw new Error(response.status);
+                else return response.json();
+
+            })
+            .then(data => {
+                this.setState({
+                    modalOpen: true
+
+                })
+            })
+            .catch(error => {
+                console.log("Fetch error: " + error);
+            })
     }
 
     uploadPicture(event) {
@@ -44,7 +147,7 @@ class SignUp extends React.Component {
         const reader = new FileReader();
         reader.addEventListener('load', (event) => {
             document.getElementById(this.state.currentPic).src = event.target.result;
-            this.housePhotos.push(document.getElementById(this.state.currentPic).src);
+            this.profilePhotos.push(document.getElementById(this.state.currentPic).src);
         });
         reader.readAsDataURL(file);
     }
@@ -59,12 +162,7 @@ class SignUp extends React.Component {
 
     render() {
         if (this.state.redirect) {
-            if (this.state.authUser.role === "locatario") {
-                return <Redirect to="/locatario/auth" />
-            }
-            else if (this.state.authUser.role === "locador") {
-                return <Redirect to="/locador/auth" />
-            }
+            return <Redirect to="/signin" />
         }
         return (
 
@@ -155,19 +253,6 @@ class SignUp extends React.Component {
                         <div className="row" style={{ marginTop: "20px" }}>
                             <div className="col-sm-3"></div>
                             <div className="col-sm-6">
-                                <h6>Photo:</h6>
-                            </div>
-                        </div>
-                        <div className="row" style={{ marginTop: "10px" }}>
-                            <div className="col-sm-3"></div>
-                            <div className="col-sm-2">
-                                <img id="photo1" className="new-house-small-photo" onClick={() => this.triggerUpload(1)}/>
-                            </div>
-                        </div>
-                        <input id="upload" type="file" style={{ display: "none" }} onChange={(event) => this.uploadPicture(event)} />
-                        <div className="row" style={{ marginTop: "20px" }}>
-                            <div className="col-sm-3"></div>
-                            <div className="col-sm-6">
                                 <h6>Gender:</h6>
                             </div>
                         </div>
@@ -183,6 +268,34 @@ class SignUp extends React.Component {
                                 <input type="radio" id="other" label="Other" name="gender" value="other"/> Other
                             </div>
                         </div>
+                        <div className="row" style={{ marginTop: "20px" }}>
+                            <div className="col-sm-3"></div>
+                            <div className="col-sm-6">
+                                <h6>Photo:</h6>
+                            </div>
+                        </div>
+                        <div className="row" style={{ marginTop: "10px" }}>
+                            <div className="col-sm-3"></div>
+                            <div className="col-sm-2">
+                                <img id="photo1" className="profile-photo" onClick={() => this.triggerUpload(1)} alt="Avatar 1"/>
+                            </div>
+                        </div>
+                        <input id="upload" type="file" style={{ display: "none" }} onChange={(event) => this.uploadPicture(event)} />
+                        <div className="row" style={{ marginTop: "20px" }}>
+                            <div className="col-sm-3"></div>
+                            <div className="col-sm-6">
+                                <h6>User type:</h6>
+                            </div>
+                        </div>
+                        <div className="row" style={{ marginTop: "10px" }}>
+                            <div className="col-sm-3"></div>
+                            <div className="col-sm-2">
+                                <input type="radio" id="locador" label="locador" name="userType" value="locador"/> Locator
+                            </div>
+                            <div className="col-sm-2">
+                                <input type="radio" id="locatario" label="locatario" name="userType" value="locatario"/> Tenant
+                            </div>
+                        </div>
                         <div className="row" style={{ marginTop: "30px" }}>
                             <div className="col-sm-3"></div>
                             <div className="col-sm-6">
@@ -194,6 +307,47 @@ class SignUp extends React.Component {
                     </div>
                 </section>
                 <Footer />
+                <Modal
+                    show={this.state.modalOpen}
+                    size="lg"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title id="contained-modal-title-vcenter">
+                            <i class="fas fa-check-circle"></i> User registered with success!
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <h5>You will be redirected.</h5>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button onClick={() => this.setState({ modalOpen: false, redirect: true })}>Close</Button>
+                    </Modal.Footer>
+                </Modal>
+                <Modal
+                    show={this.state.modalOpenErrors}
+                    size="lg"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title id="contained-modal-title-vcenter">
+                            <i class="fas fa-exclamation-triangle"></i> There are incomplete fields
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <h5>You need to correct the following errors to upload your house:</h5>
+                        <ul>
+                            {this.state.errors.map((error) => {
+                                return <li>{error}</li>
+                            })}
+                        </ul>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button onClick={() => this.setState({ modalOpenErrors: false })}>Close</Button>
+                    </Modal.Footer>
+                </Modal>
             </div>
         )
     }
