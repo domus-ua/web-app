@@ -56,9 +56,23 @@ class SignUp extends React.Component {
 
         if (password === "")
             emptyFields.push("Password is empty!");
-        else if(confirmPassword === "")
+
+        let lowerCaseLetters = /[a-z]/g;
+        if (!password.match(lowerCaseLetters))
+            emptyFields.push("Password must contain at least one lowercase character!");
+        let upperCaseLetters = /[A-Z]/g;
+        if (!password.match(upperCaseLetters))
+            emptyFields.push("Password must contain at least one uppercase character!");
+        let numbers = /[0-9]/g;
+        if (!password.match(numbers))
+            emptyFields.push("Password must contain at least one number!");
+        if (password.length < 8)
+            emptyFields.push("Password must contain at least 8 or more characters!");
+
+
+        if(confirmPassword === "")
             emptyFields.push("Confirm password is empty!");
-        else if(password !== confirmPassword)
+        if(password !== confirmPassword)
             emptyFields.push("Passwords are different!");
 
         if (phoneNumber === "" || !phoneNumber.match(/^[0-9]+$/) || parseInt(phoneNumber) <= 0 || phoneNumber.length !== 9)
@@ -93,7 +107,6 @@ class SignUp extends React.Component {
         }
 
         let payload = {
-
             email: email,
             firstName: firstName,
             lastName: lastName,
