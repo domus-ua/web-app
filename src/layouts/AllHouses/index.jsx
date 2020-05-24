@@ -140,6 +140,7 @@ class AllHouses extends React.Component {
                             {this.state.houses.map(house => {
                                 return <div className="col-sm-3">
                                     <HouseCard 
+                                        id={house.id}
                                         title={house.name}
                                         city={house.city}
                                         rooms={house.noRooms}
