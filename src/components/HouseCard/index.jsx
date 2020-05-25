@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Redirect } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -23,11 +24,12 @@ const useStyles = makeStyles({
   },
 });
 
-function HouseCard({ title, city, rooms, price, area, image}) {
+function HouseCard({id, title, city, rooms, price, area, image}) {
   const classes = useStyles();
   
   const [favorite, setFavorite] = useState(false);
   const [compare, setCompare] = useState(false);
+  const [redirect, setRedirect] = useState(false);
 
   if(image === undefined) {
     image = defaultImage;
@@ -36,9 +38,10 @@ function HouseCard({ title, city, rooms, price, area, image}) {
   let favoriteButton = favorite === true ? "red" : "";
   let compareButton = compare === true ? "#3f51b5" : "";
 
+  if(redirect) { return <Redirect to="house-details" />}
   return (
     <Card className={classes.root}>
-      <CardActionArea>
+      <CardActionArea onClick={ () => {localStorage.setItem('currentHouse', JSON.stringify({id: id})); setRedirect(true);}}>
         <CardMedia
           className={classes.media}
           image={image}

@@ -321,3 +321,12 @@ footer {
   .my-dropdown:hover .my-dropdown-content {
     display: block;
   }
+
+  .seller-picture {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    content: url('../img/default-user.png');
+    border-radius: 50%;
+    border: 2px solid #7A7EBC;
+}
