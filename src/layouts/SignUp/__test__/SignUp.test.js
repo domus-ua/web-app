@@ -8,15 +8,6 @@ const publicRouter = {
     home: '/'
 }
 
-
-const person = {
-    name: faker.name.firstName() + ' ' + faker.name.lastName(),
-    email: faker.internet.email(),
-    phone: faker.phone.phoneNumber(),
-    message: faker.random.words(),
-    password: faker.internet.password()
-};
-
 //create global variables to be used in the beforeAll function
 const baseUri = 'http://localhost:3000';
 let browser;
