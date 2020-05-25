@@ -208,19 +208,29 @@ class HouseDetails extends React.Component {
                                         </h4>
                                     </div>
                                 </div>
-                                <div className="row" style={{ marginTop: "30px" }}>
-                                    <div className="col-sm-1">
-                                        <img id="seller-picture" className="seller-picture" alt="House 1" />
-                                    </div>
-                                    <div className="col-sm-10" style={{marginLeft: "30px"}}>
-                                        <ul className="house-details-list">
-                                            <li><i className="fas fa-user align-icons"></i> <span>{this.state.house.locador.user.firstName + " " + this.state.house.locador.user.lastName}</span></li>
-                                            <li><i className="fas fa-envelope align-icons"></i> <span>{this.state.house.locador.user.email}</span></li>
-                                            <li><i className="fas fa-phone align-icons"></i> <span>{this.state.house.locador.user.phoneNumber}</span></li>
-                                            <li><i className="fas fa-sign-in-alt align-icons"></i> <span>Online on {this.state.house.locador.user.lastLogin.split("T")[0]}</span></li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                {
+                                    this.authUser === null ?
+                                        <div className="row" style={{ marginTop: "30px" }}>
+                                            <div className="col-sm-12">
+                                                <p className="house-description"><a href="/signin">Sign In</a> to see seller details.</p>
+                                            </div>
+                                        </div>
+                                        :
+
+                                        <div className="row" style={{ marginTop: "30px" }}>
+                                            <div className="col-sm-1">
+                                                <img id="seller-picture" className="seller-picture" alt="House 1" />
+                                            </div>
+                                            <div className="col-sm-10" style={{ marginLeft: "30px" }}>
+                                                <ul className="house-details-list">
+                                                    <li><i className="fas fa-user align-icons"></i> <span>{this.state.house.locador.user.firstName + " " + this.state.house.locador.user.lastName}</span></li>
+                                                    <li><i className="fas fa-envelope align-icons"></i> <span>{this.state.house.locador.user.email}</span></li>
+                                                    <li><i className="fas fa-phone align-icons"></i> <span>{this.state.house.locador.user.phoneNumber}</span></li>
+                                                    <li><i className="fas fa-sign-in-alt align-icons"></i> <span>Online on {this.state.house.locador.user.lastLogin.split("T")[0]}</span></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                }
                             </div>}
                     </div>
                 </section>
