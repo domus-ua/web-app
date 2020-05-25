@@ -187,7 +187,7 @@ class SignUp extends React.Component {
                     <div className="container">
                         <div className="row">
                             <div className="col-sm-12 text-center">
-                                <h4 style={{ color: "#3f51b5" }}>Sign Up</h4>
+                                <h4 id="sign-up-title" style={{ color: "#3f51b5" }}>Sign Up</h4>
                             </div>
                         </div>
                         <div className="row">
@@ -313,7 +313,7 @@ class SignUp extends React.Component {
                             <div className="col-sm-3"></div>
                             <div className="col-sm-6">
                                 <div className="signin-button" onClick={this.signUp}>
-                                    <span><i className="fas fa-sign-in-alt"></i> Sign Up</span>
+                                    <span id="signup-button"><i className="fas fa-sign-in-alt"></i> Sign Up</span>
                                 </div>
                             </div>
                         </div>
@@ -332,7 +332,7 @@ class SignUp extends React.Component {
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <h5>You will be redirected.</h5>
+                        <h5 id="registered">You will be redirected.</h5>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button onClick={() => this.setState({ modalOpen: false, redirect: true })}>Close</Button>
@@ -350,7 +350,7 @@ class SignUp extends React.Component {
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <h5>You need to correct the following errors to upload your house:</h5>
+                        <h5 id="error-modal">You need to correct the following errors to register:</h5>
                         <ul>
                             {this.state.errors.map((error) => {
                                 return <li>{error}</li>
