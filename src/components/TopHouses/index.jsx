@@ -38,7 +38,23 @@ class TopHouses extends React.Component {
 
             })
             .then(data => {
-                this.allHouses = data;
+                let aux = [];
+
+                data.forEach((house) => {
+                    aux.push(
+                        <HouseCard
+                            id={house.id}
+                            title={house.name}
+                            city={house.city}
+                            rooms={house.noRooms}
+                            price={house.price}
+                            area={house.habitableArea}
+                        />
+                    );
+                })
+
+                this.allHouses = aux;
+
                 this.setState({
                     houses: this.allHouses.slice(0, 4) // FIXME: change later to 4
                 })
@@ -55,9 +71,9 @@ class TopHouses extends React.Component {
         for (var i = 0; i < this.allHouses.length - 1; i++) {
             updatedHouses.push(this.allHouses[i]);
         }
-        
+
         this.allHouses = updatedHouses;
-        
+
         this.setState({
             houses: this.allHouses.slice(0, 4)
         })
@@ -66,13 +82,13 @@ class TopHouses extends React.Component {
     changeLeft() {
         let firstHouse = this.allHouses[0];
         let updatedHouses = [];
-        for (var i = 1; i < this.allHouses.length ; i++) {
+        for (var i = 1; i < this.allHouses.length; i++) {
             updatedHouses.push(this.allHouses[i]);
         }
         updatedHouses.push(firstHouse);
 
         this.allHouses = updatedHouses;
-        
+
         this.setState({
             houses: this.allHouses.slice(0, 4)
         })
@@ -95,13 +111,7 @@ class TopHouses extends React.Component {
                     <div className="row" style={{ marginTop: "15px" }}>
                         {this.state.houses.map(house => {
                             return <div className="col-sm-3">
-                                <HouseCard 
-                                title={house.name}
-                                city={house.city}
-                                rooms={house.noRooms}
-                                price={house.price}
-                                area={house.habitableArea}
-                                />
+                                {house}
                             </div>
                         })}
                     </div>

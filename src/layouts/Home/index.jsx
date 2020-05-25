@@ -7,6 +7,8 @@ import Footer from "components/Footer";
 
 import UserNavbar from "components/UserNavbar";
 
+import CompareList from "components/CompareList";
+
 class Home extends React.Component {
 
     constructor(props) {
@@ -30,6 +32,7 @@ class Home extends React.Component {
                 }
                 <SearchBar />
                 <TopHouses />
+                <CompareList />
                 <Footer />
             </div>
         )

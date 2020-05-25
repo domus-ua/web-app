@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 import Navbar from "components/Navbar2";
 import Footer from "components/Footer";
 
+import CompareList from "components/CompareList";
 
 class SignUp extends React.Component {
 
@@ -37,7 +38,7 @@ class SignUp extends React.Component {
         return (
 
             <div id="sign-up">
-                 <header>
+                <header>
                     <Navbar />
                 </header>
                 <section style={{ marginTop: "20px" }}>
@@ -64,6 +65,7 @@ class SignUp extends React.Component {
                         </div>
                     </div>
                 </section>
+                <CompareList />
                 <Footer />
             </div>
         )
