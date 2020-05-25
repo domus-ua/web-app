@@ -22,7 +22,10 @@ class HouseDetails extends React.Component {
     }
 
     getHouseDetails() {
-        fetch(uris.restApi.houses + "/" + this.state.house.id, {
+
+        let id = this.state.house !== null ? this.state.house.id : 1;
+
+        fetch(uris.restApi.houses + "/" + id, {
             method: "GET",
             headers: {
                 "Accept": "application/json",
@@ -75,9 +78,6 @@ class HouseDetails extends React.Component {
                             break;
                     }
                 })
-
-
-                console.log(data);
 
                 this.setState({
                     house: data,
@@ -139,7 +139,7 @@ class HouseDetails extends React.Component {
                             <div>
                                 <div className="row" style={{ marginTop: "20px" }}>
                                     <div className="col-sm-12">
-                                        <h4 style={{ color: "#3f51b5" }}>{this.state.house.name}</h4>
+                                        <h4 style={{ color: "#3f51b5" }} id="house-name">{this.state.house.name}</h4>
                                     </div>
                                     <div className="col-sm-12">
                                         <h6 style={{ color: "#252525" }}><i className="fas fa-map-marker-alt"></i> {this.state.house.city + ", " + this.state.house.street + ", " + this.state.house.postalCode}</h6>
@@ -193,7 +193,7 @@ class HouseDetails extends React.Component {
                                 </div>
                                 <div className="row" style={{ marginTop: "30px" }}>
                                     <div className="col-sm-12">
-                                        <h4 style={{ color: "#252525" }}>
+                                        <h4 style={{ color: "#252525" }} data-testid="house-reviews">
                                             Reviews
                                         </h4>
                                     </div>
@@ -203,7 +203,7 @@ class HouseDetails extends React.Component {
                                 </div>
                                 <div className="row" style={{ marginTop: "30px" }}>
                                     <div className="col-sm-12">
-                                        <h4 style={{ color: "#252525" }}>
+                                        <h4 style={{ color: "#252525" }} data-testid="house-seller">
                                             Contact seller
                                         </h4>
                                     </div>
