@@ -4,9 +4,6 @@ import { Redirect } from "react-router-dom";
 import Navbar from "components/Navbar2";
 import Footer from "components/Footer";
 
-import TextField from '@material-ui/core/TextField';
-
-import uris from "variables/uris";
 
 class SignUp extends React.Component {
 

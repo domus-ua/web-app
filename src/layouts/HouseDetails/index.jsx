@@ -76,6 +76,8 @@ class HouseDetails extends React.Component {
                         case "Vacuum cleaner":
                             data["vacuumCleaner"] = true;
                             break;
+                        default:
+                            break;
                     }
                 })
 
