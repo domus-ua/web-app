@@ -1,16 +1,25 @@
 import React from "react";
 
+import { Button, Modal } from "react-bootstrap";
+
+import uris from "variables/uris";
+
+import defaultImage from "assets/img/dashboards/new-house2.png";
+
 class CompareList extends React.Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            houses: []
+            houses: [],
+            modalOpen: false,
+            fetchedHouses: []
         }
 
         this.removeHouse = this.removeHouse.bind(this);
         this.checkHouseList = this.checkHouseList.bind(this);
+        this.fetchHouses = this.fetchHouses.bind(this);
     }
 
     checkHouseList() {
@@ -46,28 +55,163 @@ class CompareList extends React.Component {
 
     }
 
+    fetchHouses() {
+        let fetchedHouses = [];
+        this.state.houses.forEach((house) => {
+            fetch(uris.restApi.houses + "/" + house.id, {
+                method: "GET",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                }
+            })
+                .then(response => {
+                    if (!response.ok) throw new Error(response.status);
+                    else return response.json();
+
+                })
+                .then(data => {
+                    fetchedHouses.push(data);
+                })
+                .catch(error => {
+                    console.log("Fetch error: " + error);
+                })
+        })
+
+        let interval = setInterval(() => {
+            if (fetchedHouses.length !== this.state.houses.length) {
+                console.log("no");
+            }
+            else {
+                console.log(fetchedHouses);
+                this.setState({
+                    fetchedHouses: fetchedHouses,
+                    modalOpen: true
+                })
+                clearInterval(interval);
+            }
+        }, 500);
+
+
+
+    }
+
     render() {
         return (
             <>
                 {this.state.houses.length !== 0 &&
-                    <div id="compare-list" className="compare-list">
-                        <div className="container">
-                            <div className="row">
-                                <div className="col-sm-12 text-center">
-                                    COMPARE LIST
-                            </div>
+                    <>
+                        <div id="compare-list" className="compare-list" onClick={this.fetchHouses}>
+                            <div className="container">
                                 <div className="row">
-                                    <div className="col-sm-12">
-                                        <ul>
-                                            {this.state.houses.map((house => {
-                                                return <li onClick={() => this.removeHouse(house.id)}><i className="fas fa-times"></i> {house.title}</li>
-                                            }))}
-                                        </ul>
+                                    <div className="col-sm-12 text-center">
+                                        COMPARE LIST
+                            </div>
+                                    <div className="row">
+                                        <div className="col-sm-12">
+                                            <ul>
+                                                {this.state.houses.map((house => {
+                                                    return <li onClick={() => this.removeHouse(house.id)}><i className="fas fa-times"></i> {house.title}</li>
+                                                }))}
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
-                    </div>
+                        <Modal
+                            show={this.state.modalOpen}
+                            size="lg"
+                            aria-labelledby="contained-modal-title-vcenter"
+                            centered
+                        >
+                            <Modal.Header closeButton>
+                                <Modal.Title id="contained-modal-title-vcenter">
+                                    <i class="fas fa-home"></i> Compare houses
+                        </Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <div className="container">
+                                    <div className="row">
+                                        {this.state.fetchedHouses.map((house) => {
+                                            return <div className="col-sm-4">
+                                                <img src={house.photos.length === 0 ? defaultImage : house.photos[0]} className="new-house-small-photo" />
+                                            </div>
+                                        })}
+                                    </div>
+                                    <div className="row">
+                                        {this.state.fetchedHouses.map((house) => {
+                                            return <div className="col-sm-4 text-center">
+                                                <h5 className="compare-title">{house.name}</h5>
+                                            </div>
+                                        })}
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-sm-12"><h5 className="compare-title"><i className="fas fa-star"></i> Rating</h5></div>
+                                        {this.state.fetchedHouses.map((house) => {
+                                            return <div className="col-sm-4">
+                                                <h6>{house.averageRating} stars</h6>
+                                            </div>
+                                        })}
+                                    </div>
+                                    <div className="row" style={{marginTop: "10px"}}>
+                                        <div className="col-sm-12"><h5 className="compare-title"><i className="fas fa-map-marker-alt"></i> Location</h5></div>
+                                        {this.state.fetchedHouses.map((house) => {
+                                            return <div className="col-sm-4">
+                                                <h6>{house.city + ", " + house.street}</h6>
+                                            </div>
+                                        })}
+                                    </div>
+                                    <div className="row" style={{marginTop: "10px"}}>
+                                        <div className="col-sm-12"><h5 className="compare-title"><i className="fas fa-dollar-sign"></i> Price</h5></div>
+                                        {this.state.fetchedHouses.map((house) => {
+                                            return <div className="col-sm-4">
+                                                <h6>{house.price} € / month</h6>
+                                            </div>
+                                        })}
+                                    </div>
+                                    <div className="row" style={{marginTop: "10px"}}>
+                                        <div className="col-sm-12"><h5 className="compare-title"><i className="fas fa-home align-icons"></i> Habitable area</h5></div>
+                                        {this.state.fetchedHouses.map((house) => {
+                                            return <div className="col-sm-4">
+                                                <h6>{house.habitableArea} m2</h6>
+                                            </div>
+                                        })}
+                                    </div>
+                                    <div className="row" style={{marginTop: "10px"}}>
+                                        <div className="col-sm-12"><h5 className="compare-title"><i className="fas fa-bed align-icons"></i>  Bedrooms</h5></div>
+                                        {this.state.fetchedHouses.map((house) => {
+                                            return <div className="col-sm-4">
+                                                <h6>{house.noRooms}</h6>
+                                            </div>
+                                        })}
+                                    </div>
+                                    <div className="row" style={{marginTop: "10px"}}>
+                                        <div className="col-sm-12"><h5 className="compare-title"><i className="fas fa-toilet align-icons"></i> Bathrooms</h5></div>
+                                        {this.state.fetchedHouses.map((house) => {
+                                            return <div className="col-sm-4">
+                                                <h6>{house.noBathrooms}</h6>
+                                            </div>
+                                        })}
+                                    </div>
+                                    <div className="row" style={{marginTop: "10px"}}>
+                                        <div className="col-sm-12"><h5 className="compare-title"><i className="fas fa-warehouse align-icons"></i> Garages</h5></div>
+                                        {this.state.fetchedHouses.map((house) => {
+                                            return <div className="col-sm-4">
+                                                <h6>{house.noGarages}</h6>
+                                            </div>
+                                        })}
+                                    </div>
+
+                                </div>
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button onClick={() => this.setState({ modalOpen: false })}>Close</Button>
+                            </Modal.Footer>
+                        </Modal>
+                    </>
+
                 }
             </>
         );

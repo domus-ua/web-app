@@ -6,5 +6,7 @@ export default {
         houses: baseUri + 'houses',
         signin: baseUri + '/users/login',
         signout: baseUri + 'users/logout',
+        locadores: baseUri + 'locadores',
+        locatarios: baseUri + 'locatarios',
     }
 }
