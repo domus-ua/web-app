@@ -1,19 +1,11 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
 
 import Navbar from "components/Navbar2";
 import Footer from "components/Footer";
 import MyHouseCard from "components/MyHouseCard";
 import UserNavbar from "components/UserNavbar";
 
-import TextField from '@material-ui/core/TextField';
-
 import uris from "variables/uris";
-import {Button, Modal} from "react-bootstrap";
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel/InputLabel";
-import Select from "@material-ui/core/Select/Select";
-import MenuItem from "@material-ui/core/MenuItem";
 
 class MyHouses extends React.Component {
 
@@ -108,15 +100,15 @@ class MyHouses extends React.Component {
                         }
                         {
                             this.state.houseNotFound &&
-                            <div className="row" style={{ marginTop: "30px" }}>
+                            <div id="house-not-found" className="row" style={{ marginTop: "30px" }}>
                                 <div className="col-sm-12 d-flex justify-content-center">
-                                    <h3>You don't have any houses yet!</h3>
+                                    <h3 id="empty-houses">You don't have any houses yet!</h3>
                                 </div>
                             </div>
                         }
                         <div className="row" style={{ marginTop: "15px" }}>
                             {this.state.houses.map(house => {
-                                return <div className="col-sm-3">
+                                return <div id="houses-card" className="col-sm-3">
                                     <MyHouseCard
                                         id={house.id}
                                         title={house.name}

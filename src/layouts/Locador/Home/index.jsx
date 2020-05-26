@@ -27,7 +27,7 @@ class Home extends React.Component {
     render() {
         if(this.state.redirect && this.state.page === 1) return <Redirect to="locador/profile"/>
         return (
-            <div id="home-locatario">
+            <div id="home-locador">
                 <header>
                     <UserNavbar />
                 </header>

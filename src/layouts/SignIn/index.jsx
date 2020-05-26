@@ -112,7 +112,7 @@ class SignIn extends React.Component {
                             <div className="col-sm-3"></div>
                             <div className="col-sm-6">
                                 <div className="signin-button" onClick={this.signIn}>
-                                    <span><i className="fas fa-sign-in-alt"></i> Sign In</span>
+                                    <span id="signin-button"><i className="fas fa-sign-in-alt"></i> Sign In</span>
                                 </div>
                             </div>
                         </div>
