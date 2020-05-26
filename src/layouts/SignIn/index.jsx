@@ -8,6 +8,9 @@ import TextField from '@material-ui/core/TextField';
 
 import uris from "variables/uris";
 
+import CompareList from "components/CompareList";
+
+
 class SignIn extends React.Component {
 
     constructor(props) {
@@ -124,6 +127,7 @@ class SignIn extends React.Component {
                         </div>
                     </div>
                 </section>
+                <CompareList />
                 <Footer />
             </div>
         );

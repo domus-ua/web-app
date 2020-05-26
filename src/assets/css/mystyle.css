@@ -331,6 +331,32 @@ footer {
     border: 2px solid #7A7EBC;
 }
 
+.compare-list {
+    height: 110px;
+    width: 300px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #7A7EBC;
+    z-index: 1;
+    border-radius: 15px;
+    padding: 5px 5px 5px 5px;
+    color: white;
+    box-shadow: 0px 3px 5px grey;
+    cursor: pointer;
+}
+.compare-list:hover {
+    background-color: rgb(137, 141, 207);
+}
+
+.compare-list ul {
+    list-style-type: none;
+}
+
+.compare-list ul li:hover {
+    color: #3f51b5;
+}
+
 .profile-photo {
     width: 100%;
     height: 150px;
@@ -340,4 +366,9 @@ footer {
 
 .profile-photo:hover {
     cursor: pointer;
+}
+
+
+.compare-title {
+    color: #3f51b5;
 }

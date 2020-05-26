@@ -9,6 +9,8 @@ import TextField from '@material-ui/core/TextField';
 import uris from "variables/uris";
 import {Button, Modal} from "react-bootstrap";
 
+import CompareList from "components/CompareList";
+
 class SignUp extends React.Component {
 
     constructor(props) {
@@ -180,7 +182,7 @@ class SignUp extends React.Component {
         return (
 
             <div id="sign-up">
-                 <header>
+                <header>
                     <Navbar />
                 </header>
                 <section style={{ marginTop: "20px" }}>
@@ -319,6 +321,7 @@ class SignUp extends React.Component {
                         </div>
                     </div>
                 </section>
+                <CompareList />
                 <Footer />
                 <Modal
                     show={this.state.modalOpen}
