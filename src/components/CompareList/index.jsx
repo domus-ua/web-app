@@ -104,9 +104,9 @@ class CompareList extends React.Component {
                         <div id="compare-list" className="compare-list" onClick={this.fetchHouses}>
                             <div className="container">
                                 <div className="row">
-                                    <div className="col-sm-12 text-center">
+                                    <div className="col-sm-12 text-center" data-testid="compare-list-label">
                                         COMPARE LIST
-                            </div>
+                                    </div>
                                     <div className="row">
                                         <div className="col-sm-12">
                                             <ul>
@@ -128,7 +128,7 @@ class CompareList extends React.Component {
                         >
                             <Modal.Header closeButton>
                                 <Modal.Title id="contained-modal-title-vcenter">
-                                    <i class="fas fa-home"></i> Compare houses
+                                    <i class="fas fa-home"></i> <span data-testid="compare-modal-title">Compare houses</span>
                         </Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
@@ -136,7 +136,7 @@ class CompareList extends React.Component {
                                     <div className="row">
                                         {this.state.fetchedHouses.map((house) => {
                                             return <div className="col-sm-4">
-                                                <img src={house.photos.length === 0 ? defaultImage : house.photos[0]} className="new-house-small-photo" />
+                                                <img src={house.photos.length === 0 ? defaultImage : house.photos[0]} alt={house.name} className="new-house-small-photo" />
                                             </div>
                                         })}
                                     </div>
@@ -200,6 +200,14 @@ class CompareList extends React.Component {
                                         {this.state.fetchedHouses.map((house) => {
                                             return <div className="col-sm-4">
                                                 <h6>{house.noGarages}</h6>
+                                            </div>
+                                        })}
+                                    </div>
+                                    <div className="row" style={{marginTop: "10px"}}>
+                                        <div className="col-sm-12"><h5 className="compare-title"><i className="fas fa-warehouse align-icons"></i> Property features</h5></div>
+                                        {this.state.fetchedHouses.map((house) => {
+                                            return <div className="col-sm-4">
+                                                <h6>{house.propertyFeatures.replace(/;/g, ", ")}</h6>
                                             </div>
                                         })}
                                     </div>

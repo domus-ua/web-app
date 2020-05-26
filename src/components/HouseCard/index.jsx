@@ -112,6 +112,7 @@ function HouseCard({ id, title, city, rooms, price, area, image }) {
                 </IconButton>
                 <IconButton aria-label="add to favorites">
                     <CompareArrowsIcon
+                        data-testid={"house-card"+id}
                         onClick={() => { setCompare(!compare); addHouseToComparison(id, title, compare) }}
                         style={{ color: compareButton }}
                     />
