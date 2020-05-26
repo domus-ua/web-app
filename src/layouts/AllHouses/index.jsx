@@ -10,6 +10,8 @@ import Select from '@material-ui/core/Select';
 import UserNavbar from "components/UserNavbar";
 import uris from "variables/uris";
 
+import CompareList from "components/CompareList";
+
 class AllHouses extends React.Component {
 
     constructor(props) {
@@ -152,6 +154,7 @@ class AllHouses extends React.Component {
                         </div>
                     </div>
                 </section>
+                <CompareList />
                 <Footer />
             </div>
 

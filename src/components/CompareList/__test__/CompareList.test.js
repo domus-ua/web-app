@@ -2,7 +2,6 @@ const faker = require('faker');
 const puppeteer = require('puppeteer');
 
 const publicRouter = {
-    houseDetails: '/house-details',
     home: '/'
 }
 
@@ -51,17 +50,29 @@ beforeAll(async () => {
     
 })
 
-describe('Render page test', () => {
-    test('Render house no. 1 correctly', async () => {
+describe('Compare list test', () => {
+    test('Checks if three houses are compared', async () => {
 
-        await page.goto(baseUri + publicRouter.houseDetails);
+        await page.goto(baseUri);
 
-        await page.waitForSelector('#house-name');
-        await page.waitForSelector('[data-testid=house-reviews]');
-        await page.waitForSelector('[data-testid=house-seller]');
+        await page.waitForSelector('[data-testid=house-card1]');
+        await page.waitForSelector('[data-testid=house-card2]');
+        await page.waitForSelector('[data-testid=house-card3]');
+        await page.waitForSelector('[data-testid=house-card4]');
 
-        const html = await page.$eval('#house-name', e => e.innerHTML);
-        expect(html).toBe('Quarto c/ 2 quartos em Aveiro');
+        await page.click('[data-testid=house-card2]');
+        await page.click('[data-testid=house-card3]');
+        await page.click('[data-testid=house-card4]');
+
+        await page.waitForSelector('[data-testid=compare-list-label]');
+
+        await page.click('[data-testid=compare-list-label]');
+
+        await page.waitForSelector('[data-testid=compare-modal-title]');
+
+
+        const html = await page.$eval('[data-testid=compare-modal-title]', e => e.innerHTML);
+        expect(html).toBe('Compare houses');
 
     }, 160000000);
 });
