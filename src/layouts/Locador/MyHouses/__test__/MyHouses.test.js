@@ -41,7 +41,7 @@ beforeAll(async () => {
     browser = await puppeteer.launch(
         {
             headless: headless, // headless mode set to false so browser opens up with visual feedback
-            slowMo: 20, // how slow actions should be
+            slowMo: 50, // how slow actions should be
         }
     )
     // creates a new page in the opened browser
@@ -49,38 +49,17 @@ beforeAll(async () => {
 })
 
 describe('Render page test', () => {
-    test('Render myHouses correctly', async () => {
 
-        //Login First
-        await page.goto(baseUri + publicRouter.signIn);
-        await page.click('#username')
-        await page.type('#username', 'locador@mail.com')
-        await page.click('#password')
-        await page.type('#password', 'locador')
-        await page.click('#signin-button')
-        await page.waitForSelector('#home-locador')
-
-        //Real test
-        await page.goto(baseUri + publicRouter.myHouses);
-        await page.waitForSelector('#houses-card');
-
-        localStorage.clear();
-        await page.goto(baseUri);
-
-    }, 160000000);
-});
-
-describe('Render empty page test', () => {
     test('Render myHouses empty', async () => {
 
         //Login First
         await page.goto(baseUri + publicRouter.signIn);
-        await page.click('#username')
-        await page.type('#username', 'locator_test@email.com')
-        await page.click('#password')
-        await page.type('#password', '12345')
-        await page.click('#signin-button')
-        await page.waitForSelector('#home-locador')
+        await page.click('#username');
+        await page.type('#username', 'locator_test@email.com');
+        await page.click('#password');
+        await page.type('#password', '12345');
+        await page.click('#signin-button');
+        await page.waitForSelector('#home-locador');
 
         //Real test
         await page.goto(baseUri + publicRouter.myHouses);
@@ -90,9 +69,42 @@ describe('Render empty page test', () => {
         const html = await page.$eval('#empty-houses', e => e.innerHTML);
         expect(html).toBe('You don\'t have any houses yet!');
 
-        localStorage.clear();
+
+
+        browser.close();
+
+
 
     }, 160000000);
+
+    test('Render myHouses correctly', async () => {
+
+        browser = await puppeteer.launch(
+            {
+                headless: headless, // headless mode set to false so browser opens up with visual feedback
+                slowMo: 50, // how slow actions should be
+            }
+        );
+        page = await browser.newPage();
+
+        //Login First
+        await page.goto(baseUri + publicRouter.signIn);
+        await page.click('#username');
+        await page.type('#username', 'locador@mail.com');
+        await page.click('#password');
+        await page.type('#password', 'locador');
+        await page.click('#signin-button');
+        await page.waitForSelector('#home-locador');
+
+        //Real test
+        await page.goto(baseUri + publicRouter.myHouses);
+        await page.waitForSelector('#houses-card');
+
+
+
+
+    }, 160000000);
+
 });
 
 
