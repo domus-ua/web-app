@@ -22,7 +22,7 @@ class MyHouses extends React.Component {
         this.myHouses = [];
         this.state = {
             houses: [],
-            searching: true
+            searching: true,
         }
 
         this.authUser = JSON.parse(localStorage.getItem('authUser'));
@@ -56,8 +56,10 @@ class MyHouses extends React.Component {
                 this.myHouses = data;
                 this.setState({
                     searching: false,
-                    houses: this.myHouses
+                    houses: this.myHouses,
+                    houseNotFound: data.length === 0
                 })
+
             })
             .catch(error => {
                 console.log("Fetch error: " + error);
@@ -66,7 +68,7 @@ class MyHouses extends React.Component {
     }
 
     searching() {
-        this.setState({ searching: true, foundHouses: [] })
+        this.setState({ searching: true})
         setTimeout(() => {
             this.fetchMyHouses();
         }, 1500);
@@ -101,6 +103,14 @@ class MyHouses extends React.Component {
                             <div className="row" style={{ marginTop: "30px" }}>
                                 <div className="col-sm-12 d-flex justify-content-center">
                                     <div className="loader"></div>
+                                </div>
+                            </div>
+                        }
+                        {
+                            this.state.houseNotFound &&
+                            <div className="row" style={{ marginTop: "30px" }}>
+                                <div className="col-sm-12 d-flex justify-content-center">
+                                    <h3>You don't have any houses yet!</h3>
                                 </div>
                             </div>
                         }
