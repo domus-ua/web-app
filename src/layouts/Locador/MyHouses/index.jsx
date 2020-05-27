@@ -80,7 +80,7 @@ class MyHouses extends React.Component {
                 }
                 <section className="alternate">
                     <div className="container">
-                        <div className="row">
+                        <div className="row" style={{marginTop: "20px"}}>
                             <div className="col-sm-9">
                                 <h3 style={{ color: "#3f51b5" }}>My Houses</h3>
                             </div>
