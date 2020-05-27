@@ -6,6 +6,7 @@ import UserNavbar from "components/UserNavbar";
 
 import uris from "variables/uris";
 
+import RentHouse from "layouts/Locador/RentHouse";
 
 class HouseDetails extends React.Component {
 
@@ -14,7 +15,8 @@ class HouseDetails extends React.Component {
 
         this.state = {
             house: JSON.parse(localStorage.getItem('currentHouse')),
-            fetching: true
+            fetching: true,
+            rentHouse: false
         }
 
         this.authUser = JSON.parse(localStorage.getItem('authUser'));
@@ -96,7 +98,7 @@ class HouseDetails extends React.Component {
     }
 
     componentDidUpdate() {
-        if (!this.state.fetching) {
+        if (!this.state.fetching && !this.state.rentHouse) {
             let noPhotos = this.state.house.photos.length < 4 ? this.state.house.photos.length : 4;
 
             for (var i = 0; i < noPhotos; i++) {
@@ -106,6 +108,7 @@ class HouseDetails extends React.Component {
     }
 
     render() {
+        if(this.state.rentHouse) return <RentHouse house={this.state.house} />
         return (
             <div id="house-details">
                 {this.authUser === null ?
@@ -204,21 +207,35 @@ class HouseDetails extends React.Component {
                                     </div>
                                 </div>
                                 <div className="row" style={{ marginTop: "30px" }}>
-                                    <div className="col-sm-12">
-                                        <h4 style={{ color: "#252525" }} data-testid="house-seller">
-                                            Contact seller
-                                        </h4>
-                                    </div>
-                                </div>
-                                {
-                                    this.authUser === null ?
-                                        <div className="row" style={{ marginTop: "30px" }}>
-                                            <div className="col-sm-12">
-                                                <p className="house-description"><a href="/signin">Sign In</a> to see seller details.</p>
-                                            </div>
+                                    {this.authUser.role !== "locador" ?
+                                        <div className="col-sm-12">
+                                            <h4 style={{ color: "#252525" }} data-testid="house-seller">
+                                                Contact seller
+                                            </h4>
                                         </div>
                                         :
+                                        <>
+                                        <div className="col-sm-6"></div>
+                                        <div className="col-sm-6">
+                                            <div className="signin-button" onClick={() => this.setState({rentHouse: true})}>
+                                                <span id="rent-button"><i className="fas fa-sign-in-alt"></i> Rent this house</span>
+                                            </div>
+                                        </div>
+                                        </>
 
+                                    }
+
+                                </div>
+                                {
+                                    this.authUser === null &&
+                                    <div className="row" style={{ marginTop: "30px" }}>
+                                        <div className="col-sm-12">
+                                            <p className="house-description"><a href="/signin">Sign In</a> to see seller details.</p>
+                                        </div>
+                                    </div>
+                                }
+                                {
+                                    this.authUser.role !== "locador" ?
                                         <div className="row" style={{ marginTop: "30px" }}>
                                             <div className="col-sm-1">
                                                 <img id="seller-picture" className="seller-picture" alt="House 1" />
@@ -232,6 +249,8 @@ class HouseDetails extends React.Component {
                                                 </ul>
                                             </div>
                                         </div>
+                                        :
+                                        ""
                                 }
                             </div>}
                     </div>
