@@ -8,5 +8,6 @@ export default {
         signout: baseUri + 'users/logout',
         locadores: baseUri + 'locadores',
         locatarios: baseUri + 'locatarios',
+        wishlist: baseUri + 'locatarios/wishlist'
     }
 }

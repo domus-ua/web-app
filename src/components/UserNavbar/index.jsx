@@ -41,7 +41,7 @@ class UserNavbar extends React.Component {
                     </div>
                     <div className="menu">
                         <ul>
-                            <li><a href="/signin">Houses</a></li>
+                            <li><a href="/houses">Houses</a></li>
                             <li><a href={"/" + this.authUser.role}>Home</a></li>
                             <li>
                                 <div className="my-dropdown">

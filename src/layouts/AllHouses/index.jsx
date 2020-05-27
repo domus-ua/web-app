@@ -79,6 +79,7 @@ class AllHouses extends React.Component {
             }
         })
             .then(response => {
+                
                 if (!response.ok) throw new Error(response.status);
                 else return response.json();
 
@@ -111,7 +112,7 @@ class AllHouses extends React.Component {
                 }
                 <section className="alternate">
                     <div className="container">
-                        <div className="row">
+                        <div className="row" style={{marginTop: "30px"}}>
                             <div className="col-sm-9">
                                 <h3 style={{ color: "#3f51b5" }}>All houses</h3>
                             </div>
