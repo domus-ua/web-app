@@ -7,6 +7,10 @@ import Auth from "layouts/Auth";
 
 // Locatario router
 import HomeLocatario from "layouts/Locatario/Home";
+import FavoriteLocatario from "layouts/Locatario/Favorite";
+import ProfileLocatario from "layouts/Locatario/Profile";
+import ReviewsLocatario from "layouts/Locatario/Reviews";
+import ContractsLocatario from "layouts/Locatario/Contracts";
 
 // Locador router
 import HomeLocador from "layouts/Locador/Home";
@@ -16,6 +20,7 @@ import MyHouses from "layouts/Locador/MyHouses";
 import Profile from "layouts/Locador/Profile";
 import Reviews from "layouts/Locador/Reviews";
 import Contracts from "layouts/Locador/Contracts";
+
 
 function PrivateRoute(props) {
     const path = props.path;
@@ -35,7 +40,10 @@ function PrivateRoute(props) {
 }
 
 export default [
-    { path: '/locador/contracts', layout: <PrivateRoute path='/locador/contracts' component={Contracts} /> },
+    { path: '/locatario/contracts', layout: <PrivateRoute path='/locatario/contracts' component={ContractsLocatario} /> },
+    { path: '/locatario/favorite', layout: <PrivateRoute path='/locatario/favorite' component={FavoriteLocatario} /> },
+    { path: '/locatario/profile', layout: <PrivateRoute path='/locatario/profile' component={ProfileLocatario} /> },
+    { path: '/locatario/reviews', layout: <PrivateRoute path='/locatario/reviews' component={ReviewsLocatario} /> },
     { path: '/locador/reviews', layout: <PrivateRoute path='/locador/reviews' component={Reviews} /> },
     { path: '/locador/profile', layout: <PrivateRoute path='/locador/profile' component={Profile} /> },
     { path: '/locador/houses', layout: <PrivateRoute path='/locador/houses' component={MyHouses} /> },

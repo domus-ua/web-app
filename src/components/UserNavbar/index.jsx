@@ -1,6 +1,8 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 
+import defaultUser from "assets/img/default-user.png";
+
 class UserNavbar extends React.Component {
 
     constructor(props) {
@@ -12,7 +14,6 @@ class UserNavbar extends React.Component {
         }
         
         this.authUser = JSON.parse(localStorage.getItem('authUser'));
-
         this.signOut = this.signOut.bind(this);
     }
 
@@ -31,6 +32,7 @@ class UserNavbar extends React.Component {
                     break;
             }
         }
+        
         return (
             <>
                 <nav className="user-navbar ">
@@ -40,9 +42,10 @@ class UserNavbar extends React.Component {
                     <div className="menu">
                         <ul>
                             <li><a href="/signin">Houses</a></li>
+                            <li><a href={"/" + this.authUser.role}>Home</a></li>
                             <li>
                                 <div className="my-dropdown">
-                                    <img className="user-image" alt="Current user" />
+                                    <img src={this.authUser.user.photo} className="user-image" alt="Current user" />
                                     <div className="my-dropdown-content">
                                         <div onClick={() => this.setState({redirect: true, page: 1})}>Profile</div>
                                         <div>Settings</div>
