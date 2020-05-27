@@ -17,7 +17,6 @@ import Profile from "layouts/Locador/Profile";
 import Reviews from "layouts/Locador/Reviews";
 import Contracts from "layouts/Locador/Contracts";
 
-
 function PrivateRoute(props) {
     const path = props.path;
     const component = props.component;

@@ -87,6 +87,7 @@ class HouseDetails extends React.Component {
                     house: data,
                     fetching: false
                 })
+                
             })
             .catch(error => {
                 console.log("Fetch error: " + error);
@@ -105,10 +106,11 @@ class HouseDetails extends React.Component {
                 document.getElementById("photo" + (i + 1)).src = this.state.house.photos[i];
             }
         }
+
     }
 
     render() {
-        if(this.state.rentHouse) return <RentHouse house={this.state.house} />
+        if (this.state.rentHouse) return <RentHouse house={this.state.house} />
         return (
             <div id="house-details">
                 {this.authUser === null ?
@@ -206,36 +208,32 @@ class HouseDetails extends React.Component {
                                         <p className="house-description">{this.state.house.reviewsReceived.length === 0 ? "There are no reviews for this house." : ""}</p>
                                     </div>
                                 </div>
-                                <div className="row" style={{ marginTop: "30px" }}>
-                                    {this.authUser.role !== "locador" ?
-                                        <div className="col-sm-12">
-                                            <h4 style={{ color: "#252525" }} data-testid="house-seller">
-                                                Contact seller
+
+                                {this.authUser === null &&
+                                    <>
+                                        <div className="row" style={{ marginTop: "30px" }}>
+                                            <div className="col-sm-12">
+                                                <h4 style={{ color: "#252525" }} data-testid="house-seller">
+                                                    Contact seller
                                             </h4>
-                                        </div>
-                                        :
-                                        <>
-                                        <div className="col-sm-6"></div>
-                                        <div className="col-sm-6">
-                                            <div className="signin-button" onClick={() => this.setState({rentHouse: true})}>
-                                                <span id="rent-button"><i className="fas fa-sign-in-alt"></i> Rent this house</span>
                                             </div>
                                         </div>
-                                        </>
-
-                                    }
-
-                                </div>
-                                {
-                                    this.authUser === null &&
-                                    <div className="row" style={{ marginTop: "30px" }}>
-                                        <div className="col-sm-12">
-                                            <p className="house-description"><a href="/signin">Sign In</a> to see seller details.</p>
+                                        <div className="row" style={{ marginTop: "30px" }}>
+                                            <div className="col-sm-12">
+                                                <p className="house-description"><a href="/signin">Sign In</a> to see seller details.</p>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </>
                                 }
-                                {
-                                    this.authUser.role !== "locador" ?
+                                {this.authUser !== null && (this.authUser.role === "locatario" || (this.authUser.role === "locador" && this.state.house.locador.user.email !== this.authUser.user.email)) &&
+                                    <>
+                                        <div className="row" style={{ marginTop: "30px" }}>
+                                            <div className="col-sm-12">
+                                                <h4 style={{ color: "#252525" }} data-testid="house-seller">
+                                                    Contact seller
+                                            </h4>
+                                            </div>
+                                        </div>
                                         <div className="row" style={{ marginTop: "30px" }}>
                                             <div className="col-sm-1">
                                                 <img id="seller-picture" className="seller-picture" alt="House 1" />
@@ -249,15 +247,28 @@ class HouseDetails extends React.Component {
                                                 </ul>
                                             </div>
                                         </div>
-                                        :
-                                        ""
+                                    </>
                                 }
-                            </div>}
+                                {this.authUser !== null && this.authUser.role === "locador" && this.state.house.locador.user.email === this.authUser.user.email &&
+                                    <>
+                                        <div className="row">
+                                            <div className="col-sm-6"></div>
+                                            <div className="col-sm-6">
+                                                <div className="signin-button" onClick={() => this.setState({ rentHouse: true })}>
+                                                    <span id="rent-button"><i className="fas fa-sign-in-alt"></i> Rent this house</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </>
+                                }
+                            </div>
+
+                        }
                     </div>
                 </section>
-
                 <Footer />
-            </div>
+            </div >
         );
     }
 

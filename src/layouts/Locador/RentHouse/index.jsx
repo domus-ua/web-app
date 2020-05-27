@@ -10,7 +10,7 @@ import ArrowBack from '@material-ui/icons/ArrowBackIos';
 
 import TextField from '@material-ui/core/TextField';
 
-import {Button, Modal} from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 
 import uris from "variables/uris";
 
@@ -24,6 +24,7 @@ class RentHouse extends React.Component {
         this.state = {
             return: false,
             modalOpenErrors: false,
+            modalOpenSuccess: false,
             errors: []
         }
 
@@ -34,13 +35,14 @@ class RentHouse extends React.Component {
     }
 
     rent() {
-
         let errors = [];
 
         const username = document.getElementById("username").value;
         const startDate = document.getElementById("start-date").value;
         const endDate = document.getElementById("end-date").value;
         const price = document.getElementById("price").value;
+
+        console.log(startDate);
 
         if (username === "")
             errors.push("Invalid email or username");
@@ -51,13 +53,44 @@ class RentHouse extends React.Component {
         if (price === "" || !price.match(/^[0-9]+$/) || parseInt(price) <= 0)
             errors.push("Invalid price!");
 
-        if(errors.length !== 0) {
+        if (errors.length !== 0) {
             this.setState({
                 errors: errors,
                 modalOpenErrors: true
             })
             return;
         }
+
+        let payload = {
+            endDate: endDate,
+            startDate: startDate,
+            price: parseInt(price),
+            locatarioEmail: username,
+            locadorId: this.authUser.id,
+            houseId: this.house.id
+        }
+
+        fetch(uris.restApi.locadores + "/rent", {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        })
+            .then(response => {
+                if (!response.ok) throw new Error(response.status);
+                else return response.json();
+
+            })
+            .then(data => {
+                this.setState({
+                    modalOpenSuccess: true
+                })
+            })
+            .catch(error => {
+                console.log("Fetch error: " + error);
+            })
 
     }
 
@@ -134,6 +167,24 @@ class RentHouse extends React.Component {
                     </Modal.Body>
                     <Modal.Footer>
                         <Button onClick={() => this.setState({ modalOpenErrors: false })}>Close</Button>
+                    </Modal.Footer>
+                </Modal>
+                <Modal
+                    show={this.state.modalOpenSuccess}
+                    size="lg"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title id="contained-modal-title-vcenter">
+                            <i class="fas fa-check-circle"></i> House rented with success!
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <h5 id="error-modal">You will be redirected!</h5>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button onClick={() => this.setState({ modalOpenSuccess: false })}>Close</Button>
                     </Modal.Footer>
                 </Modal>
             </div>
