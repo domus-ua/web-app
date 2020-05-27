@@ -105,7 +105,18 @@ describe('Render page test', () => {
 
     }, 160000000);
 
+    test('Deletes a house successfully', async () => {
+
+        await page.goto(baseUri + publicRouter.myHouses);
+        await page.waitForSelector('[data-testid=house-card1]');
+        await page.click('[data-testid=house-card1]');
+        await page.waitForSelector('#delete-confirmation');
+
+    }, 160000000);
+
 });
+
+
 
 
 // This function occurs after the result of each tests, it closes the browser

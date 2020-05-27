@@ -84,7 +84,7 @@ function HouseCard({id, title, city, rooms, price, area, image}) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <IconButton aria-label="delete house">
+        <IconButton aria-label="delete house"  data-testid={"house-card"+id}>
           <DeleteIcon
               onClick={() => setDelete(true)}
           />
@@ -105,7 +105,7 @@ function HouseCard({id, title, city, rooms, price, area, image}) {
       >
         <Modal.Header>
           <Modal.Title id="contained-modal-title-vcenter">
-            <h3  style={{ color: "red" }}><i className="fas fa-trash"></i> Are you sure you want to delete this house?</h3>
+            <h3 id="delete-confirmation" style={{ color: "red" }}><i className="fas fa-trash"></i> Are you sure you want to delete this house?</h3>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
