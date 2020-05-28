@@ -6,9 +6,6 @@ import Footer from "components/Footer";
 import DashboardCard from "components/DashboardCard";
 
 import newHouse from "assets/img/dashboards/new-house.png";
-import profile from "assets/img/dashboards/profile.png";
-import reviews from "assets/img/dashboards/reviews.png";
-import contract from "assets/img/dashboards/contract.png";
 
 class Home extends React.Component {
 

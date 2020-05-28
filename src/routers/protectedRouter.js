@@ -9,8 +9,6 @@ import Auth from "layouts/Auth";
 import HomeLocatario from "layouts/Locatario/Home";
 import FavoriteLocatario from "layouts/Locatario/Favorite";
 import ProfileLocatario from "layouts/Locatario/Profile";
-import ReviewsLocatario from "layouts/Locatario/Reviews";
-import ContractsLocatario from "layouts/Locatario/Contracts";
 
 // Locador router
 import HomeLocador from "layouts/Locador/Home";
@@ -18,8 +16,6 @@ import NewHouse from "layouts/Locador/NewHouse";
 import ConfirmHouse from "layouts/Locador/ConfirmHouse";
 import MyHouses from "layouts/Locador/MyHouses";
 import Profile from "layouts/Locador/Profile";
-import Reviews from "layouts/Locador/Reviews";
-import Contracts from "layouts/Locador/Contracts";
 
 
 function PrivateRoute(props) {
