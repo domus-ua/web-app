@@ -10,8 +10,8 @@ ENV PATH /app/node_modules/.bin:$PATH
 
 RUN ls -la /app
 
-RUN npm install
-RUN npm install -g serve
+RUN npm ci
+RUN npm install serve
 
 RUN npm run build # compile
 
