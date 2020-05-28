@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 
 import Footer from "components/Footer";
 import DatePicker from "components/DatePicker";
@@ -24,7 +25,8 @@ class RentHouse extends React.Component {
             return: false,
             modalOpenErrors: false,
             modalOpenSuccess: false,
-            errors: []
+            errors: [],
+            redirect: false
         }
 
         this.house = house;
@@ -93,7 +95,19 @@ class RentHouse extends React.Component {
 
     }
 
+    componentDidUpdate() {
+        if (this.state.modalOpenSuccess) {
+            setTimeout(() => {
+                this.setState({
+                    modalOpenSuccess: false,
+                    redirect: true
+                })
+            }, 3500)
+        }
+    }
+
     render() {
+        if(this.state.redirect) return <Redirect to="locador" />
         if (this.state.return) return <HousDetails />
         return (
             <div id="rent-house">
