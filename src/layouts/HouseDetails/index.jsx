@@ -7,6 +7,9 @@ import UserNavbar from "components/UserNavbar";
 import uris from "variables/uris";
 
 import RentHouse from "layouts/Locador/RentHouse";
+import Rating from '@material-ui/lab/Rating';
+import TextField from '@material-ui/core/TextField';
+import Box from '@material-ui/core/Box';
 
 class HouseDetails extends React.Component {
 
@@ -16,11 +19,14 @@ class HouseDetails extends React.Component {
         this.state = {
             house: JSON.parse(localStorage.getItem('currentHouse')),
             fetching: true,
-            rentHouse: false
+            rentHouse: false,
+            rating: 1
         }
 
         this.authUser = JSON.parse(localStorage.getItem('authUser'));
         this.getHouseDetails = this.getHouseDetails.bind(this);
+        this.sendReviews = this.sendReviews.bind(this);
+        this.deleteReviews = this.deleteReviews.bind(this);
     }
 
     getHouseDetails() {
@@ -96,6 +102,7 @@ class HouseDetails extends React.Component {
 
     componentDidMount() {
         this.getHouseDetails();
+
     }
 
     componentDidUpdate() {
@@ -106,6 +113,78 @@ class HouseDetails extends React.Component {
                 document.getElementById("photo" + (i + 1)).src = "data:image;base64, " + this.state.house.photos[i];
             }
         }
+
+    }
+
+    sendReviews() {
+
+        let payload = {
+            comment: document.getElementById("review-comment").value,
+            houseId: this.state.house.id,
+            locatarioId: this.authUser.id,
+            rating: this.state.rating
+        }
+
+        fetch(uris.restApi.reviews, {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        })
+            .then(response => {
+                if (!response.ok) throw new Error(response.status);
+                else return response.json();
+
+            })
+            .then(data => {
+                let house = this.state.house;
+                house.reviewsReceived.push(data);
+
+                this.setState({
+                    house: house,
+                })
+            })
+            .catch(error => {
+                console.log("Fetch error: " + error);
+            })
+        document.getElementById("review-comment").value = "";
+
+    }
+
+    deleteReviews() {
+        fetch(uris.restApi.reviews + "/" + this.state.house.id + "/" + this.authUser.id, {
+            method: "DELETE",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (!response.ok || response.status !== 204) throw new Error(response.status);
+                else return response;
+
+            })
+            .then(data => {
+                let house = this.state.house;
+                let reviews = [];
+                house.reviewsReceived.forEach((review) => {
+                    if(review.locatario.user.id !== this.authUser.id) {
+                        reviews.push(review);
+                    }
+                });
+
+                house.reviewsReceived = reviews;
+
+                this.setState({
+                    house: house,
+                })
+            })
+            .catch(error => {
+                console.log("Fetch error: " + error);
+            })
+        document.getElementById("review-comment").value = "";
 
     }
 
@@ -222,12 +301,13 @@ class HouseDetails extends React.Component {
                                                 <img src={"data:image;base64, " + review.locatario.user.photo} id="seller-picture" className="seller-picture" alt="House 1" />
                                             </div>
 
-                                                <div className="col-sm-2" style={{ marginLeft: "30px" }}>
+                                                <div className="col-sm-3" style={{ marginLeft: "30px" }}>
                                                     <ul className="house-details-list">
                                                         <li><i className="fas fa-user align-icons"></i> <span>{review.locatario.user.firstName + " " + review.locatario.user.lastName}</span></li>
                                                         <li><i className="fas fa-star align-icons"></i> <span>{review.rating}</span></li>
                                                         <li><i className="fas fa-comment align-icons"></i> <span>"{review.comment}"</span></li>
-                                                        <li><i className="fas fa-calendar-alt align-icons"></i> <span>{review.timestamp.split("T")[0]}</span></li>
+                                                        <li><i className="fas fa-calendar-alt align-icons"></i> <span>{review.timestamp !== null && review.timestamp.split("T")[0]}</span></li>
+                                                        {this.authUser.id === review.locatario.user.id && <li className="delete-review" onClick={this.deleteReviews}><i className="fas fa-times align-icons"></i> Delete review</li>}
                                                     </ul>
                                                 </div>
                                             </>
@@ -275,6 +355,36 @@ class HouseDetails extends React.Component {
                                                     <li><i className="fas fa-phone align-icons"></i> <span>{this.state.house.locador.user.phoneNumber}</span></li>
                                                 </ul>
                                             </div>
+                                        </div>
+                                        <div className="row" style={{ marginTop: "30px" }}>
+                                            <div className="col-sm-3">
+                                                <h4 style={{ color: "#252525" }} data-testid="house-seller">
+                                                    Make a review
+                                                </h4>
+                                            </div>
+                                            <div className="col-sm-9" style={{ marginLeft: "-100px", marginTop: "5px" }}>
+                                                <Box component="fieldset" mb={3} borderColor="transparent">
+                                                    <Rating
+                                                        name="simple-controlled"
+                                                        value={this.state.rating}
+                                                        onChange={(event, newValue) => {
+                                                            this.setState({
+                                                                rating: newValue
+                                                            })
+                                                        }}
+                                                    />
+                                                </Box></div>
+                                        </div>
+                                        <div className="row" style={{ marginTop: "5px" }}>
+                                            <div className="col-sm-4">
+                                                <TextField id="review-comment" label="Comment" variant="outlined" style={{ width: "100%" }} />
+                                            </div>
+                                            <div className="col-sm-2">
+                                                <div className="signin-button" onClick={this.sendReviews}>
+                                                    <span id="comment-button"><i className="fas fa-comment"></i> Send review</span>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </>
                                 }
