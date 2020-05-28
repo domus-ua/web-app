@@ -11,6 +11,8 @@ import Rating from '@material-ui/lab/Rating';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 
+import defaultImage from "assets/img/dashboards/new-house2.png";
+
 class HouseDetails extends React.Component {
 
     constructor(props) {
@@ -256,7 +258,7 @@ class HouseDetails extends React.Component {
                                 </div>
                                 <div className="row" style={{ marginTop: "20px" }}>
                                     <div className="col-sm-6">
-                                        <img id="photo1" className="new-house-photo" alt="House 1" />
+                                        <img id="photo1" src={defaultImage} className="new-house-photo" alt="House 1" />
                                     </div>
                                     <div className="col-sm-6">
                                         <div className="col-sm-12">
@@ -281,13 +283,13 @@ class HouseDetails extends React.Component {
                                 </div>
                                 <div className="row" style={{ marginTop: "15px" }}>
                                     <div className="col-sm-2">
-                                        <img id="photo2" className="new-house-small-photo" alt="House 1" />
+                                        <img id="photo2" src={defaultImage} className="new-house-small-photo" alt="House 1" />
                                     </div>
                                     <div className="col-sm-2">
-                                        <img id="photo3" className="new-house-small-photo" alt="House 1" />
+                                        <img id="photo3" src={defaultImage} className="new-house-small-photo" alt="House 1" />
                                     </div>
                                     <div className="col-sm-2">
-                                        <img id="photo4" className="new-house-small-photo" alt="House 1" />
+                                        <img id="photo4" src={defaultImage} className="new-house-small-photo" alt="House 1" />
                                     </div>
                                     <div className="col-sm-6 text-right" style={{ marginTop: "20px" }}>
                                         <div className="col-sm-12"><h5>Price per month</h5></div>
