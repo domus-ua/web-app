@@ -1,9 +1,13 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 
 import Navbar from "components/Navbar2";
 import Footer from "components/Footer";
 import MyHouseCard from "components/MyHouseCard";
 import UserNavbar from "components/UserNavbar";
+
+import IconButton from '@material-ui/core/IconButton';
+import ArrowBack from '@material-ui/icons/ArrowBackIos';
 
 import uris from "variables/uris";
 
@@ -60,13 +64,14 @@ class MyHouses extends React.Component {
     }
 
     searching() {
-        this.setState({ searching: true})
+        this.setState({ searching: true })
         setTimeout(() => {
             this.fetchMyHouses();
         }, 1500);
     }
 
     render() {
+        if(this.state.return) return <Redirect to="/locador" />
         return (
             <div id="my-houses">
                 {this.authUser === null ?
@@ -80,9 +85,14 @@ class MyHouses extends React.Component {
                 }
                 <section className="alternate">
                     <div className="container">
-                        <div className="row" style={{marginTop: "20px"}}>
+                        <div className="row" style={{ marginTop: "20px" }}>
                             <div className="col-sm-9">
-                                <h3 style={{ color: "#3f51b5" }}>My Houses</h3>
+                                <h3 style={{ color: "#3f51b5" }}>
+                                    <IconButton aria-label="back">
+                                        <ArrowBack onClick={() => this.setState({ return: true })} style={{ color: "#3f51b5" }} fontSize="medium" />
+                                    </IconButton>
+                                    My Houses
+                                </h3>
                             </div>
                         </div>
                         <div className="row">

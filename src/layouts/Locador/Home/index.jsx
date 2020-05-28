@@ -25,7 +25,7 @@ class Home extends React.Component {
 
 
     render() {
-        if(this.state.redirect && this.state.page === 1) return <Redirect to="locador/profile"/>
+        if(this.state.redirect && this.state.page === 1) return <Redirect to="/locador/profile"/>
         return (
             <div id="home-locador">
                 <header>
@@ -58,32 +58,6 @@ class Home extends React.Component {
                                 image={newHouse}
                                 href="/locador/new-house"
                                 description="Upload a new house to sell or rent"
-                                />
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-sm-4">
-                                <DashboardCard 
-                                title="Profile"
-                                image={profile}
-                                href="/locador/profile"
-                                description="See your profile details"
-                                />
-                            </div>
-                            <div className="col-sm-4">
-                                <DashboardCard 
-                                title="Reviews"
-                                image={reviews}
-                                href="/locador/reviews"
-                                description="See past reviews of your houses"
-                                />
-                            </div>
-                            <div className="col-sm-4">
-                                <DashboardCard 
-                                title="Contracts"
-                                image={contract}
-                                href="/locador/contracts"
-                                description="See all your current and past contracts"
                                 />
                             </div>
                         </div>
