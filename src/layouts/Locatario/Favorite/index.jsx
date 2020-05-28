@@ -26,6 +26,7 @@ class Favorite extends React.Component {
         this.fetchAllHouses();
     }
 
+
     fetchAllHouses() {
 
         fetch(uris.restApi.wishlist + "/" + this.authUser.id, {
