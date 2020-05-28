@@ -243,7 +243,6 @@ class HouseDetails extends React.Component {
                                                     <li><i className="fas fa-user align-icons"></i> <span>{this.state.house.locador.user.firstName + " " + this.state.house.locador.user.lastName}</span></li>
                                                     <li><i className="fas fa-envelope align-icons"></i> <span>{this.state.house.locador.user.email}</span></li>
                                                     <li><i className="fas fa-phone align-icons"></i> <span>{this.state.house.locador.user.phoneNumber}</span></li>
-                                                    <li><i className="fas fa-sign-in-alt align-icons"></i> <span>Online on {this.state.house.locador.user.lastLogin.split("T")[0]}</span></li>
                                                 </ul>
                                             </div>
                                         </div>

@@ -110,7 +110,7 @@ class AllHouses extends React.Component {
                         <UserNavbar />
                     </header>
                 }
-                <section className="alternate">
+                <section>
                     <div className="container">
                         <div className="row" style={{marginTop: "30px"}}>
                             <div className="col-sm-9">

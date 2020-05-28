@@ -112,15 +112,14 @@ const fetchFavorite = (houseId, favorite) => {
     }
 }
 
-function HouseCard({ id, title, city, rooms, price, area, image }) {
+function HouseCard({ id, title, city, rooms, price, area, image, isFavorite }) {
     const classes = useStyles();
 
-    const [favorite, setFavorite] = useState(false);
+    const [favorite, setFavorite] = useState(isFavorite === true ? true : false);
     const [compare, setCompare] = useState(false);
     const [redirect, setRedirect] = useState(false);
 
     const [modalOpen, setModalOpen] = useState(false);
-
 
     const authUser = JSON.parse(localStorage.getItem('authUser'));
 
@@ -131,7 +130,7 @@ function HouseCard({ id, title, city, rooms, price, area, image }) {
     let favoriteButton = favorite === true ? "red" : "";
     let compareButton = compare === true ? "#3f51b5" : "";
 
-    if (redirect) { return <Redirect to="house-details" /> }
+    if (redirect) { return <Redirect to="/house-details" /> }
     return (
         <>
             <Card className={classes.root}>
@@ -193,7 +192,7 @@ function HouseCard({ id, title, city, rooms, price, area, image }) {
 </Modal.Title>
                 </Modal.Header>
                 <Modal.Footer>
-                    <ModalButton onClick={() => setModalOpen(false)}>Close</ModalButton>
+                    <ModalButton onClick={() => {setModalOpen(false); if(!favorite && window.location.href.includes("locatario/favorite")) window.location.reload();}}>Close</ModalButton>
                 </Modal.Footer>
             </Modal>
         </>
