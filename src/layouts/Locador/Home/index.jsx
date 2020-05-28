@@ -36,7 +36,7 @@ class Home extends React.Component {
                     <div className="container">
                         <div className="row">
                             <div className="col-sm-12">
-                                <h4 style={{ color: "#252525" }}>Welcome, <span className="user-name" onClick={() => this.setState({redirect: true, page: 1})}>{this.authUser.user.firstName + " " + this.authUser.user.lastName}!</span></h4>
+                                <h3 style={{ color: "#252525" }}>Welcome, <span className="user-name" onClick={() => this.setState({redirect: true, page: 1})}>{this.authUser.user.firstName + " " + this.authUser.user.lastName}!</span></h3>
                             </div>
                         </div>
                         <div className="row">

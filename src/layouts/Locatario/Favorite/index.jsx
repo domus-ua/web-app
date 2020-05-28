@@ -1,9 +1,13 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 
 import Footer from "components/Footer";
 import HouseCard from "components/HouseCard";
 import UserNavbar from "components/UserNavbar";
 import uris from "variables/uris";
+
+import IconButton from '@material-ui/core/IconButton';
+import ArrowBack from '@material-ui/icons/ArrowBackIos';
 
 import CompareList from "components/CompareList";
 
@@ -56,6 +60,7 @@ class Favorite extends React.Component {
 
 
     render() {
+        if(this.state.return) return <Redirect to="/locatario" />
         return (
             <div id="locatario-favorite">
                 <header>
@@ -65,7 +70,12 @@ class Favorite extends React.Component {
                     <div className="container">
                         <div className="row" style={{ marginTop: "30px" }}>
                             <div className="col-sm-9">
-                                <h3 style={{ color: "#3f51b5" }}>My favorite houses</h3>
+                                <h3 style={{ color: "#3f51b5" }}>
+                                    <IconButton aria-label="back">
+                                        <ArrowBack onClick={() => this.setState({ return: true })} style={{ color: "#3f51b5" }} fontSize="medium" />
+                                    </IconButton>
+                                    My favorite houses
+                                </h3>
                             </div>
 
                         </div>
