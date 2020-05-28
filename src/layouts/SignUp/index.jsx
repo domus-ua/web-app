@@ -11,6 +11,8 @@ import {Button, Modal} from "react-bootstrap";
 
 import CompareList from "components/CompareList";
 
+import defaultUser from "assets/img/default-user.png";
+
 class SignUp extends React.Component {
 
     constructor(props) {
@@ -292,7 +294,7 @@ class SignUp extends React.Component {
                         <div className="row" style={{ marginTop: "10px" }}>
                             <div className="col-sm-3"></div>
                             <div className="col-sm-2">
-                                <img id="photo1" className="profile-photo" onClick={() => this.triggerUpload(1)} alt="Avatar 1"/>
+                                <img id="photo1" src={defaultUser} className="profile-photo" onClick={() => this.triggerUpload(1)} alt="Avatar 1"/>
                             </div>
                         </div>
                         <input id="upload" type="file" style={{ display: "none" }} onChange={(event) => this.uploadPicture(event)} />
