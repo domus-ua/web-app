@@ -7,6 +7,9 @@ import UserNavbar from "components/UserNavbar";
 import uris from "variables/uris";
 
 import RentHouse from "layouts/Locador/RentHouse";
+import Rating from '@material-ui/lab/Rating';
+import TextField from '@material-ui/core/TextField';
+import Box from '@material-ui/core/Box';
 
 class HouseDetails extends React.Component {
 
@@ -16,7 +19,8 @@ class HouseDetails extends React.Component {
         this.state = {
             house: JSON.parse(localStorage.getItem('currentHouse')),
             fetching: true,
-            rentHouse: false
+            rentHouse: false,
+            rating: 1
         }
 
         this.authUser = JSON.parse(localStorage.getItem('authUser'));
@@ -275,6 +279,36 @@ class HouseDetails extends React.Component {
                                                     <li><i className="fas fa-phone align-icons"></i> <span>{this.state.house.locador.user.phoneNumber}</span></li>
                                                 </ul>
                                             </div>
+                                        </div>
+                                        <div className="row" style={{ marginTop: "30px" }}>
+                                            <div className="col-sm-3">
+                                                <h4 style={{ color: "#252525" }} data-testid="house-seller">
+                                                    Make a review
+                                                </h4>
+                                            </div>
+                                            <div className="col-sm-9" style={{ marginLeft: "-100px", marginTop: "5px" }}>
+                                                <Box component="fieldset" mb={3} borderColor="transparent">
+                                                    <Rating
+                                                        name="simple-controlled"
+                                                        value={this.state.rating}
+                                                        onChange={(event, newValue) => {
+                                                            this.setState({
+                                                                rating: newValue
+                                                            })
+                                                        }}
+                                                    />
+                                                </Box></div>
+                                        </div>
+                                        <div className="row" style={{ marginTop: "5px" }}>
+                                            <div className="col-sm-4">
+                                                <TextField id="title" label="Comment" variant="outlined" style={{ width: "100%" }} />
+                                            </div>
+                                            <div className="col-sm-2">
+                                                <div className="signin-button" onClick={() => this.setState({ rentHouse: true })}>
+                                                    <span id="comment-button"><i className="fas fa-comment"></i> Send review</span>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </>
                                 }
