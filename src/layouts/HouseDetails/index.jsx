@@ -198,24 +198,46 @@ class HouseDetails extends React.Component {
                                         <div className="col-sm-12"><h1>{this.state.house.price} €</h1></div>
                                     </div>
                                 </div>
-                                <div className="row" style={{ marginTop: "30px" }}>
+                                <div className="row">
+                                    <div className="col-sm-12">
+                                        <hr />
+                                    </div>
+                                </div>
+                                <div className="row" style={{ marginTop: "20px" }}>
                                     <div className="col-sm-12">
                                         <h4 style={{ color: "#252525" }} data-testid="house-reviews">
                                             Reviews
                                         </h4>
                                     </div>
-                                    {this.state.house.reviewsReceived.length === 0 ? 
-                                    <div className="col-sm-12">
-                                        <p className="house-description">There are no reviews for this house.</p>
-                                    </div> : ""
+                                </div>
+                                <div className="row" style={{ marginTop: "30px" }}>
+                                    {this.state.house.reviewsReceived.length === 0 ?
+                                        <div className="col-sm-12">
+                                            <p className="house-description">There are no reviews for this house.</p>
+                                        </div> : ""
                                     }
                                     {
                                         this.state.house.reviewsReceived.map((review) => {
-                                            return <p>{console.log(review)}</p>
+                                            return <><div className="col-sm-1">
+                                                <img src={"data:image;base64, " + review.locatario.user.photo} id="seller-picture" className="seller-picture" alt="House 1" />
+                                            </div>
+
+                                                <div className="col-sm-2" style={{ marginLeft: "30px" }}>
+                                                    <ul className="house-details-list">
+                                                        <li><i className="fas fa-user align-icons"></i> <span>{review.locatario.user.firstName + " " + review.locatario.user.lastName}</span></li>
+                                                        <li><i className="fas fa-star align-icons"></i> <span>{review.rating}</span></li>
+                                                        <li><i className="fas fa-comment align-icons"></i> <span>"{review.comment}"</span></li>
+                                                        <li><i className="fas fa-calendar-alt align-icons"></i> <span>{review.timestamp.split("T")[0]}</span></li>
+                                                    </ul>
+                                                </div>
+                                            </>
                                         })
                                     }
-
                                 </div>
+
+
+
+
 
                                 {this.authUser === null &&
                                     <>
