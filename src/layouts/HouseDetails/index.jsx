@@ -224,10 +224,20 @@ class HouseDetails extends React.Component {
                             </div> :
                             <div>
                                 <div className="row" style={{ marginTop: "20px" }}>
-                                    <div className="col-sm-12">
+                                    <div className="col-sm-10">
                                         <h4 style={{ color: "#3f51b5" }} id="house-name">{this.state.house.name}</h4>
 
                                     </div>
+                                    <div className="col-sm-2">
+                                        {
+                                            this.authUser !== null && this.authUser.role === "locatario" &&
+                                            <div className="signin-button">
+                                                <span id="rent-button"><i className="fas fa-heart"></i> Add to favorites</span>
+                                            </div>
+                                        }
+
+                                    </div>
+
                                     <div className="col-sm-12">
                                         <Box component="fieldset" mb={3} borderColor="transparent">
                                             <Rating name="read-only" value={this.state.house.averageRating} readOnly />
