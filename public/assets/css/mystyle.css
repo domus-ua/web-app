@@ -1,7 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+
 body {
     font-family: 'Lato', sans-serif;
+    margin-bottom: 100px;
 }
 
 a {
@@ -85,7 +92,7 @@ nav ul li a:hover {
 
 .user-image:hover {
     cursor: pointer;
-    border: 2px solid rgb(167, 170, 209);;
+    border: 2px solid rgb(167, 170, 209);
 }
 
 header {
@@ -93,7 +100,7 @@ header {
 }
 
 header.with-banner {
-    background-image: url('../../../src/assets/img/home/banner.png');
+    background-image: url('../img/home/banner.png');
     background-repeat: no-repeat;
     background-size: cover;
     width: 100%;
@@ -102,7 +109,7 @@ header.with-banner {
 
 #all-houses > header.with-banner {
     height: 200px;
-    background-image: url('../../../src/assets/img/banners/all-houses.png');
+    background-image: url('../img/banners/all-houses.png');
 }
 
 
@@ -116,8 +123,8 @@ section.alternate {
 }
 
 footer {
-    bottom: 0px;
-    position: relative;
+    position: absolute;
+    bottom: 0;
     background-color: #252525;
     padding: 20px;
     width: 100%;

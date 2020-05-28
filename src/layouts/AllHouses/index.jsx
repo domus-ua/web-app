@@ -12,6 +12,7 @@ import uris from "variables/uris";
 
 import CompareList from "components/CompareList";
 
+
 class AllHouses extends React.Component {
 
     constructor(props) {

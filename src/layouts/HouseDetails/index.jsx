@@ -324,7 +324,7 @@ class HouseDetails extends React.Component {
                                                         <li><i className="fas fa-star align-icons"></i> <span>{review.rating}</span></li>
                                                         <li><i className="fas fa-comment align-icons"></i> <span>"{review.comment}"</span></li>
                                                         <li><i className="fas fa-calendar-alt align-icons"></i> <span>{review.timestamp !== null && review.timestamp.split("T")[0]}</span></li>
-                                                        {this.authUser.id === review.locatario.user.id && <li className="delete-review" onClick={this.deleteReviews}><i className="fas fa-times align-icons"></i> Delete review</li>}
+                                                        {this.authUser !== null && this.authUser.id === review.locatario.user.id && <li className="delete-review" onClick={this.deleteReviews}><i className="fas fa-times align-icons"></i> Delete review</li>}
                                                     </ul>
                                                 </div>
                                             </>
