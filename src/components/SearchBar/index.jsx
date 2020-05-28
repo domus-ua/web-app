@@ -260,6 +260,7 @@ class SearchBar extends React.Component {
                                                 rooms={house.noRooms}
                                                 price={house.price}
                                                 area={house.habitableArea}
+                                                image={"data:image;base64, " + house.photos[0]}
                                             />
                                         </div>
                                     })}

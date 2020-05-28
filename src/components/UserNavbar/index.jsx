@@ -43,7 +43,7 @@ class UserNavbar extends React.Component {
                             <li><a href={"/" + this.authUser.role}>Home</a></li>
                             <li>
                                 <div className="my-dropdown">
-                                    <img src={this.authUser.user.photo} className="user-image" alt="Current user" />
+                                    <img src={"data:image;base64, " + this.authUser.user.photo} className="user-image" alt="Current user" />
                                     <div className="my-dropdown-content">
                                         <div onClick={() => this.setState({redirect: true, page: 1})}>Profile</div>
                                         <div>Settings</div>

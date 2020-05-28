@@ -52,6 +52,7 @@ class AllHouses extends React.Component {
             })
             .then(data => {
                 this.allHouses = data;
+                console.log(data);
                 this.setState({
                     houses: this.allHouses
                 })
@@ -149,6 +150,7 @@ class AllHouses extends React.Component {
                                         rooms={house.noRooms}
                                         price={house.price}
                                         area={house.habitableArea}
+                                        image={"data:image;base64, " + house.photos[0]}
                                     />
                                 </div>
                             })}

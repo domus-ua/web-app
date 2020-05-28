@@ -87,7 +87,7 @@ class HouseDetails extends React.Component {
                     house: data,
                     fetching: false
                 })
-                
+
             })
             .catch(error => {
                 console.log("Fetch error: " + error);
@@ -103,7 +103,7 @@ class HouseDetails extends React.Component {
             let noPhotos = this.state.house.photos.length < 4 ? this.state.house.photos.length : 4;
 
             for (var i = 0; i < noPhotos; i++) {
-                document.getElementById("photo" + (i + 1)).src = this.state.house.photos[i];
+                document.getElementById("photo" + (i + 1)).src = "data:image;base64, " + this.state.house.photos[i];
             }
         }
 
@@ -204,9 +204,17 @@ class HouseDetails extends React.Component {
                                             Reviews
                                         </h4>
                                     </div>
+                                    {this.state.house.reviewsReceived.length === 0 ? 
                                     <div className="col-sm-12">
-                                        <p className="house-description">{this.state.house.reviewsReceived.length === 0 ? "There are no reviews for this house." : ""}</p>
-                                    </div>
+                                        <p className="house-description">There are no reviews for this house.</p>
+                                    </div> : ""
+                                    }
+                                    {
+                                        this.state.house.reviewsReceived.map((review) => {
+                                            return <p>{console.log(review)}</p>
+                                        })
+                                    }
+
                                 </div>
 
                                 {this.authUser === null &&
@@ -236,7 +244,7 @@ class HouseDetails extends React.Component {
                                         </div>
                                         <div className="row" style={{ marginTop: "30px" }}>
                                             <div className="col-sm-1">
-                                                <img id="seller-picture" className="seller-picture" alt="House 1" />
+                                                <img src={"data:image;base64, " + this.state.house.locador.user.photo} id="seller-picture" className="seller-picture" alt="House 1" />
                                             </div>
                                             <div className="col-sm-10" style={{ marginLeft: "30px" }}>
                                                 <ul className="house-details-list">

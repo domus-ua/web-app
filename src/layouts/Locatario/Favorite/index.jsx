@@ -92,6 +92,7 @@ class Favorite extends React.Component {
                                             price={house.price}
                                             area={house.habitableArea}
                                             isFavorite={true}
+                                            image={"data:image;base64, " + house.photos[0]}
                                         />
                                     </div>
                                 })}
