@@ -13,7 +13,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import uris from "variables/uris";
 import defaultImage from "assets/img/home/home.jpg";
 import IconButton from "@material-ui/core/IconButton";
-import {Modal} from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 
 const useStyles = makeStyles({
   root: {
@@ -26,47 +26,50 @@ const useStyles = makeStyles({
 });
 
 function delHouse(id) {
-    fetch(uris.restApi.houses + "/" + id, {
-        method: "DELETE",
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json"
-        }
-    })
+  fetch(uris.restApi.houses + "/" + id, {
+    method: "DELETE",
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    }
+  })
     .then(response => {
-        if (!response.ok) throw new Error(response.status);
-        else {
-          window.location.reload();
-          return response.json();
-        }
+      if (!response.ok) throw new Error(response.status);
+      else {
+        window.location.reload();
+        return response.json();
+      }
     })
     .catch(error => {
-        console.log("Fetch error: " + error);
+      console.log("Fetch error: " + error);
     })
 }
 
-function HouseCard({id, title, city, rooms, price, area, image}) {
+function HouseCard({ id, title, city, rooms, price, area, image, rating }) {
   const classes = useStyles();
 
   const [redirect, setRedirect] = useState(false);
   const [deleteHouse, setDelete] = useState(false);
 
-  if(image === undefined) {
+  if (image === undefined) {
     image = defaultImage;
   }
 
-  if(redirect) { return <Redirect to="/house-details" />}
+  if (redirect) { return <Redirect to="/house-details" /> }
   return (
     <Card className={classes.root}>
-      <CardActionArea onClick={ () => {localStorage.setItem('currentHouse', JSON.stringify({id: id})); setRedirect(true);}}>
+      <CardActionArea onClick={() => { localStorage.setItem('currentHouse', JSON.stringify({ id: id })); setRedirect(true); }}>
         <CardMedia
           className={classes.media}
           image={image}
           title={title}
         />
-        <CardContent style={{minHeight: "200px"}}>
+        <CardContent style={{ minHeight: "200px" }}>
           <Typography gutterBottom variant="h5" component="h5">
             {title}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            <i className="fas fa-star"></i> {rating}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
             <strong>City:</strong> {city}
@@ -84,24 +87,24 @@ function HouseCard({id, title, city, rooms, price, area, image}) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <IconButton aria-label="delete house"  data-testid={"house-card"+id}>
+        <IconButton aria-label="delete house" data-testid={"house-card" + id}>
           <DeleteIcon
-              onClick={() => setDelete(true)}
+            onClick={() => setDelete(true)}
           />
         </IconButton>
         <IconButton aria-label="edit house">
           <EditIcon
           />
         </IconButton>
-        <Button size="small" style={{backgroundColor: "#3f51b5", color: "white" }}>
+        <Button size="small" style={{ backgroundColor: "#3f51b5", color: "white" }}>
           Details
         </Button>
       </CardActions>
       <Modal
-          show={deleteHouse}
-          size="lg"
-          aria-labelledby="contained-modal-title-vcenter"
-          centered
+        show={deleteHouse}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
       >
         <Modal.Header>
           <Modal.Title id="contained-modal-title-vcenter">
@@ -110,8 +113,8 @@ function HouseCard({id, title, city, rooms, price, area, image}) {
         </Modal.Header>
         <Modal.Body>
           <div className="col-sm-12 text-center">
-          <Button onClick={() => { delHouse(id); setDelete(false); }}>Yes</Button>
-          <Button style={{alignItems: "center", margin: "auto"}} onClick={() =>  setDelete(false) }>No</Button>
+            <Button onClick={() => { delHouse(id); setDelete(false); }}>Yes</Button>
+            <Button style={{ alignItems: "center", margin: "auto" }} onClick={() => setDelete(false)}>No</Button>
           </div>
         </Modal.Body>
       </Modal>

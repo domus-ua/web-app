@@ -82,7 +82,6 @@ const fetchFavorite = (houseId, favorite) => {
 
             })
             .then(data => {
-                console.log(data);
             })
             .catch(error => {
                 console.log("Fetch error: " + error);
@@ -110,7 +109,7 @@ const fetchFavorite = (houseId, favorite) => {
     }
 }
 
-function HouseCard({ id, title, city, rooms, price, area, image, isFavorite }) {
+function HouseCard({ id, title, city, rooms, price, area, image, rating, isFavorite }) {
     const classes = useStyles();
 
     const [favorite, setFavorite] = useState(isFavorite === true ? true : false);
@@ -141,6 +140,9 @@ function HouseCard({ id, title, city, rooms, price, area, image, isFavorite }) {
                     <CardContent style={{ minHeight: "200px" }}>
                         <Typography gutterBottom variant="h5" component="h5">
                             {title}
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                            <i className="fas fa-star"></i> {rating}
                         </Typography>
                         <Typography variant="body2" color="textSecondary" component="p">
                             <strong>City:</strong> {city}
