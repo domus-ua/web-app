@@ -67,8 +67,6 @@ const addHouseToComparison = (id, title, compare) => {
 
 const fetchFavorite = (houseId, favorite) => {
 
-    console.log(JSON.stringify({ houseId: houseId, locatarioId: JSON.parse(localStorage.getItem('authUser')).id }));
-
     if (!favorite) {
         fetch(uris.restApi.wishlist, {
             method: "POST",
@@ -84,12 +82,12 @@ const fetchFavorite = (houseId, favorite) => {
 
             })
             .then(data => {
-                console.log(data);
             })
             .catch(error => {
                 console.log("Fetch error: " + error);
             })
     } else {
+
         fetch(uris.restApi.wishlist, {
             method: "DELETE",
             headers: {
@@ -104,7 +102,6 @@ const fetchFavorite = (houseId, favorite) => {
 
             })
             .then(data => {
-                console.log(data);
             })
             .catch(error => {
                 console.log("Fetch error: " + error);
@@ -112,7 +109,7 @@ const fetchFavorite = (houseId, favorite) => {
     }
 }
 
-function HouseCard({ id, title, city, rooms, price, area, image, isFavorite }) {
+function HouseCard({ id, title, city, rooms, price, area, image, rating, isFavorite }) {
     const classes = useStyles();
 
     const [favorite, setFavorite] = useState(isFavorite === true ? true : false);
@@ -145,6 +142,9 @@ function HouseCard({ id, title, city, rooms, price, area, image, isFavorite }) {
                             {title}
                         </Typography>
                         <Typography variant="body2" color="textSecondary" component="p">
+                            <i className="fas fa-star"></i> {rating}
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary" component="p">
                             <strong>City:</strong> {city}
                         </Typography>
                         <Typography variant="body2" color="textSecondary" component="p">
@@ -163,7 +163,7 @@ function HouseCard({ id, title, city, rooms, price, area, image, isFavorite }) {
                     {authUser !== null &&
                         <IconButton aria-label="add to favorites">
                             <FavoriteIcon
-                                onClick={() => { setFavorite(!favorite); fetchFavorite(id, favorite); setModalOpen(true);}}
+                                onClick={() => { setFavorite(!favorite); fetchFavorite(id, favorite); setModalOpen(true); }}
                                 style={{ color: favoriteButton }}
                             />
                         </IconButton>
@@ -171,7 +171,7 @@ function HouseCard({ id, title, city, rooms, price, area, image, isFavorite }) {
                     <IconButton aria-label="add to favorites">
                         <CompareArrowsIcon
                             data-testid={"house-card" + id}
-                            onClick={() => { setCompare(!compare); addHouseToComparison(id, title);  }}
+                            onClick={() => { setCompare(!compare); addHouseToComparison(id, title); }}
                             style={{ color: compareButton }}
                         />
                     </IconButton>
@@ -192,7 +192,7 @@ function HouseCard({ id, title, city, rooms, price, area, image, isFavorite }) {
 </Modal.Title>
                 </Modal.Header>
                 <Modal.Footer>
-                    <ModalButton onClick={() => {setModalOpen(false); if(!favorite && window.location.href.includes("locatario/favorite")) window.location.reload();}}>Close</ModalButton>
+                    <ModalButton onClick={() => { setModalOpen(false); }}>Close</ModalButton>
                 </Modal.Footer>
             </Modal>
         </>
