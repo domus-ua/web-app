@@ -6,6 +6,7 @@ import UserNavbar from "components/UserNavbar";
 
 import uris from "variables/uris";
 
+import { Button as ModalButton, Modal } from "react-bootstrap";
 import RentHouse from "layouts/Locador/RentHouse";
 import Rating from '@material-ui/lab/Rating';
 import TextField from '@material-ui/core/TextField';
@@ -22,13 +23,16 @@ class HouseDetails extends React.Component {
             house: JSON.parse(localStorage.getItem('currentHouse')),
             fetching: true,
             rentHouse: false,
-            rating: 1
+            rating: 1,
+            favorite: false,
+            modalOpen: false
         }
 
         this.authUser = JSON.parse(localStorage.getItem('authUser'));
         this.getHouseDetails = this.getHouseDetails.bind(this);
         this.sendReviews = this.sendReviews.bind(this);
         this.deleteReviews = this.deleteReviews.bind(this);
+        this.favorite = this.favorite.bind(this);
     }
 
     getHouseDetails() {
@@ -102,9 +106,59 @@ class HouseDetails extends React.Component {
             })
     }
 
+    favorite() {
+        if (!this.state.favorite) {
+            fetch(uris.restApi.wishlist, {
+                method: "POST",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ houseId: this.state.house.id, locatarioId: this.authUser.id })
+            })
+                .then(response => {
+                    if (!response.ok) throw new Error(response.status);
+                    else return response;
+
+                })
+                .then(data => {
+                    this.setState({
+                        favorite: true,
+                        modalOpen: true
+                    })
+                })
+                .catch(error => {
+                    console.log("Fetch error: " + error);
+                })
+        } else {
+
+            fetch(uris.restApi.wishlist, {
+                method: "DELETE",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ houseId: this.state.house.id, locatarioId: this.authUser.id })
+            })
+                .then(response => {
+                    if (!response.ok || response.status !== 204) throw new Error(response.status);
+                    else return response;
+
+                })
+                .then(data => {
+                    this.setState({
+                        favorite: false,
+                        modalOpen: true
+                    })
+                })
+                .catch(error => {
+                    console.log("Fetch error: " + error);
+                })
+        }
+    }
+
     componentDidMount() {
         this.getHouseDetails();
-
     }
 
     componentDidUpdate() {
@@ -226,15 +280,15 @@ class HouseDetails extends React.Component {
                             </div> :
                             <div>
                                 <div className="row" style={{ marginTop: "20px" }}>
-                                    <div className="col-sm-10">
+                                    <div className="col-sm-9">
                                         <h4 style={{ color: "#3f51b5" }} id="house-name">{this.state.house.name}</h4>
 
                                     </div>
-                                    <div className="col-sm-2">
+                                    <div className="col-sm-3">
                                         {
                                             this.authUser !== null && this.authUser.role === "locatario" &&
-                                            <div className="signin-button">
-                                                <span id="rent-button"><i className="fas fa-heart"></i> Add to favorites</span>
+                                            <div className="signin-button" onClick={this.favorite}>
+                                                <span id="favorites-button"><i className="fas fa-heart"></i> {this.state.favorite === true ? "Remove from favorites" : "Add to favorites"}</span>
                                             </div>
                                         }
 
@@ -426,6 +480,21 @@ class HouseDetails extends React.Component {
                     </div>
                 </section>
                 <Footer />
+                <Modal
+                show={this.state.modalOpen}
+                size="lg"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title id="contained-modal-title-vcenter">
+                        <i class="fas fa-heart"></i> House {this.state.favorite === true ? "added to" : "removed from"} favorites!
+</Modal.Title>
+                </Modal.Header>
+                <Modal.Footer>
+                    <ModalButton onClick={() => this.setState({modalOpen: false})}>Close</ModalButton>
+                </Modal.Footer>
+            </Modal>
             </div >
         );
     }

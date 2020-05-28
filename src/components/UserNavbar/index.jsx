@@ -21,7 +21,7 @@ class UserNavbar extends React.Component {
             <div onClick={() => this.setState({redirect: true, page: "/locador"})}>Home</div>,
             <div onClick={() => this.setState({redirect: true, page: "/locador/profile"})}>Profile</div>,
             <div onClick={() => this.setState({redirect: true, page: "/locador/houses"})}>My houses</div>,
-            <div onClick={() => this.setState({redirect: true, page: "/locador/houses"})}>Upload new-house</div>,
+            <div onClick={() => this.setState({redirect: true, page: "/locador/houses"})}>Upload new house</div>,
             <div onClick={() => this.setState({redirect: true, page: "/home"})}>Search houses</div>,
             <div onClick={() => this.setState({redirect: true, page: "/houses"})}>All houses</div>,
         ];
