@@ -6,6 +6,7 @@ import UserNavbar from "components/UserNavbar";
 
 import uris from "variables/uris";
 
+import RentHouse from "layouts/Locador/RentHouse";
 
 class HouseDetails extends React.Component {
 
@@ -14,7 +15,8 @@ class HouseDetails extends React.Component {
 
         this.state = {
             house: JSON.parse(localStorage.getItem('currentHouse')),
-            fetching: true
+            fetching: true,
+            rentHouse: false
         }
 
         this.authUser = JSON.parse(localStorage.getItem('authUser'));
@@ -85,6 +87,7 @@ class HouseDetails extends React.Component {
                     house: data,
                     fetching: false
                 })
+
             })
             .catch(error => {
                 console.log("Fetch error: " + error);
@@ -96,16 +99,18 @@ class HouseDetails extends React.Component {
     }
 
     componentDidUpdate() {
-        if (!this.state.fetching) {
+        if (!this.state.fetching && !this.state.rentHouse) {
             let noPhotos = this.state.house.photos.length < 4 ? this.state.house.photos.length : 4;
 
             for (var i = 0; i < noPhotos; i++) {
-                document.getElementById("photo" + (i + 1)).src = this.state.house.photos[i];
+                document.getElementById("photo" + (i + 1)).src = "data:image;base64, " + this.state.house.photos[i];
             }
         }
+
     }
 
     render() {
+        if (this.state.rentHouse) return <RentHouse house={this.state.house} />
         return (
             <div id="house-details">
                 {this.authUser === null ?
@@ -193,52 +198,106 @@ class HouseDetails extends React.Component {
                                         <div className="col-sm-12"><h1>{this.state.house.price} €</h1></div>
                                     </div>
                                 </div>
-                                <div className="row" style={{ marginTop: "30px" }}>
+                                <div className="row">
+                                    <div className="col-sm-12">
+                                        <hr />
+                                    </div>
+                                </div>
+                                <div className="row" style={{ marginTop: "20px" }}>
                                     <div className="col-sm-12">
                                         <h4 style={{ color: "#252525" }} data-testid="house-reviews">
                                             Reviews
                                         </h4>
                                     </div>
-                                    <div className="col-sm-12">
-                                        <p className="house-description">{this.state.house.reviewsReceived.length === 0 ? "There are no reviews for this house." : ""}</p>
-                                    </div>
                                 </div>
                                 <div className="row" style={{ marginTop: "30px" }}>
-                                    <div className="col-sm-12">
-                                        <h4 style={{ color: "#252525" }} data-testid="house-seller">
-                                            Contact seller
-                                        </h4>
-                                    </div>
+                                    {this.state.house.reviewsReceived.length === 0 ?
+                                        <div className="col-sm-12">
+                                            <p className="house-description">There are no reviews for this house.</p>
+                                        </div> : ""
+                                    }
+                                    {
+                                        this.state.house.reviewsReceived.map((review) => {
+                                            return <><div className="col-sm-1">
+                                                <img src={"data:image;base64, " + review.locatario.user.photo} id="seller-picture" className="seller-picture" alt="House 1" />
+                                            </div>
+
+                                                <div className="col-sm-2" style={{ marginLeft: "30px" }}>
+                                                    <ul className="house-details-list">
+                                                        <li><i className="fas fa-user align-icons"></i> <span>{review.locatario.user.firstName + " " + review.locatario.user.lastName}</span></li>
+                                                        <li><i className="fas fa-star align-icons"></i> <span>{review.rating}</span></li>
+                                                        <li><i className="fas fa-comment align-icons"></i> <span>"{review.comment}"</span></li>
+                                                        <li><i className="fas fa-calendar-alt align-icons"></i> <span>{review.timestamp.split("T")[0]}</span></li>
+                                                    </ul>
+                                                </div>
+                                            </>
+                                        })
+                                    }
                                 </div>
-                                {
-                                    this.authUser === null ?
+
+
+
+
+
+                                {this.authUser === null &&
+                                    <>
+                                        <div className="row" style={{ marginTop: "30px" }}>
+                                            <div className="col-sm-12">
+                                                <h4 style={{ color: "#252525" }} data-testid="house-seller">
+                                                    Contact seller
+                                            </h4>
+                                            </div>
+                                        </div>
                                         <div className="row" style={{ marginTop: "30px" }}>
                                             <div className="col-sm-12">
                                                 <p className="house-description"><a href="/signin">Sign In</a> to see seller details.</p>
                                             </div>
                                         </div>
-                                        :
-
+                                    </>
+                                }
+                                {this.authUser !== null && (this.authUser.role === "locatario" || (this.authUser.role === "locador" && this.state.house.locador.user.email !== this.authUser.user.email)) &&
+                                    <>
+                                        <div className="row" style={{ marginTop: "30px" }}>
+                                            <div className="col-sm-12">
+                                                <h4 style={{ color: "#252525" }} data-testid="house-seller">
+                                                    Contact seller
+                                            </h4>
+                                            </div>
+                                        </div>
                                         <div className="row" style={{ marginTop: "30px" }}>
                                             <div className="col-sm-1">
-                                                <img id="seller-picture" className="seller-picture" alt="House 1" />
+                                                <img src={"data:image;base64, " + this.state.house.locador.user.photo} id="seller-picture" className="seller-picture" alt="House 1" />
                                             </div>
                                             <div className="col-sm-10" style={{ marginLeft: "30px" }}>
                                                 <ul className="house-details-list">
                                                     <li><i className="fas fa-user align-icons"></i> <span>{this.state.house.locador.user.firstName + " " + this.state.house.locador.user.lastName}</span></li>
                                                     <li><i className="fas fa-envelope align-icons"></i> <span>{this.state.house.locador.user.email}</span></li>
                                                     <li><i className="fas fa-phone align-icons"></i> <span>{this.state.house.locador.user.phoneNumber}</span></li>
-                                                    <li><i className="fas fa-sign-in-alt align-icons"></i> <span>Online on {this.state.house.locador.user.lastLogin.split("T")[0]}</span></li>
                                                 </ul>
                                             </div>
                                         </div>
+                                    </>
                                 }
-                            </div>}
+                                {this.authUser !== null && this.authUser.role === "locador" && this.state.house.locador.user.email === this.authUser.user.email &&
+                                    <>
+                                        <div className="row">
+                                            <div className="col-sm-6"></div>
+                                            <div className="col-sm-6">
+                                                <div className="signin-button" onClick={() => this.setState({ rentHouse: true })}>
+                                                    <span id="rent-button"><i className="fas fa-sign-in-alt"></i> Rent this house</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </>
+                                }
+                            </div>
+
+                        }
                     </div>
                 </section>
-
                 <Footer />
-            </div>
+            </div >
         );
     }
 

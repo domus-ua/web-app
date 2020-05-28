@@ -12,7 +12,11 @@ import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import CompareArrowsIcon from '@material-ui/icons/CompareArrows';
 
+import { Button as ModalButton, Modal } from "react-bootstrap";
+
 import defaultImage from "assets/img/home/home.jpg";
+
+import uris from "variables/uris";
 
 const useStyles = makeStyles({
     root: {
@@ -61,12 +65,63 @@ const addHouseToComparison = (id, title, compare) => {
 
 }
 
-function HouseCard({ id, title, city, rooms, price, area, image }) {
+const fetchFavorite = (houseId, favorite) => {
+
+    console.log(JSON.stringify({ houseId: houseId, locatarioId: JSON.parse(localStorage.getItem('authUser')).id }));
+
+    if (!favorite) {
+        fetch(uris.restApi.wishlist, {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ houseId: houseId, locatarioId: JSON.parse(localStorage.getItem('authUser')).id })
+        })
+            .then(response => {
+                if (!response.ok) throw new Error(response.status);
+                else return response;
+
+            })
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.log("Fetch error: " + error);
+            })
+    } else {
+        fetch(uris.restApi.wishlist, {
+            method: "DELETE",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ houseId: houseId, locatarioId: JSON.parse(localStorage.getItem('authUser')).id })
+        })
+            .then(response => {
+                if (!response.ok || response.status !== 204) throw new Error(response.status);
+                else return response;
+
+            })
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.log("Fetch error: " + error);
+            })
+    }
+}
+
+function HouseCard({ id, title, city, rooms, price, area, image, isFavorite }) {
     const classes = useStyles();
 
-    const [favorite, setFavorite] = useState(false);
+    const [favorite, setFavorite] = useState(isFavorite === true ? true : false);
     const [compare, setCompare] = useState(false);
     const [redirect, setRedirect] = useState(false);
+
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const authUser = JSON.parse(localStorage.getItem('authUser'));
 
     if (image === undefined) {
         image = defaultImage;
@@ -75,53 +130,72 @@ function HouseCard({ id, title, city, rooms, price, area, image }) {
     let favoriteButton = favorite === true ? "red" : "";
     let compareButton = compare === true ? "#3f51b5" : "";
 
-    if (redirect) { return <Redirect to="house-details" /> }
+    if (redirect) { return <Redirect to="/house-details" /> }
     return (
-        <Card className={classes.root}>
-            <CardActionArea onClick={() => { localStorage.setItem('currentHouse', JSON.stringify({ id: id })); setRedirect(true); }}>
-                <CardMedia
-                    className={classes.media}
-                    image={image}
-                    title={title}
-                />
-                <CardContent style={{ minHeight: "200px" }}>
-                    <Typography gutterBottom variant="h5" component="h5">
-                        {title}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                        <strong>City:</strong> {city}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                        <strong>Rooms:</strong> {rooms}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                        <strong>Price:</strong> {price} €
+        <>
+            <Card className={classes.root}>
+                <CardActionArea onClick={() => { localStorage.setItem('currentHouse', JSON.stringify({ id: id })); setRedirect(true); }}>
+                    <CardMedia
+                        className={classes.media}
+                        image={image}
+                        title={title}
+                    />
+                    <CardContent style={{ minHeight: "200px" }}>
+                        <Typography gutterBottom variant="h5" component="h5">
+                            {title}
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                            <strong>City:</strong> {city}
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                            <strong>Rooms:</strong> {rooms}
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                            <strong>Price:</strong> {price} €
           </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                        <strong>Habitable area:</strong> {area}m2
+                        <Typography variant="body2" color="textSecondary" component="p">
+                            <strong>Habitable area:</strong> {area}m2
           </Typography>
 
-                </CardContent>
-            </CardActionArea>
-            <CardActions>
-                <IconButton aria-label="add to favorites">
-                    <FavoriteIcon
-                        onClick={() => setFavorite(!favorite)}
-                        style={{ color: favoriteButton }}
-                    />
-                </IconButton>
-                <IconButton aria-label="add to favorites">
-                    <CompareArrowsIcon
-                        data-testid={"house-card"+id}
-                        onClick={() => { setCompare(!compare); addHouseToComparison(id, title, compare) }}
-                        style={{ color: compareButton }}
-                    />
-                </IconButton>
-                <Button size="small" style={{ backgroundColor: "#3f51b5", color: "white" }}>
-                    Details
+                    </CardContent>
+                </CardActionArea>
+                <CardActions>
+                    {authUser !== null &&
+                        <IconButton aria-label="add to favorites">
+                            <FavoriteIcon
+                                onClick={() => { setFavorite(!favorite); fetchFavorite(id, favorite); setModalOpen(true);}}
+                                style={{ color: favoriteButton }}
+                            />
+                        </IconButton>
+                    }
+                    <IconButton aria-label="add to favorites">
+                        <CompareArrowsIcon
+                            data-testid={"house-card" + id}
+                            onClick={() => { setCompare(!compare); addHouseToComparison(id, title);  }}
+                            style={{ color: compareButton }}
+                        />
+                    </IconButton>
+                    <Button size="small" style={{ backgroundColor: "#3f51b5", color: "white" }}>
+                        Details
         </Button>
-            </CardActions>
-        </Card>
+                </CardActions>
+            </Card>
+            <Modal
+                show={modalOpen}
+                size="lg"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title id="contained-modal-title-vcenter">
+                        <i class="fas fa-heart"></i> House {favorite === true ? "added to" : "removed from"} favorites!
+</Modal.Title>
+                </Modal.Header>
+                <Modal.Footer>
+                    <ModalButton onClick={() => {setModalOpen(false); if(!favorite && window.location.href.includes("locatario/favorite")) window.location.reload();}}>Close</ModalButton>
+                </Modal.Footer>
+            </Modal>
+        </>
     );
 }
 
