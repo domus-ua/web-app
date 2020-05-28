@@ -1,8 +1,6 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 
-import defaultUser from "assets/img/default-user.png";
-
 class UserNavbar extends React.Component {
 
     constructor(props) {

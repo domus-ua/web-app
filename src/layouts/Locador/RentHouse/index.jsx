@@ -1,6 +1,5 @@
 import React from "react";
 
-import Navbar from "components/Navbar2";
 import Footer from "components/Footer";
 import DatePicker from "components/DatePicker";
 import UserNavbar from "components/UserNavbar";

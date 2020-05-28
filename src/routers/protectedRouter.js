@@ -45,6 +45,7 @@ export default [
     { path: '/locatario/profile', layout: <PrivateRoute path='/locatario/profile' component={ProfileLocatario} /> },
     { path: '/locatario/reviews', layout: <PrivateRoute path='/locatario/reviews' component={ReviewsLocatario} /> },
     { path: '/locador/reviews', layout: <PrivateRoute path='/locador/reviews' component={Reviews} /> },
+    { path: '/locador/contracts', layout: <PrivateRoute path='/locador/contracts' component={Contracts} /> },
     { path: '/locador/profile', layout: <PrivateRoute path='/locador/profile' component={Profile} /> },
     { path: '/locador/houses', layout: <PrivateRoute path='/locador/houses' component={MyHouses} /> },
     { path: '/locador/confirm-house', layout: <PrivateRoute path='/locador/confirm-house' component={ConfirmHouse} /> },

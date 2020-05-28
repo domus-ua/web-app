@@ -1,12 +1,7 @@
 import React from "react";
 
-import Navbar from "components/Navbar";
 import Footer from "components/Footer";
 import HouseCard from "components/HouseCard";
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import UserNavbar from "components/UserNavbar";
 import uris from "variables/uris";
 
