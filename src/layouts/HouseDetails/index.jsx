@@ -26,6 +26,7 @@ class HouseDetails extends React.Component {
         this.authUser = JSON.parse(localStorage.getItem('authUser'));
         this.getHouseDetails = this.getHouseDetails.bind(this);
         this.sendReviews = this.sendReviews.bind(this);
+        this.deleteReviews = this.deleteReviews.bind(this);
     }
 
     getHouseDetails() {
@@ -116,8 +117,6 @@ class HouseDetails extends React.Component {
     }
 
     sendReviews() {
-        console.log();
-        console.log(this.state.rating);
 
         let payload = {
             comment: document.getElementById("review-comment").value,
@@ -142,6 +141,41 @@ class HouseDetails extends React.Component {
             .then(data => {
                 let house = this.state.house;
                 house.reviewsReceived.push(data);
+
+                this.setState({
+                    house: house,
+                })
+            })
+            .catch(error => {
+                console.log("Fetch error: " + error);
+            })
+        document.getElementById("review-comment").value = "";
+
+    }
+
+    deleteReviews() {
+        fetch(uris.restApi.reviews + "/" + this.state.house.id + "/" + this.authUser.id, {
+            method: "DELETE",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (!response.ok || response.status !== 204) throw new Error(response.status);
+                else return response;
+
+            })
+            .then(data => {
+                let house = this.state.house;
+                let reviews = [];
+                house.reviewsReceived.forEach((review) => {
+                    if(review.locatario.user.id !== this.authUser.id) {
+                        reviews.push(review);
+                    }
+                });
+
+                house.reviewsReceived = reviews;
 
                 this.setState({
                     house: house,
@@ -273,7 +307,7 @@ class HouseDetails extends React.Component {
                                                         <li><i className="fas fa-star align-icons"></i> <span>{review.rating}</span></li>
                                                         <li><i className="fas fa-comment align-icons"></i> <span>"{review.comment}"</span></li>
                                                         <li><i className="fas fa-calendar-alt align-icons"></i> <span>{review.timestamp !== null && review.timestamp.split("T")[0]}</span></li>
-                                                        {this.authUser.id === review.locatario.user.id && <li className="delete-review"><i className="fas fa-times align-icons"></i> Delete review</li>}
+                                                        {this.authUser.id === review.locatario.user.id && <li className="delete-review" onClick={this.deleteReviews}><i className="fas fa-times align-icons"></i> Delete review</li>}
                                                     </ul>
                                                 </div>
                                             </>
