@@ -69,7 +69,7 @@ class UserNavbar extends React.Component {
                                 })
                             }
                             <li>
-                                <div className="my-dropdown">
+                                <div className="my-dropdown" data-testid="user-navbar">
                                     <img src={"data:image;base64, " + this.authUser.user.photo} className="user-image" alt="Current user" />
                                     <div className="my-dropdown-content">
                                         {
@@ -77,7 +77,7 @@ class UserNavbar extends React.Component {
                                                 return link;
                                             })
                                         }
-                                        <div onClick={this.signOut}>Sign out</div>
+                                        <div onClick={this.signOut} data-testid="sign-out">Sign out</div>
                                     </div>
                                 </div>
                             </li>

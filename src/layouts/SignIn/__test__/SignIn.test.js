@@ -3,8 +3,6 @@ const puppeteer = require('puppeteer');
 
 const publicRouter = {
     signin: '/signin',
-    signup: '/houses',
-    houses: '/signin',
     home: '/'
 }
 
@@ -21,7 +19,7 @@ const person = {
 const baseUri = 'http://localhost:3000';
 let browser;
 let page;
-let headless = true; // CHANGE TO 'true' IN EVERY COMMIT
+let headless = false; // CHANGE TO 'true' IN EVERY COMMIT
 
 beforeAll(async () => {
     // launch browser 
@@ -41,9 +39,9 @@ describe('Render test', () => {
 
         await page.goto(baseUri + publicRouter.signin);
 
-        await page.waitForSelector("#sign-in-title")
+        await page.waitForSelector("[data-testid=sign-in-title]")
 
-        const html = await page.$eval('#sign-in-title', e => e.innerHTML);
+        const html = await page.$eval("[data-testid=sign-in-title]", e => e.innerHTML);
         expect(html).toBe('Sign In');
 
     }, 1600000);
@@ -54,11 +52,11 @@ describe('Invalid login test', () => {
 
         await page.goto(baseUri + publicRouter.signin);
 
-        await page.waitForSelector('#signin-button');
+        await page.waitForSelector("[data-testid=signin-button]");
 
-        await page.click("#signin-button");
+        await page.click("[data-testid=signin-button]");
 
-        const html = await page.$eval('#invalid-credentials', e => e.innerHTML);
+        const html = await page.$eval("[data-testid=invalid-credentials]", e => e.innerHTML);
         expect(html).toBe('Invalid credentials!');
 
     }, 1600000);
@@ -67,12 +65,35 @@ describe('Invalid login test', () => {
 describe('Locador login test', () => {
     test('Locador tries to login', async () => {
 
+        await page.goto(baseUri + publicRouter.signin)
+
         await page.click('#username')
-        await page.type('#username', 'locador@mail.com')
+        await page.type('#username', 'locador1@mail.com')
         await page.click('#password')
-        await page.type('#password', 'locador')
-        await page.click('#signin-button')
+        await page.type('#password', 'locador1')
+        await page.click("[data-testid=signin-button]")
         await page.waitForSelector('#home-locador')
+        await page.waitForSelector("[data-testid=user-navbar]");
+        await page.click("[data-testid=user-navbar]");
+        await page.waitForSelector("[data-testid=sign-out]");
+        await page.click("[data-testid=sign-out]");
+
+        
+
+    }, 1600000);
+});
+
+describe('Locatario login test', () => {
+    test('Locatario tries to login', async () => {
+        
+        await page.goto(baseUri + publicRouter.signin)
+
+        await page.click('#username')
+        await page.type('#username', 'locatario1@mail.com')
+        await page.click('#password')
+        await page.type('#password', 'locatario1')
+        await page.click("[data-testid=signin-button]")
+        await page.waitForSelector('#home-locatario')
 
     }, 1600000);
 });
