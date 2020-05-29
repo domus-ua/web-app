@@ -10,37 +10,49 @@ class UserNavbar extends React.Component {
         this.signOut = this.signOut.bind(this);
 
         this.routerLocatario = [
-            <div onClick={() => this.setState({redirect: true, page: "/locatario"})}>Home</div>,
-            <div onClick={() => this.setState({redirect: true, page: "/locatario/profile"})}>Profile</div>,
-            <div onClick={() => this.setState({redirect: true, page: "/locatario/favorite"})}>Favorite houses</div>,
-            <div onClick={() => this.setState({redirect: true, page: "/home"})}>Search houses</div>,
-            <div onClick={() => this.setState({redirect: true, page: "/houses"})}>All houses</div>,
+            <div onClick={() => this.setState({ redirect: true, page: "/locatario" })}>Home</div>,
+            <div onClick={() => this.setState({ redirect: true, page: "/locatario/profile" })}>Profile</div>,
         ];
 
         this.routerLocador = [
-            <div onClick={() => this.setState({redirect: true, page: "/locador"})}>Home</div>,
-            <div onClick={() => this.setState({redirect: true, page: "/locador/profile"})}>Profile</div>,
-            <div onClick={() => this.setState({redirect: true, page: "/locador/houses"})}>My houses</div>,
-            <div onClick={() => this.setState({redirect: true, page: "/locador/houses"})}>Upload new house</div>,
-            <div onClick={() => this.setState({redirect: true, page: "/home"})}>Search houses</div>,
-            <div onClick={() => this.setState({redirect: true, page: "/houses"})}>All houses</div>,
+            <div onClick={() => this.setState({ redirect: true, page: "/locador" })}>Home</div>,
+            <div onClick={() => this.setState({ redirect: true, page: "/locador/profile" })}>Profile</div>,
+            <div onClick={() => this.setState({ redirect: true, page: "/locador/houses" })}>My houses</div>,
         ];
+
+        this.navLocatario = [
+            <li style={{cursor: "pointer"}} onClick={() => this.setState({ redirect: true, page: "/houses" })}>All houses</li>,
+            <li style={{cursor: "pointer"}} onClick={() => this.setState({ redirect: true, page: "/home" })}>Search</li>,
+            <li style={{cursor: "pointer"}} onClick={() => this.setState({ redirect: true, page: "/locatario/favorite" })}>Favorites</li>,
+        ];
+
+        this.navLocador = [
+            <li style={{cursor: "pointer"}} onClick={() => this.setState({ redirect: true, page: "/houses" })}>All houses</li>,
+            <li style={{cursor: "pointer"}} onClick={() => this.setState({ redirect: true, page: "/home" })}>Search</li>,
+            <li style={{cursor: "pointer"}} onClick={() => this.setState({ redirect: true, page: "/locador/new-house" })}>New house</li>,
+        ];
+
 
         this.state = {
             redirect: false,
             page: 0,
-            currentRouter: this.authUser.role === "locatario" ? this.routerLocatario : this.routerLocador
+            currentRouter: this.authUser.role === "locatario" ? this.routerLocatario : this.routerLocador,
+            currentNav: this.authUser.role === "locatario" ? this.navLocatario : this.navLocador,
+            signOut: false
         }
 
     }
 
     signOut() {
         localStorage.clear();
-        window.location.reload();
+        this.setState({
+            signOut: true
+        })
     }
 
 
-    render() {
+    render() { 
+        if(this.state.signOut) return <Redirect to="/" />
         if (this.state.redirect && !window.location.href.includes(this.state.page)) return <Redirect to={this.state.page} />
 
         return (
@@ -51,6 +63,11 @@ class UserNavbar extends React.Component {
                     </div>
                     <div className="menu">
                         <ul>
+                            {
+                                this.state.currentNav.map((link) => {
+                                    return link;
+                                })
+                            }
                             <li>
                                 <div className="my-dropdown">
                                     <img src={"data:image;base64, " + this.authUser.user.photo} className="user-image" alt="Current user" />
