@@ -33,6 +33,8 @@ code_quality:
     DOCKER_TLS_CERTDIR: ""
   artifacts:
     paths: [gl-code-quality-report.json]
+  only:
+    - master
 
 test:
   stage: test
