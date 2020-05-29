@@ -5,8 +5,6 @@ import UserNavbar from "components/UserNavbar";
 
 import DashboardCard from "components/DashboardCard";
 import profile from "assets/img/dashboards/profile.png";
-import reviews from "assets/img/dashboards/reviews.png";
-import contract from "assets/img/dashboards/contract.png";
 
 class Home extends React.Component {
 
@@ -26,7 +24,7 @@ class Home extends React.Component {
                     <div className="container">
                         <div className="row">
                             <div className="col-sm-12">
-                                <h4 style={{ color: "#252525" }}>Welcome, <span className="user-name" onClick={() => this.setState({ redirect: true, page: 1 })}>{this.authUser.user.firstName + " " + this.authUser.user.lastName}!</span></h4>
+                                <h3 style={{ color: "#252525" }}>Welcome, <span className="user-name" onClick={() => this.setState({ redirect: true, page: 1 })}>{this.authUser.user.firstName + " " + this.authUser.user.lastName}!</span></h3>
                             </div>
                         </div>
                         <div className="row">
@@ -48,25 +46,6 @@ class Home extends React.Component {
                                     image={profile}
                                     href="/locatario/profile"
                                     description="See your profile details"
-                                />
-                            </div>
-                        </div>
-                        <div className="row">
-                            
-                            <div className="col-sm-6">
-                                <DashboardCard
-                                    title="Reviews"
-                                    image={reviews}
-                                    href="/locatario/reviews"
-                                    description="See your posted reviews"
-                                />
-                            </div>
-                            <div className="col-sm-6">
-                                <DashboardCard
-                                    title="Contracts"
-                                    image={contract}
-                                    href="/locatario/contracts"
-                                    description="See all your current and past contracts"
                                 />
                             </div>
                         </div>

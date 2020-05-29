@@ -17,6 +17,8 @@ import Footer from "components/Footer";
 import IconButton from '@material-ui/core/IconButton';
 import ArrowBack from '@material-ui/icons/ArrowBackIos';
 
+import defaultImage from "variables/images.js";
+
 class NewHouse extends React.Component {
 
     constructor(props) {
@@ -334,30 +336,30 @@ class NewHouse extends React.Component {
                         </div>
                         <div className="row" style={{ marginTop: "20px" }}>
                             <div className="col-sm-8">
-                                <img id="photo1" className="new-house-photo" onClick={() => this.triggerUpload(1)} alt="House 1" />
+                                <img id="photo1" src={defaultImage} className="new-house-photo" onClick={() => this.triggerUpload(1)} alt="House 1" />
                             </div>
                             <div className="col-sm-4">
-                                <img  id="photo2" className="new-house-photo" onClick={() => this.triggerUpload(2)} alt="House 2" />
+                                <img  id="photo2" src={defaultImage} className="new-house-photo" onClick={() => this.triggerUpload(2)} alt="House 2" />
                             </div>
                         </div>
                         <div className="row" style={{ marginTop: "25px" }}>
                             <div className="col-sm-2">
-                                <img  id="photo3" className="new-house-small-photo" onClick={() => this.triggerUpload(3)} alt="House 3" />
+                                <img  id="photo3" src={defaultImage} className="new-house-small-photo" onClick={() => this.triggerUpload(3)} alt="House 3" />
                             </div>
                             <div className="col-sm-2">
-                                <img  id="photo4" className="new-house-small-photo" onClick={() => this.triggerUpload(4)} alt="House 4" />
+                                <img  id="photo4" src={defaultImage} className="new-house-small-photo" onClick={() => this.triggerUpload(4)} alt="House 4" />
                             </div>
                             <div className="col-sm-2">
-                                <img  id="photo5" className="new-house-small-photo" onClick={() => this.triggerUpload(5)} alt="House 5" />
+                                <img  id="photo5" src={defaultImage} className="new-house-small-photo" onClick={() => this.triggerUpload(5)} alt="House 5" />
                             </div>
                             <div className="col-sm-2">
-                                <img  id="photo6" className="new-house-small-photo" onClick={() => this.triggerUpload(6)} alt="House 6" />
+                                <img  id="photo6" src={defaultImage} className="new-house-small-photo" onClick={() => this.triggerUpload(6)} alt="House 6" />
                             </div>
                             <div className="col-sm-2">
-                                <img  id="photo7" className="new-house-small-photo" onClick={() => this.triggerUpload(7)} alt="House 7" />
+                                <img  id="photo7" src={defaultImage} className="new-house-small-photo" onClick={() => this.triggerUpload(7)} alt="House 7" />
                             </div>
                             <div className="col-sm-2">
-                                <img  id="photo8" className="new-house-small-photo" onClick={() => this.triggerUpload(8)} alt="House 8" />
+                                <img  id="photo8" src={defaultImage} className="new-house-small-photo" onClick={() => this.triggerUpload(8)} alt="House 8" />
                             </div>
                         </div>
                         <input id="upload" type="file" style={{ display: "none" }} onChange={(event) => this.uploadPicture(event)} />

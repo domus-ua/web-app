@@ -12,6 +12,7 @@ import uris from "variables/uris";
 
 import CompareList from "components/CompareList";
 
+
 class AllHouses extends React.Component {
 
     constructor(props) {
@@ -80,7 +81,7 @@ class AllHouses extends React.Component {
             }
         })
             .then(response => {
-                
+
                 if (!response.ok) throw new Error(response.status);
                 else return response.json();
 
@@ -91,7 +92,7 @@ class AllHouses extends React.Component {
                     sortingAttribute: sortingAttribute,
                     descendent: descendent,
                     orderBy: orderBy,
-                    houses: this.allHouses 
+                    houses: this.allHouses
                 })
             })
             .catch(error => {
@@ -113,7 +114,7 @@ class AllHouses extends React.Component {
                 }
                 <section>
                     <div className="container">
-                        <div className="row" style={{marginTop: "30px"}}>
+                        <div className="row" style={{ marginTop: "30px" }}>
                             <div className="col-sm-9">
                                 <h3 style={{ color: "#3f51b5" }}>All houses</h3>
                             </div>
@@ -140,22 +141,30 @@ class AllHouses extends React.Component {
                                 <hr style={{ marginTop: "-2px" }} />
                             </div>
                         </div>
-                        <div className="row" style={{ marginTop: "15px" }}>
-                            {this.state.houses.map(house => {
-                                return <div className="col-sm-3">
-                                    <HouseCard 
-                                        id={house.id}
-                                        title={house.name}
-                                        city={house.city}
-                                        rooms={house.noRooms}
-                                        price={house.price}
-                                        area={house.habitableArea}
-                                        rating={house.averageRating}
-                                        image={"data:image;base64, " + house.photos[0]}
-                                    />
+                        {
+                            this.state.houses.length === 0 ?
+                                <div className="col-sm-12 d-flex justify-content-center" style={{marginTop: "30px"}}>
+                                    <div className="loader"></div>
                                 </div>
-                            })}
-                        </div>
+                                :
+                                <div className="row" style={{ marginTop: "15px" }}>
+                                    {this.state.houses.map(house => {
+                                        return <div className="col-sm-3">
+                                            <HouseCard
+                                                id={house.id}
+                                                title={house.name}
+                                                city={house.city}
+                                                rooms={house.noRooms}
+                                                price={house.price}
+                                                area={house.habitableArea}
+                                                rating={house.averageRating}
+                                                image={"data:image;base64, " + house.photos[0]}
+                                            />
+                                        </div>
+                                    })}
+                                </div>
+                        }
+
                     </div>
                 </section>
                 <CompareList />

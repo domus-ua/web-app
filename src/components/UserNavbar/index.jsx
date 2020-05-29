@@ -6,31 +6,55 @@ class UserNavbar extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            redirect: false,
-            page: 0
-        }
-        
         this.authUser = JSON.parse(localStorage.getItem('authUser'));
         this.signOut = this.signOut.bind(this);
+
+        this.routerLocatario = [
+            <div onClick={() => this.setState({ redirect: true, page: "/locatario" })}>Home</div>,
+            <div onClick={() => this.setState({ redirect: true, page: "/locatario/profile" })}>Profile</div>,
+        ];
+
+        this.routerLocador = [
+            <div onClick={() => this.setState({ redirect: true, page: "/locador" })}>Home</div>,
+            <div onClick={() => this.setState({ redirect: true, page: "/locador/profile" })}>Profile</div>,
+            <div onClick={() => this.setState({ redirect: true, page: "/locador/houses" })}>My houses</div>,
+        ];
+
+        this.navLocatario = [
+            <li style={{cursor: "pointer"}} onClick={() => this.setState({ redirect: true, page: "/houses" })}>All houses</li>,
+            <li style={{cursor: "pointer"}} onClick={() => this.setState({ redirect: true, page: "/home" })}>Search</li>,
+            <li style={{cursor: "pointer"}} onClick={() => this.setState({ redirect: true, page: "/locatario/favorite" })}>Favorites</li>,
+        ];
+
+        this.navLocador = [
+            <li style={{cursor: "pointer"}} onClick={() => this.setState({ redirect: true, page: "/houses" })}>All houses</li>,
+            <li style={{cursor: "pointer"}} onClick={() => this.setState({ redirect: true, page: "/home" })}>Search</li>,
+            <li style={{cursor: "pointer"}} onClick={() => this.setState({ redirect: true, page: "/locador/new-house" })}>New house</li>,
+        ];
+
+
+        this.state = {
+            redirect: false,
+            page: 0,
+            currentRouter: this.authUser.role === "locatario" ? this.routerLocatario : this.routerLocador,
+            currentNav: this.authUser.role === "locatario" ? this.navLocatario : this.navLocador,
+            signOut: false
+        }
+
     }
 
     signOut() {
         localStorage.clear();
-        window.location.reload();
+        this.setState({
+            signOut: true
+        })
     }
 
 
-    render() {
-        if (this.state.redirect) {
-            switch (this.state.page) {
-                case 1:
-                    return <Redirect to={"/" + this.authUser.role + "/profile"} />
-                default:
-                    break;
-            }
-        }
-        
+    render() { 
+        if(this.state.signOut) return <Redirect to="/" />
+        if (this.state.redirect && !window.location.href.includes(this.state.page)) return <Redirect to={this.state.page} />
+
         return (
             <>
                 <nav className="user-navbar ">
@@ -39,14 +63,20 @@ class UserNavbar extends React.Component {
                     </div>
                     <div className="menu">
                         <ul>
-                            <li><a href="/houses">Houses</a></li>
-                            <li><a href={"/" + this.authUser.role}>Home</a></li>
+                            {
+                                this.state.currentNav.map((link) => {
+                                    return link;
+                                })
+                            }
                             <li>
                                 <div className="my-dropdown">
                                     <img src={"data:image;base64, " + this.authUser.user.photo} className="user-image" alt="Current user" />
                                     <div className="my-dropdown-content">
-                                        <div onClick={() => this.setState({redirect: true, page: 1})}>Profile</div>
-                                        <div>Settings</div>
+                                        {
+                                            this.state.currentRouter.map((link) => {
+                                                return link;
+                                            })
+                                        }
                                         <div onClick={this.signOut}>Sign out</div>
                                     </div>
                                 </div>

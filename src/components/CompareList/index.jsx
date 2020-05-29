@@ -4,8 +4,6 @@ import { Button, Modal } from "react-bootstrap";
 
 import uris from "variables/uris";
 
-import defaultImage from "assets/img/dashboards/new-house2.png";
-
 class CompareList extends React.Component {
 
     constructor(props) {
@@ -136,18 +134,18 @@ class CompareList extends React.Component {
                                     <div className="row">
                                         {this.state.fetchedHouses.map((house) => {
                                             return <div className="col-sm-4">
-                                                <img src={house.photos.length === 0 ? defaultImage : house.photos[0]} alt={house.name} className="new-house-small-photo" />
+                                                <img src={"data:image;base64, " + house.photos[0]} alt={house.name} className="new-house-small-photo" />
                                             </div>
                                         })}
                                     </div>
-                                    <div className="row">
+                                    <div className="row" style={{marginTop: "20px"}}>
                                         {this.state.fetchedHouses.map((house) => {
                                             return <div className="col-sm-4 text-center">
                                                 <h5 className="compare-title">{house.name}</h5>
                                             </div>
                                         })}
                                     </div>
-                                    <div className="row">
+                                    <div className="row" style={{marginTop: "20px"}}>
                                         <div className="col-sm-12"><h5 className="compare-title"><i className="fas fa-star"></i> Rating</h5></div>
                                         {this.state.fetchedHouses.map((house) => {
                                             return <div className="col-sm-4">
@@ -155,7 +153,7 @@ class CompareList extends React.Component {
                                             </div>
                                         })}
                                     </div>
-                                    <div className="row" style={{marginTop: "10px"}}>
+                                    <div className="row" style={{marginTop: "20px"}}>
                                         <div className="col-sm-12"><h5 className="compare-title"><i className="fas fa-map-marker-alt"></i> Location</h5></div>
                                         {this.state.fetchedHouses.map((house) => {
                                             return <div className="col-sm-4">
@@ -163,7 +161,7 @@ class CompareList extends React.Component {
                                             </div>
                                         })}
                                     </div>
-                                    <div className="row" style={{marginTop: "10px"}}>
+                                    <div className="row" style={{marginTop: "20px"}}>
                                         <div className="col-sm-12"><h5 className="compare-title"><i className="fas fa-dollar-sign"></i> Price</h5></div>
                                         {this.state.fetchedHouses.map((house) => {
                                             return <div className="col-sm-4">
@@ -171,7 +169,7 @@ class CompareList extends React.Component {
                                             </div>
                                         })}
                                     </div>
-                                    <div className="row" style={{marginTop: "10px"}}>
+                                    <div className="row" style={{marginTop: "20px"}}>
                                         <div className="col-sm-12"><h5 className="compare-title"><i className="fas fa-home align-icons"></i> Habitable area</h5></div>
                                         {this.state.fetchedHouses.map((house) => {
                                             return <div className="col-sm-4">
@@ -179,7 +177,7 @@ class CompareList extends React.Component {
                                             </div>
                                         })}
                                     </div>
-                                    <div className="row" style={{marginTop: "10px"}}>
+                                    <div className="row" style={{marginTop: "20px"}}>
                                         <div className="col-sm-12"><h5 className="compare-title"><i className="fas fa-bed align-icons"></i>  Bedrooms</h5></div>
                                         {this.state.fetchedHouses.map((house) => {
                                             return <div className="col-sm-4">
@@ -187,7 +185,7 @@ class CompareList extends React.Component {
                                             </div>
                                         })}
                                     </div>
-                                    <div className="row" style={{marginTop: "10px"}}>
+                                    <div className="row" style={{marginTop: "20px"}}>
                                         <div className="col-sm-12"><h5 className="compare-title"><i className="fas fa-toilet align-icons"></i> Bathrooms</h5></div>
                                         {this.state.fetchedHouses.map((house) => {
                                             return <div className="col-sm-4">
@@ -195,7 +193,7 @@ class CompareList extends React.Component {
                                             </div>
                                         })}
                                     </div>
-                                    <div className="row" style={{marginTop: "10px"}}>
+                                    <div className="row" style={{marginTop: "20px"}}>
                                         <div className="col-sm-12"><h5 className="compare-title"><i className="fas fa-warehouse align-icons"></i> Garages</h5></div>
                                         {this.state.fetchedHouses.map((house) => {
                                             return <div className="col-sm-4">
@@ -203,7 +201,7 @@ class CompareList extends React.Component {
                                             </div>
                                         })}
                                     </div>
-                                    <div className="row" style={{marginTop: "10px"}}>
+                                    <div className="row" style={{marginTop: "20px"}}>
                                         <div className="col-sm-12"><h5 className="compare-title"><i className="fas fa-warehouse align-icons"></i> Property features</h5></div>
                                         {this.state.fetchedHouses.map((house) => {
                                             return <div className="col-sm-4">

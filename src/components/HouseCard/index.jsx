@@ -7,7 +7,6 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import CompareArrowsIcon from '@material-ui/icons/CompareArrows';
@@ -175,9 +174,6 @@ function HouseCard({ id, title, city, rooms, price, area, image, rating, isFavor
                             style={{ color: compareButton }}
                         />
                     </IconButton>
-                    <Button size="small" style={{ backgroundColor: "#3f51b5", color: "white" }}>
-                        Details
-        </Button>
                 </CardActions>
             </Card>
             <Modal

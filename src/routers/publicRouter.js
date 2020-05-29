@@ -12,5 +12,6 @@ export default [
     { path: '/signup', layout: <Route path='/signup' component={SignUp} /> },
     { path: '/signin', layout: <Route path='/signin' component={SignIn} /> },
     { path: '/houses', layout: <Route path='/houses' component={AllHouses} /> },
+    { path: '/home', layout: <Route path='/' component={Home} /> },
     { path: '/', layout: <Route path='/' component={Home} /> },
 ]

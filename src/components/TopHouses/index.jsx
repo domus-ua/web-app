@@ -25,7 +25,9 @@ class TopHouses extends React.Component {
     }
 
     fetchAllHouses() {
-        fetch(uris.restApi.houses, {
+        let parameters = "?desc=true&orderAttribute=rating";
+
+        fetch(uris.restApi.houses + parameters, {
             method: "GET",
             headers: {
                 "Accept": "application/json",
@@ -110,25 +112,36 @@ class TopHouses extends React.Component {
                             <hr style={{ marginTop: "-2px" }} />
                         </div>
                     </div>
-                    <div className="row" style={{ marginTop: "15px" }}>
-                        {this.state.houses.map(house => {
-                            return <div className="col-sm-3">
-                                {house}
+                    {
+                        this.state.houses.length === 0 ?
+                            <div className="col-sm-12 d-flex justify-content-center" style={{ marginTop: "30px" }}>
+                                <div className="loader"></div>
                             </div>
-                        })}
-                    </div>
-                    <div className="row" style={{ marginTop: "10px" }}>
-                        <div className="col-sm-6 text-right">
-                            <IconButton aria-label="backward" onClick={this.changeLeft}>
-                                <ArrowBackIosIcon />
-                            </IconButton>
-                        </div>
-                        <div className="col-sm-6">
-                            <IconButton aria-label="forward" onClick={this.changeRight}>
-                                <ArrowForwardIosIcon />
-                            </IconButton>
-                        </div>
-                    </div>
+                            :
+                            <>
+                                <div className="row" style={{ marginTop: "15px" }}>
+                                    {this.state.houses.map(house => {
+                                        return <div className="col-sm-3">
+                                            {house}
+                                        </div>
+                                    })}
+                                </div>
+                                <div className="row" style={{ marginTop: "10px" }}>
+                                    <div className="col-sm-6 text-right">
+                                        <IconButton aria-label="backward" onClick={this.changeLeft}>
+                                            <ArrowBackIosIcon />
+                                        </IconButton>
+                                    </div>
+                                    <div className="col-sm-6">
+                                        <IconButton aria-label="forward" onClick={this.changeRight}>
+                                            <ArrowForwardIosIcon />
+                                        </IconButton>
+                                    </div>
+                                </div>
+                            </>
+
+                    }
+
                 </div>
             </section>
         );

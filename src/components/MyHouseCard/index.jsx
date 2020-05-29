@@ -96,9 +96,6 @@ function HouseCard({ id, title, city, rooms, price, area, image, rating }) {
           <EditIcon
           />
         </IconButton>
-        <Button size="small" style={{ backgroundColor: "#3f51b5", color: "white" }}>
-          Details
-        </Button>
       </CardActions>
       <Modal
         show={deleteHouse}

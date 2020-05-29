@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ArrowBack from '@material-ui/icons/ArrowBackIos';
 
 import uris from "variables/uris";
+import defaultImage from "variables/images.js";
 
 class ConfirmHouse extends React.Component {
 
@@ -141,7 +142,7 @@ class ConfirmHouse extends React.Component {
                         </div>
                         <div className="row" style={{ marginTop: "20px" }}>
                             <div className="col-sm-6">
-                                <img id="photo1" className="new-house-photo" alt="House 1" />
+                                <img id="photo1" src={defaultImage} className="new-house-photo" alt="House 1" />
                             </div>
                             <div className="col-sm-6">
                                 <div className="col-sm-12">
@@ -166,13 +167,13 @@ class ConfirmHouse extends React.Component {
                         </div>
                         <div className="row" style={{ marginTop: "15px" }}>
                             <div className="col-sm-2">
-                                <img id="photo2" className="new-house-small-photo" alt="House 1" />
+                                <img id="photo2" src={defaultImage} className="new-house-small-photo" alt="House 1" />
                             </div>
                             <div className="col-sm-2">
-                                <img id="photo3" className="new-house-small-photo" alt="House 1" />
+                                <img id="photo3" src={defaultImage} className="new-house-small-photo" alt="House 1" />
                             </div>
                             <div className="col-sm-2">
-                                <img id="photo4" className="new-house-small-photo" alt="House 1" />
+                                <img id="photo4" src={defaultImage} className="new-house-small-photo" alt="House 1" />
                             </div>
                             <div className="col-sm-6 text-right" style={{ marginTop: "20px" }}>
                                 <div className="col-sm-12"><h5>Price per month</h5></div>
