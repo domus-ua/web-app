@@ -301,13 +301,13 @@ class HouseDetails extends React.Component {
                                     </div>
 
                                     <div className="col-sm-12">
-                                        <h6 style={{ color: "#252525" }}><i className="fas fa-map-marker-alt"></i> {this.state.house.city + ", " + this.state.house.street + ", " + this.state.house.postalCode}</h6>
+                                        <h6 style={{ color: "#252525" }} data-testid="location"><i className="fas fa-map-marker-alt"></i> {this.state.house.city + ", " + this.state.house.street + ", " + this.state.house.postalCode}</h6>
                                     </div>
                                     <div className="col-sm-12">
-                                        <p className="house-description">{this.state.house.description}</p>
+                                        <p className="house-description" data-testid="description">{this.state.house.description}</p>
                                     </div>
                                     <div className="col-sm-12">
-                                        <p className="house-description">Published on {this.state.house.publishDay.split("T")[0]}</p>
+                                        <p className="house-description" data-testid="publish-date">Published on {this.state.house.publishDay.split("T")[0]}</p>
                                     </div>
                                 </div>
                                 <div className="row" style={{ marginTop: "20px" }}>
@@ -347,7 +347,7 @@ class HouseDetails extends React.Component {
                                     </div>
                                     <div className="col-sm-6 text-right" style={{ marginTop: "20px" }}>
                                         <div className="col-sm-12"><h5>Price per month</h5></div>
-                                        <div className="col-sm-12"><h1>{this.state.house.price} €</h1></div>
+                                        <div className="col-sm-12"><h1 data-testid="price">{this.state.house.price} €</h1></div>
                                     </div>
                                 </div>
                                 <div className="row">
@@ -398,12 +398,12 @@ class HouseDetails extends React.Component {
                                             <div className="col-sm-12">
                                                 <h4 style={{ color: "#252525" }} data-testid="house-seller">
                                                     Contact seller
-                                            </h4>
+                                                </h4>
                                             </div>
                                         </div>
                                         <div className="row" style={{ marginTop: "30px" }}>
                                             <div className="col-sm-12">
-                                                <p className="house-description"><a href="/signin">Sign In</a> to see seller details.</p>
+                                                <p className="house-description" data-testid="sign-in-to-seller-details"><a href="/signin">Sign In</a> to see seller details.</p>
                                             </div>
                                         </div>
                                     </>
@@ -431,7 +431,7 @@ class HouseDetails extends React.Component {
                                         </div>
                                         <div className="row" style={{ marginTop: "30px" }}>
                                             <div className="col-sm-3">
-                                                <h4 style={{ color: "#252525" }} data-testid="house-seller">
+                                                <h4 style={{ color: "#252525" }} data-testid="make-review">
                                                     Make a review
                                                 </h4>
                                             </div>
