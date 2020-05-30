@@ -130,7 +130,7 @@ function HouseCard({ id, title, city, rooms, price, area, image, rating, isFavor
     return (
         <>
             <Card className={classes.root}>
-                <CardActionArea onClick={() => { localStorage.setItem('currentHouse', JSON.stringify({ id: id })); setRedirect(true); }}>
+                <CardActionArea data-testid={"houseCard" + id} onClick={() => { localStorage.setItem('currentHouse', JSON.stringify({ id: id })); setRedirect(true); }}>
                     <CardMedia
                         className={classes.media}
                         image={image}

@@ -409,7 +409,7 @@ class HouseDetails extends React.Component {
                                                         <li><i className="fas fa-star align-icons"></i> <span>{review.rating}</span></li>
                                                         <li><i className="fas fa-comment align-icons"></i> <span>"{review.comment}"</span></li>
                                                         <li><i className="fas fa-calendar-alt align-icons"></i> <span>{review.timestamp !== null && review.timestamp.split("T")[0]}</span></li>
-                                                        {this.authUser !== null && this.authUser.id === review.locatario.user.id && <li className="delete-review" onClick={this.deleteReviews}><i className="fas fa-times align-icons"></i> Delete review</li>}
+                                                        {this.authUser !== null && this.authUser.id === review.locatario.user.id && <li className="delete-review" onClick={this.deleteReviews} data-testid="delete-review"><i className="fas fa-times align-icons"></i> Delete review</li>}
                                                     </ul>
                                                 </div>
                                             </>
@@ -483,10 +483,10 @@ class HouseDetails extends React.Component {
                                         </div>
                                         <div className="row" style={{ marginTop: "5px" }}>
                                             <div className="col-sm-4">
-                                                <TextField id="review-comment" label="Comment" variant="outlined" style={{ width: "100%" }} />
+                                                <TextField id="review-comment" data-testid="review-comment" label="Comment" variant="outlined" style={{ width: "100%" }} />
                                             </div>
                                             <div className="col-sm-2">
-                                                <div className="signin-button" onClick={this.sendReviews}>
+                                                <div className="signin-button" onClick={this.sendReviews} data-testid="review-button">
                                                     <span id="comment-button"><i className="fas fa-comment"></i> Send review</span>
                                                 </div>
                                             </div>
