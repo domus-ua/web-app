@@ -160,7 +160,7 @@ class HouseDetails extends React.Component {
     }
 
     checkRented() {
-        fetch(uris.restApi.rentend + this.authUser.user.id + "/" + this.state.house.id, {
+        fetch(uris.restApi.rentend + this.authUser.id + "/" + this.state.house.id, {
             method: "GET",
             headers: {
                 "Accept": "application/json",

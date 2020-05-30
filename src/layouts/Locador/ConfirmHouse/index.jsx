@@ -56,7 +56,7 @@ class ConfirmHouse extends React.Component {
             description: this.house.description,
             habitableArea: parseFloat(this.house.habitableArea),
             locador: {
-                id: parseInt(this.authUser.user.id)
+                id: parseInt(this.authUser.id)
             },
             name: this.house.title,
             noBathrooms: parseInt(this.house.bathrooms),
