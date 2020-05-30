@@ -130,7 +130,7 @@ function HouseCard({ id, title, city, rooms, price, area, image, rating, isFavor
     return (
         <>
             <Card className={classes.root}>
-                <CardActionArea onClick={() => { localStorage.setItem('currentHouse', JSON.stringify({ id: id })); setRedirect(true); }}>
+                <CardActionArea data-testid={"houseCard" + id} onClick={() => { localStorage.setItem('currentHouse', JSON.stringify({ id: id })); setRedirect(true); }}>
                     <CardMedia
                         className={classes.media}
                         image={image}
@@ -162,6 +162,7 @@ function HouseCard({ id, title, city, rooms, price, area, image, rating, isFavor
                     {authUser !== null &&
                         <IconButton aria-label="add to favorites">
                             <FavoriteIcon
+                                data-testid={"favorite-house" + id}
                                 onClick={() => { setFavorite(!favorite); fetchFavorite(id, favorite); setModalOpen(true); }}
                                 style={{ color: favoriteButton }}
                             />
@@ -188,7 +189,7 @@ function HouseCard({ id, title, city, rooms, price, area, image, rating, isFavor
 </Modal.Title>
                 </Modal.Header>
                 <Modal.Footer>
-                    <ModalButton onClick={() => { setModalOpen(false); }}>Close</ModalButton>
+                    <ModalButton onClick={() => { setModalOpen(false); }} data-testid="close-favorites">Close</ModalButton>
                 </Modal.Footer>
             </Modal>
         </>

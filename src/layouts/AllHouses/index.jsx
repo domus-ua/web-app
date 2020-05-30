@@ -148,10 +148,10 @@ class AllHouses extends React.Component {
                                 </div>
                                 :
                                 <div className="row" style={{ marginTop: "15px" }}>
-                                    {this.state.houses.map(house => {
+                                    {this.state.houses.map((house, index) => {
                                         return <div className="col-sm-3">
                                             <HouseCard
-                                                id={house.id}
+                                                id={(index+1)}
                                                 title={house.name}
                                                 city={house.city}
                                                 rooms={house.noRooms}

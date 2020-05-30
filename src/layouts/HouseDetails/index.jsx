@@ -25,7 +25,8 @@ class HouseDetails extends React.Component {
             rentHouse: false,
             rating: 1,
             favorite: false,
-            modalOpen: false
+            modalOpen: false,
+            alreadyRented: false
         }
 
         this.authUser = JSON.parse(localStorage.getItem('authUser'));
@@ -33,11 +34,12 @@ class HouseDetails extends React.Component {
         this.sendReviews = this.sendReviews.bind(this);
         this.deleteReviews = this.deleteReviews.bind(this);
         this.favorite = this.favorite.bind(this);
+        this.checkRented = this.checkRented.bind(this);
     }
 
     getHouseDetails() {
 
-        let id = this.state.house !== null ? this.state.house.id : 1;
+        let id = this.state.house !== null ? this.state.house.id : 15;
 
         fetch(uris.restApi.houses + "/" + id, {
             method: "GET",
@@ -157,8 +159,35 @@ class HouseDetails extends React.Component {
         }
     }
 
+    checkRented() {
+        fetch(uris.restApi.rentend + this.authUser.id + "/" + this.state.house.id, {
+            method: "GET",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (!response.ok) throw new Error(response.status);
+                else return response.json();
+
+            })
+            .then(data => {
+                this.setState({
+                    alreadyRented: data
+                })
+            })
+            .catch(error => {
+                console.log("Fetch error: " + error);
+            })
+    }
+
     componentDidMount() {
         this.getHouseDetails();
+        if(this.authUser !== null && this.authUser.role === "locatario") {
+            this.checkRented();
+        }
+        
     }
 
     componentDidUpdate() {
@@ -301,13 +330,13 @@ class HouseDetails extends React.Component {
                                     </div>
 
                                     <div className="col-sm-12">
-                                        <h6 style={{ color: "#252525" }}><i className="fas fa-map-marker-alt"></i> {this.state.house.city + ", " + this.state.house.street + ", " + this.state.house.postalCode}</h6>
+                                        <h6 style={{ color: "#252525" }} data-testid="location"><i className="fas fa-map-marker-alt"></i> {this.state.house.city + ", " + this.state.house.street + ", " + this.state.house.postalCode}</h6>
                                     </div>
                                     <div className="col-sm-12">
-                                        <p className="house-description">{this.state.house.description}</p>
+                                        <p className="house-description" data-testid="description">{this.state.house.description}</p>
                                     </div>
                                     <div className="col-sm-12">
-                                        <p className="house-description">Published on {this.state.house.publishDay.split("T")[0]}</p>
+                                        <p className="house-description" data-testid="publish-date">Published on {this.state.house.publishDay.split("T")[0]}</p>
                                     </div>
                                 </div>
                                 <div className="row" style={{ marginTop: "20px" }}>
@@ -347,7 +376,7 @@ class HouseDetails extends React.Component {
                                     </div>
                                     <div className="col-sm-6 text-right" style={{ marginTop: "20px" }}>
                                         <div className="col-sm-12"><h5>Price per month</h5></div>
-                                        <div className="col-sm-12"><h1>{this.state.house.price} €</h1></div>
+                                        <div className="col-sm-12"><h1 data-testid="price">{this.state.house.price} €</h1></div>
                                     </div>
                                 </div>
                                 <div className="row">
@@ -380,7 +409,7 @@ class HouseDetails extends React.Component {
                                                         <li><i className="fas fa-star align-icons"></i> <span>{review.rating}</span></li>
                                                         <li><i className="fas fa-comment align-icons"></i> <span>"{review.comment}"</span></li>
                                                         <li><i className="fas fa-calendar-alt align-icons"></i> <span>{review.timestamp !== null && review.timestamp.split("T")[0]}</span></li>
-                                                        {this.authUser !== null && this.authUser.id === review.locatario.user.id && <li className="delete-review" onClick={this.deleteReviews}><i className="fas fa-times align-icons"></i> Delete review</li>}
+                                                        {this.authUser !== null && this.authUser.id === review.locatario.user.id && <li className="delete-review" onClick={this.deleteReviews} data-testid="delete-review"><i className="fas fa-times align-icons"></i> Delete review</li>}
                                                     </ul>
                                                 </div>
                                             </>
@@ -398,12 +427,12 @@ class HouseDetails extends React.Component {
                                             <div className="col-sm-12">
                                                 <h4 style={{ color: "#252525" }} data-testid="house-seller">
                                                     Contact seller
-                                            </h4>
+                                                </h4>
                                             </div>
                                         </div>
                                         <div className="row" style={{ marginTop: "30px" }}>
                                             <div className="col-sm-12">
-                                                <p className="house-description"><a href="/signin">Sign In</a> to see seller details.</p>
+                                                <p className="house-description" data-testid="sign-in-to-seller-details"><a href="/signin">Sign In</a> to see seller details.</p>
                                             </div>
                                         </div>
                                     </>
@@ -429,9 +458,13 @@ class HouseDetails extends React.Component {
                                                 </ul>
                                             </div>
                                         </div>
+                                    </>
+                                }
+                                {this.authUser !== null && this.state.alreadyRented && (this.authUser.role === "locatario" || (this.authUser.role === "locador" && this.state.house.locador.user.email !== this.authUser.user.email)) &&
+                                    <>
                                         <div className="row" style={{ marginTop: "30px" }}>
                                             <div className="col-sm-3">
-                                                <h4 style={{ color: "#252525" }} data-testid="house-seller">
+                                                <h4 style={{ color: "#252525" }} data-testid="make-review">
                                                     Make a review
                                                 </h4>
                                             </div>
@@ -450,10 +483,10 @@ class HouseDetails extends React.Component {
                                         </div>
                                         <div className="row" style={{ marginTop: "5px" }}>
                                             <div className="col-sm-4">
-                                                <TextField id="review-comment" label="Comment" variant="outlined" style={{ width: "100%" }} />
+                                                <TextField id="review-comment" data-testid="review-comment" label="Comment" variant="outlined" style={{ width: "100%" }} />
                                             </div>
                                             <div className="col-sm-2">
-                                                <div className="signin-button" onClick={this.sendReviews}>
+                                                <div className="signin-button" onClick={this.sendReviews} data-testid="review-button">
                                                     <span id="comment-button"><i className="fas fa-comment"></i> Send review</span>
                                                 </div>
                                             </div>
@@ -466,7 +499,7 @@ class HouseDetails extends React.Component {
                                         <div className="row">
                                             <div className="col-sm-6"></div>
                                             <div className="col-sm-6">
-                                                <div className="signin-button" onClick={() => this.setState({ rentHouse: true })}>
+                                                <div data-testid="rent-btn" className="signin-button" onClick={() => this.setState({ rentHouse: true })}>
                                                     <span id="rent-button"><i className="fas fa-sign-in-alt"></i> Rent this house</span>
                                                 </div>
                                             </div>
@@ -481,20 +514,20 @@ class HouseDetails extends React.Component {
                 </section>
                 <Footer />
                 <Modal
-                show={this.state.modalOpen}
-                size="lg"
-                aria-labelledby="contained-modal-title-vcenter"
-                centered
-            >
-                <Modal.Header closeButton>
-                    <Modal.Title id="contained-modal-title-vcenter">
-                        <i class="fas fa-heart"></i> House {this.state.favorite === true ? "added to" : "removed from"} favorites!
+                    show={this.state.modalOpen}
+                    size="lg"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title id="contained-modal-title-vcenter">
+                            <i class="fas fa-heart"></i> House {this.state.favorite === true ? "added to" : "removed from"} favorites!
 </Modal.Title>
-                </Modal.Header>
-                <Modal.Footer>
-                    <ModalButton onClick={() => this.setState({modalOpen: false})}>Close</ModalButton>
-                </Modal.Footer>
-            </Modal>
+                    </Modal.Header>
+                    <Modal.Footer>
+                        <ModalButton onClick={() => this.setState({ modalOpen: false })}>Close</ModalButton>
+                    </Modal.Footer>
+                </Modal>
             </div >
         );
     }
