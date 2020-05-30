@@ -196,6 +196,7 @@ class SearchBar extends React.Component {
                         </div>
                         <div className="col-sm-2">
                             <Button
+                                id="search-button"
                                 variant="contained"
                                 color="primary"
                                 size="large"
@@ -272,7 +273,7 @@ class SearchBar extends React.Component {
                         <div>
                             <div className="row" style={{ marginTop: "30px" }}>
                                 <div className="col-sm-12">
-                                    <h3 style={{ color: "#252525" }}>{this.state.city === "" ? "Houses not found!" : "There are no houses in " + this.state.city + "!"}</h3>
+                                    <h3 id="no-houses-found" style={{ color: "#252525" }}>{this.state.city === "" ? "Houses not found!" : "There are no houses in " + this.state.city + "!"}</h3>
                                 </div>
                             </div>
                             <div className="row">
