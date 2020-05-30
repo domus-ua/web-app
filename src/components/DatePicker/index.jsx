@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 export default function DatePicker({id, label}) {
   const classes = useStyles();
 
-  const today = new Date().toISOString().split("T")[0];
+  const today = id === "start-date" ? new Date().toISOString().split("T")[0] : new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString().split("T")[0];
 
   return (
     <form className={classes.container} noValidate>
