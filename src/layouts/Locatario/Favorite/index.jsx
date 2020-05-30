@@ -96,7 +96,7 @@ class Favorite extends React.Component {
                                 {this.state.houses.map((house, index) => {
                                     return <div className="col-sm-3">
                                         <HouseCard
-                                            id={(index+1)}
+                                            id={house.id}
                                             title={house.name}
                                             city={house.city}
                                             rooms={house.noRooms}
