@@ -111,7 +111,7 @@ class NewHouse extends React.Component {
 
         let photos = this.housePhotos;
 
-    
+
         // validations
         let emptyFields = [];
 
@@ -249,10 +249,10 @@ class NewHouse extends React.Component {
                         </div>
                         <div className="row" style={{ marginTop: "20px" }}>
                             <div className="col-sm-6">
-                                <TextField id="title" label="Title" variant="outlined" style={{ width: "100%" }} />
+                                <TextField data-testid="title" id="title" label="Title" variant="outlined" style={{ width: "100%" }} />
                             </div>
                             <div className="col-sm-3">
-                                <TextField id="city" label="City" variant="outlined" style={{ width: "100%" }} />
+                                <TextField data-testid="city" id="city" label="City" variant="outlined" style={{ width: "100%" }} />
                             </div>
                             <div className="col-sm-3">
                                 <FormControl variant="outlined" style={{ width: "100%" }}>
@@ -260,12 +260,13 @@ class NewHouse extends React.Component {
                                     <Select
                                         labelId="rooms"
                                         id="rooms-select-outlined"
+                                        data-testid="bedrooms"
                                         value={this.state.bedrooms}
                                         onChange={(event) => { this.setState({ bedrooms: event.target.value }) }}
                                         label="Bedrooms"
                                     >
                                         <MenuItem value={0}>0</MenuItem>
-                                        <MenuItem value={1}>1</MenuItem>
+                                        <MenuItem data-testid="bedroom1" value={1}>1</MenuItem>
                                         <MenuItem value={2}>2</MenuItem>
                                         <MenuItem value={3}>3</MenuItem>
                                         <MenuItem value={4}>4</MenuItem>
@@ -276,10 +277,10 @@ class NewHouse extends React.Component {
                         </div>
                         <div className="row" style={{ marginTop: "20px" }}>
                             <div className="col-sm-6">
-                                <TextField id="description" label="Description" variant="outlined" style={{ width: "100%" }} />
+                                <TextField data-testid="description" id="description" label="Description" variant="outlined" style={{ width: "100%" }} />
                             </div>
                             <div className="col-sm-3">
-                                <TextField id="street" label="Street" variant="outlined" style={{ width: "100%" }} />
+                                <TextField data-testid="street" id="street" label="Street" variant="outlined" style={{ width: "100%" }} />
                             </div>
                             <div className="col-sm-3">
                                 <FormControl variant="outlined" style={{ width: "100%" }}>
@@ -287,12 +288,13 @@ class NewHouse extends React.Component {
                                     <Select
                                         labelId="bathrooms"
                                         id="bathrooms-select-outlined"
+                                        data-testid="bathrooms"
                                         value={this.state.bathrooms}
                                         onChange={(event) => { this.setState({ bathrooms: event.target.value }) }}
                                         label="Bathrooms"
                                     >
                                         <MenuItem value={0}>0</MenuItem>
-                                        <MenuItem value={1}>1</MenuItem>
+                                        <MenuItem data-testid="bathroom1" value={1}>1</MenuItem>
                                         <MenuItem value={2}>2</MenuItem>
                                         <MenuItem value={3}>3</MenuItem>
                                         <MenuItem value={4}>4</MenuItem>
@@ -302,26 +304,27 @@ class NewHouse extends React.Component {
                         </div>
                         <div className="row" style={{ marginTop: "20px" }}>
                             <div className="col-sm-6">
-                                <TextField id="habitable-area" label="Habitable Area" variant="outlined" style={{ width: "100%" }} />
+                                <TextField data-testid="habitable-area" id="habitable-area" label="Habitable Area" variant="outlined" style={{ width: "100%" }} />
                             </div>
                             <div className="col-sm-2">
-                                <TextField id="postal-code-1" label="Postal" variant="outlined" style={{ width: "100%" }} />
+                                <TextField data-testid="postal-code-1" id="postal-code-1" label="Postal" variant="outlined" style={{ width: "100%" }} />
                             </div>
                             <div className="col-sm-1">
-                                <TextField id="postal-code-2" label="Code" variant="outlined" style={{ width: "100%" }} />
+                                <TextField data-testid="postal-code-2" id="postal-code-2" label="Code" variant="outlined" style={{ width: "100%" }} />
                             </div>
                             <div className="col-sm-3">
                                 <FormControl variant="outlined" style={{ width: "100%" }}>
                                     <InputLabel id="garages">Garages</InputLabel>
                                     <Select
                                         labelId="garages"
+                                        data-testid="garages"
                                         id="garages-select-outlined"
                                         value={this.state.garages}
                                         onChange={(event) => { this.setState({ garages: event.target.value }) }}
                                         label="garages"
                                     >
                                         <MenuItem value={0}>0</MenuItem>
-                                        <MenuItem value={1}>1</MenuItem>
+                                        <MenuItem data-testid="garages1" value={1}>1</MenuItem>
                                         <MenuItem value={2}>2</MenuItem>
                                         <MenuItem value={3}>3</MenuItem>
                                         <MenuItem value={4}>4</MenuItem>
@@ -339,27 +342,27 @@ class NewHouse extends React.Component {
                                 <img id="photo1" src={defaultImage} className="new-house-photo" onClick={() => this.triggerUpload(1)} alt="House 1" />
                             </div>
                             <div className="col-sm-4">
-                                <img  id="photo2" src={defaultImage} className="new-house-photo" onClick={() => this.triggerUpload(2)} alt="House 2" />
+                                <img id="photo2" src={defaultImage} className="new-house-photo" onClick={() => this.triggerUpload(2)} alt="House 2" />
                             </div>
                         </div>
                         <div className="row" style={{ marginTop: "25px" }}>
                             <div className="col-sm-2">
-                                <img  id="photo3" src={defaultImage} className="new-house-small-photo" onClick={() => this.triggerUpload(3)} alt="House 3" />
+                                <img id="photo3" src={defaultImage} className="new-house-small-photo" onClick={() => this.triggerUpload(3)} alt="House 3" />
                             </div>
                             <div className="col-sm-2">
-                                <img  id="photo4" src={defaultImage} className="new-house-small-photo" onClick={() => this.triggerUpload(4)} alt="House 4" />
+                                <img id="photo4" src={defaultImage} className="new-house-small-photo" onClick={() => this.triggerUpload(4)} alt="House 4" />
                             </div>
                             <div className="col-sm-2">
-                                <img  id="photo5" src={defaultImage} className="new-house-small-photo" onClick={() => this.triggerUpload(5)} alt="House 5" />
+                                <img id="photo5" src={defaultImage} className="new-house-small-photo" onClick={() => this.triggerUpload(5)} alt="House 5" />
                             </div>
                             <div className="col-sm-2">
-                                <img  id="photo6" src={defaultImage} className="new-house-small-photo" onClick={() => this.triggerUpload(6)} alt="House 6" />
+                                <img id="photo6" src={defaultImage} className="new-house-small-photo" onClick={() => this.triggerUpload(6)} alt="House 6" />
                             </div>
                             <div className="col-sm-2">
-                                <img  id="photo7" src={defaultImage} className="new-house-small-photo" onClick={() => this.triggerUpload(7)} alt="House 7" />
+                                <img id="photo7" src={defaultImage} className="new-house-small-photo" onClick={() => this.triggerUpload(7)} alt="House 7" />
                             </div>
                             <div className="col-sm-2">
-                                <img  id="photo8" src={defaultImage} className="new-house-small-photo" onClick={() => this.triggerUpload(8)} alt="House 8" />
+                                <img id="photo8" src={defaultImage} className="new-house-small-photo" onClick={() => this.triggerUpload(8)} alt="House 8" />
                             </div>
                         </div>
                         <input id="upload" type="file" style={{ display: "none" }} onChange={(event) => this.uploadPicture(event)} />
@@ -374,6 +377,7 @@ class NewHouse extends React.Component {
                                     <FormControlLabel
                                         control={
                                             <Checkbox
+                                                data-testid="wifi"
                                                 checked={this.state.wifi}
                                                 onChange={() => this.setState({ wifi: !this.state.wifi })}
                                                 name="wifi"
@@ -385,6 +389,7 @@ class NewHouse extends React.Component {
                                     <FormControlLabel
                                         control={
                                             <Checkbox
+                                                data-testid="phone"
                                                 checked={this.state.phone}
                                                 onChange={() => this.setState({ phone: !this.state.phone })}
                                                 name="phone"
@@ -396,6 +401,7 @@ class NewHouse extends React.Component {
                                     <FormControlLabel
                                         control={
                                             <Checkbox
+                                                data-testid="television"
                                                 checked={this.state.television}
                                                 onChange={() => this.setState({ television: !this.state.television })}
                                                 name="television"
@@ -407,6 +413,7 @@ class NewHouse extends React.Component {
                                     <FormControlLabel
                                         control={
                                             <Checkbox
+                                                data-testid="warmWater"
                                                 checked={this.state.warmWater}
                                                 onChange={() => this.setState({ warmWater: !this.state.warmWater })}
                                                 name="warmWater"
@@ -418,6 +425,7 @@ class NewHouse extends React.Component {
                                     <FormControlLabel
                                         control={
                                             <Checkbox
+                                                data-testid="alarm"
                                                 checked={this.state.alarm}
                                                 onChange={() => this.setState({ alarm: !this.state.alarm })}
                                                 name="alarm"
@@ -429,6 +437,7 @@ class NewHouse extends React.Component {
                                     <FormControlLabel
                                         control={
                                             <Checkbox
+                                                data-testid="fireExtinguisher"
                                                 checked={this.state.fireExtinguisher}
                                                 onChange={() => this.setState({ fireExtinguisher: !this.state.fireExtinguisher })}
                                                 name="fireExtinguisher"
@@ -440,6 +449,7 @@ class NewHouse extends React.Component {
                                     <FormControlLabel
                                         control={
                                             <Checkbox
+                                                data-testid="parking"
                                                 checked={this.state.parking}
                                                 onChange={() => this.setState({ parking: !this.state.parking })}
                                                 name="parking"
@@ -451,6 +461,7 @@ class NewHouse extends React.Component {
                                     <FormControlLabel
                                         control={
                                             <Checkbox
+                                                data-testid="balcony"
                                                 checked={this.state.balcony}
                                                 onChange={() => this.setState({ balcony: !this.state.balcony })}
                                                 name="balcony"
@@ -462,6 +473,7 @@ class NewHouse extends React.Component {
                                     <FormControlLabel
                                         control={
                                             <Checkbox
+                                                data-testid="airConditioning"
                                                 checked={this.state.airConditioning}
                                                 onChange={() => this.setState({ airConditioning: !this.state.airConditioning })}
                                                 name="airConditioning"
@@ -473,6 +485,7 @@ class NewHouse extends React.Component {
                                     <FormControlLabel
                                         control={
                                             <Checkbox
+                                                data-testid="washingMachine"
                                                 checked={this.state.washingMachine}
                                                 onChange={() => this.setState({ washingMachine: !this.state.washingMachine })}
                                                 name="washingMachine"
@@ -484,6 +497,7 @@ class NewHouse extends React.Component {
                                     <FormControlLabel
                                         control={
                                             <Checkbox
+                                                data-testid="vacuumCleaner"
                                                 checked={this.state.vacuumCleaner}
                                                 onChange={() => this.setState({ vacuumCleaner: !this.state.vacuumCleaner })}
                                                 name="vacuumCleaner"
@@ -517,7 +531,7 @@ class NewHouse extends React.Component {
                             </div>
                             <div className="col-sm-1"></div>
                             <div className="col-sm-6">
-                                <div className="signin-button" onClick={this.fieldsValidation}>
+                                <div className="signin-button" onClick={this.fieldsValidation} data-testid="next-btn">
                                     <span>Next <i className="fas fa-arrow-circle-right"></i></span>
                                 </div>
                             </div>
