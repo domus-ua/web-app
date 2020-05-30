@@ -43,7 +43,7 @@ class RentHouse extends React.Component {
         const endDate = document.getElementById("end-date").value;
         const price = document.getElementById("price").value;
 
-        console.log(startDate);
+        
 
         if (username === "")
             errors.push("Invalid email or username");
@@ -71,6 +71,7 @@ class RentHouse extends React.Component {
             houseId: this.house.id
         }
 
+
         fetch(uris.restApi.locadores + "/rent", {
             method: "POST",
             headers: {
@@ -80,6 +81,7 @@ class RentHouse extends React.Component {
             body: JSON.stringify(payload)
         })
             .then(response => {
+                console.log(response);
                 if (!response.ok) throw new Error(response.status);
                 else return response.json();
 

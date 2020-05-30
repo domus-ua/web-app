@@ -10,5 +10,6 @@ export default {
         locatarios: baseUri + 'locatarios',
         wishlist: baseUri + 'locatarios/wishlist',
         reviews: baseUri + 'houses/reviews',
+        rentend: baseUri + 'locatarios/rented/'
     }
 }

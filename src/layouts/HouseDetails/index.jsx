@@ -25,7 +25,8 @@ class HouseDetails extends React.Component {
             rentHouse: false,
             rating: 1,
             favorite: false,
-            modalOpen: false
+            modalOpen: false,
+            alreadyRented: false
         }
 
         this.authUser = JSON.parse(localStorage.getItem('authUser'));
@@ -33,6 +34,7 @@ class HouseDetails extends React.Component {
         this.sendReviews = this.sendReviews.bind(this);
         this.deleteReviews = this.deleteReviews.bind(this);
         this.favorite = this.favorite.bind(this);
+        this.checkRented = this.checkRented.bind(this);
     }
 
     getHouseDetails() {
@@ -157,8 +159,35 @@ class HouseDetails extends React.Component {
         }
     }
 
+    checkRented() {
+        fetch(uris.restApi.rentend + this.authUser.user.id + "/" + this.state.house.id, {
+            method: "GET",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (!response.ok) throw new Error(response.status);
+                else return response.json();
+
+            })
+            .then(data => {
+                this.setState({
+                    alreadyRented: data
+                })
+            })
+            .catch(error => {
+                console.log("Fetch error: " + error);
+            })
+    }
+
     componentDidMount() {
         this.getHouseDetails();
+        if(this.authUser.role === "locatario") {
+            this.checkRented();
+        }
+        
     }
 
     componentDidUpdate() {
@@ -429,6 +458,10 @@ class HouseDetails extends React.Component {
                                                 </ul>
                                             </div>
                                         </div>
+                                    </>
+                                }
+                                {this.authUser !== null && this.state.alreadyRented && (this.authUser.role === "locatario" || (this.authUser.role === "locador" && this.state.house.locador.user.email !== this.authUser.user.email)) &&
+                                    <>
                                         <div className="row" style={{ marginTop: "30px" }}>
                                             <div className="col-sm-3">
                                                 <h4 style={{ color: "#252525" }} data-testid="make-review">
@@ -481,20 +514,20 @@ class HouseDetails extends React.Component {
                 </section>
                 <Footer />
                 <Modal
-                show={this.state.modalOpen}
-                size="lg"
-                aria-labelledby="contained-modal-title-vcenter"
-                centered
-            >
-                <Modal.Header closeButton>
-                    <Modal.Title id="contained-modal-title-vcenter">
-                        <i class="fas fa-heart"></i> House {this.state.favorite === true ? "added to" : "removed from"} favorites!
+                    show={this.state.modalOpen}
+                    size="lg"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title id="contained-modal-title-vcenter">
+                            <i class="fas fa-heart"></i> House {this.state.favorite === true ? "added to" : "removed from"} favorites!
 </Modal.Title>
-                </Modal.Header>
-                <Modal.Footer>
-                    <ModalButton onClick={() => this.setState({modalOpen: false})}>Close</ModalButton>
-                </Modal.Footer>
-            </Modal>
+                    </Modal.Header>
+                    <Modal.Footer>
+                        <ModalButton onClick={() => this.setState({ modalOpen: false })}>Close</ModalButton>
+                    </Modal.Footer>
+                </Modal>
             </div >
         );
     }
