@@ -19,14 +19,14 @@ const person = {
 const baseUri = 'http://localhost:3000';
 let browser;
 let page;
-let headless = false; // CHANGE TO 'true' IN EVERY COMMIT
+let headless = true; // CHANGE TO 'true' IN EVERY COMMIT
 
 beforeAll(async () => {
     // launch browser 
     browser = await puppeteer.launch(
         {
             headless: headless, // headless mode set to false so browser opens up with visual feedback
-            slowMo: 250, // how slow actions should be
+            slowMo: 20, // how slow actions should be
         }
     )
     // creates a new page in the opened browser   
@@ -44,7 +44,7 @@ describe('Render test', () => {
         const html = await page.$eval("[data-testid=sign-in-title]", e => e.innerHTML);
         expect(html).toBe('Sign In');
 
-    }, 1600000);
+    }, 160000000);
 });
 
 describe('Invalid login test', () => {
@@ -59,7 +59,7 @@ describe('Invalid login test', () => {
         const html = await page.$eval("[data-testid=invalid-credentials]", e => e.innerHTML);
         expect(html).toBe('Invalid credentials!');
 
-    }, 1600000);
+    }, 160000000);
 });
 
 describe('Locador login test', () => {
@@ -80,7 +80,7 @@ describe('Locador login test', () => {
 
         
 
-    }, 1600000);
+    }, 160000000);
 });
 
 describe('Locatario login test', () => {
@@ -95,7 +95,7 @@ describe('Locatario login test', () => {
         await page.click("[data-testid=signin-button]")
         await page.waitForSelector('#home-locatario')
 
-    }, 1600000);
+    }, 160000000);
 });
 
 

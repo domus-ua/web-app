@@ -19,14 +19,14 @@ const person = {
 const baseUri = 'http://localhost:3000';
 let browser;
 let page;
-let headless = false; // CHANGE TO 'true' IN EVERY COMMIT
+let headless = true; // CHANGE TO 'true' IN EVERY COMMIT
 
 beforeAll(async () => {
     // launch browser 
     browser = await puppeteer.launch(
         {
             headless: headless, // headless mode set to false so browser opens up with visual feedback
-            slowMo: 250, // how slow actions should be
+            slowMo: 50, // how slow actions should be
         }
     )
     // creates a new page in the opened browser   
@@ -44,8 +44,8 @@ describe('Favorites test', () => {
         await page.type('#password', 'locatario1')
         await page.click("[data-testid=signin-button]")
 
-        await page.waitForSelector("[data-testid=all-houses]");
-        await page.click("[data-testid=all-houses]");
+        await page.waitForSelector("[data-testid=search]");
+        await page.click("[data-testid=search]");
 
         await page.waitForSelector('[data-testid=favorite-house1]');
         await page.waitForSelector('[data-testid=favorite-house2]');
@@ -71,7 +71,7 @@ describe('Favorites test', () => {
         await page.waitForSelector('[data-testid=favorite-house2]');
         await page.waitForSelector('[data-testid=favorite-house3]');
 
-    }, 1600000);
+    }, 160000000);
 });
 
 // This function occurs after the result of each tests, it closes the browser

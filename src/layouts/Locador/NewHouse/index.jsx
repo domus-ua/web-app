@@ -139,9 +139,6 @@ class NewHouse extends React.Component {
         if (this.state.garages === "")
             emptyFields.push("Garages not found!");
 
-        if (photos.length === 0)
-            emptyFields.push("Insert at least one picture!");
-
         const postalCode1 = document.getElementById("postal-code-1").value;
         const postalCode2 = document.getElementById("postal-code-2").value;
 
@@ -339,7 +336,7 @@ class NewHouse extends React.Component {
                         </div>
                         <div className="row" style={{ marginTop: "20px" }}>
                             <div className="col-sm-8">
-                                <img id="photo1" src={defaultImage} className="new-house-photo" onClick={() => this.triggerUpload(1)} alt="House 1" />
+                                <img id="photo1" data-testid="photo1" src={defaultImage} className="new-house-photo" onClick={() => this.triggerUpload(1)} alt="House 1" />
                             </div>
                             <div className="col-sm-4">
                                 <img id="photo2" src={defaultImage} className="new-house-photo" onClick={() => this.triggerUpload(2)} alt="House 2" />

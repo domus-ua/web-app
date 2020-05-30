@@ -19,22 +19,22 @@ const person = {
 const baseUri = 'http://localhost:3000';
 let browser;
 let page;
-let headless = false; // CHANGE TO 'true' IN EVERY COMMIT
+let headless = true; // CHANGE TO 'true' IN EVERY COMMIT
 
 beforeAll(async () => {
     // launch browser 
     browser = await puppeteer.launch(
         {
             headless: headless, // headless mode set to false so browser opens up with visual feedback
-            slowMo: 250, // how slow actions should be
+            slowMo: 20, // how slow actions should be
         }
     )
     // creates a new page in the opened browser   
     page = await browser.newPage()
 })
 
-describe('Locador login test', () => {
-    test('Locador tries to login', async () => {
+describe('Locador upload house test', () => {
+    test('Locador uploads a new house', async () => {
 
         await page.goto(baseUri + publicRouter.signin)
 
@@ -91,9 +91,45 @@ describe('Locador login test', () => {
         await page.waitForSelector("[data-testid=garages1]");
         await page.click("[data-testid=garages1]");
 
+        await page.waitForSelector("[data-testid=wifi]");
+        await page.click("[data-testid=wifi]");
 
+        await page.waitForSelector("[data-testid=phone]");
+        await page.click("[data-testid=phone]");
 
-    }, 1600000);
+        await page.waitForSelector("[data-testid=television]");
+        await page.click("[data-testid=television]");
+
+        await page.waitForSelector("[data-testid=warmWater]");
+        await page.click("[data-testid=warmWater]");
+
+        await page.waitForSelector("[data-testid=alarm]");
+        await page.click("[data-testid=alarm]");
+
+        await page.waitForSelector("[data-testid=fireExtinguisher]");
+        await page.click("[data-testid=fireExtinguisher]");
+
+        await page.waitForSelector("[data-testid=parking]");
+        await page.click("[data-testid=parking]");
+
+        await page.waitForSelector("[data-testid=balcony]");
+        await page.click("[data-testid=balcony]");
+
+        await page.waitForSelector("[data-testid=airConditioning]");
+        await page.click("[data-testid=airConditioning]");
+
+        await page.waitForSelector("[data-testid=washingMachine]");
+        await page.click("[data-testid=washingMachine]");
+
+        await page.waitForSelector("[data-testid=vacuumCleaner]");
+        await page.click("[data-testid=vacuumCleaner]");
+
+        await page.waitForSelector("[data-testid=next-btn]");
+        await page.click("[data-testid=next-btn]");
+
+        await page.waitForSelector("[data-testid=upload-house]");
+
+    }, 160000000);
 });
 
 

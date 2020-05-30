@@ -22,13 +22,13 @@ class UserNavbar extends React.Component {
 
         this.navLocatario = [
             <li data-testid="all-houses" style={{cursor: "pointer"}} onClick={() => this.setState({ redirect: true, page: "/houses" })}>All houses</li>,
-            <li style={{cursor: "pointer"}} onClick={() => this.setState({ redirect: true, page: "/home" })}>Search</li>,
+            <li data-testid="search" style={{cursor: "pointer"}} onClick={() => this.setState({ redirect: true, page: "/home" })}>Search</li>,
             <li data-testid="favorites-link" style={{cursor: "pointer"}} onClick={() => this.setState({ redirect: true, page: "/locatario/favorite" })}>Favorites</li>,
         ];
 
         this.navLocador = [
             <li data-testid="all-houses" style={{cursor: "pointer"}} onClick={() => this.setState({ redirect: true, page: "/houses" })}>All houses</li>,
-            <li style={{cursor: "pointer"}} onClick={() => this.setState({ redirect: true, page: "/home" })}>Search</li>,
+            <li data-testid="search" style={{cursor: "pointer"}} onClick={() => this.setState({ redirect: true, page: "/home" })}>Search</li>,
             <li data-testid="new-house" style={{cursor: "pointer"}} onClick={() => this.setState({ redirect: true, page: "/locador/new-house" })}>New house</li>,
         ];
 

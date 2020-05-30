@@ -39,7 +39,7 @@ class HouseDetails extends React.Component {
 
     getHouseDetails() {
 
-        let id = this.state.house !== null ? this.state.house.id : 1;
+        let id = this.state.house !== null ? this.state.house.id : 15;
 
         fetch(uris.restApi.houses + "/" + id, {
             method: "GET",
@@ -184,7 +184,7 @@ class HouseDetails extends React.Component {
 
     componentDidMount() {
         this.getHouseDetails();
-        if(this.authUser.role === "locatario") {
+        if(this.authUser !== null && this.authUser.role === "locatario") {
             this.checkRented();
         }
         

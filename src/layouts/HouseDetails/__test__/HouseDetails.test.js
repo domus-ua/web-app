@@ -35,7 +35,7 @@ global.localStorage = new LocalStorageMock;
 const baseUri = 'http://localhost:3000';
 let browser;
 let page;
-let headless = false; // CHANGE TO 'true' IN EVERY COMMIT
+let headless = true; // CHANGE TO 'true' IN EVERY COMMIT
 
 
 
@@ -44,7 +44,7 @@ beforeAll(async () => {
     browser = await puppeteer.launch(
         {
             headless: headless, // headless mode set to false so browser opens up with visual feedback
-            slowMo: 250, // how slow actions should be
+            slowMo: 20, // how slow actions should be
         }
     )
     // creates a new page in the opened browser   
@@ -70,7 +70,7 @@ describe('Render page test', () => {
         expect(description).toBe('Totalmente remodelado em 2018, em tipologia de T2, com Wi-Fi.');
 
         const publishDate = await page.$eval('[data-testid=publish-date]', e => e.innerHTML);
-        expect(publishDate).toBe('Published on 2020-05-28');
+        expect(publishDate).toBe('Published on 2020-05-30');
 
         const price = await page.$eval('[data-testid=price]', e => e.innerHTML);
         expect(price).toBe('250 €');
