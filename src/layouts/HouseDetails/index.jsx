@@ -499,7 +499,7 @@ class HouseDetails extends React.Component {
                                         <div className="row">
                                             <div className="col-sm-6"></div>
                                             <div className="col-sm-6">
-                                                <div className="signin-button" onClick={() => this.setState({ rentHouse: true })}>
+                                                <div data-testid="rent-btn" className="signin-button" onClick={() => this.setState({ rentHouse: true })}>
                                                     <span id="rent-button"><i className="fas fa-sign-in-alt"></i> Rent this house</span>
                                                 </div>
                                             </div>

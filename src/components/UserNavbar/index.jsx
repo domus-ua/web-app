@@ -17,7 +17,7 @@ class UserNavbar extends React.Component {
         this.routerLocador = [
             <div onClick={() => this.setState({ redirect: true, page: "/locador" })}>Home</div>,
             <div onClick={() => this.setState({ redirect: true, page: "/locador/profile" })}>Profile</div>,
-            <div onClick={() => this.setState({ redirect: true, page: "/locador/houses" })}>My houses</div>,
+            <div onClick={() => this.setState({ redirect: true, page: "/locador/houses" })} data-testid="my-houses" >My houses</div>,
         ];
 
         this.navLocatario = [

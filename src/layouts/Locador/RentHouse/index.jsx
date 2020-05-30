@@ -138,7 +138,7 @@ class RentHouse extends React.Component {
                         </div>
                         <div className="row" style={{ marginTop: "20px" }}>
                             <div className="col-sm-6">
-                                <TextField id="username" label="Tenant email or username" variant="outlined" style={{ width: "100%" }} />
+                                <TextField data-testid="tenant-rent-email" id="username" label="Tenant email or username" variant="outlined" style={{ width: "100%" }} />
                             </div>
                             <div className="col-sm-2">
                                 <DatePicker id="start-date" label="Start date" />
@@ -147,13 +147,13 @@ class RentHouse extends React.Component {
                                 <DatePicker id="end-date" label="End date" />
                             </div>
                             <div className="col-sm-2">
-                                <TextField id="price" label="Price per month" variant="outlined" style={{ width: "100%" }} />
+                                <TextField data-testid="rent-price" id="price" label="Price per month" variant="outlined" style={{ width: "100%" }} />
                             </div>
                         </div>
                         <div className="row" style={{ marginTop: "50px" }}>
                             <div className="col-sm-4"></div>
                             <div className="col-sm-4">
-                                <div className="signin-button" onClick={this.rent}>
+                                <div className="signin-button" onClick={this.rent} data-testid="rent-button">
                                     <span id="rent-button">Confirm rental <i className="fas fa-check-circle"></i> </span>
                                 </div>
                             </div>
