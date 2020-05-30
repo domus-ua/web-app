@@ -33,8 +33,8 @@ beforeAll(async () => {
     page = await browser.newPage()
 })
 
-describe('Locador login test', () => {
-    test('Locador tries to login', async () => {
+describe('Favorites test', () => {
+    test('Locatario adds houses to favorites', async () => {
 
         await page.goto(baseUri + publicRouter.signin);
 
