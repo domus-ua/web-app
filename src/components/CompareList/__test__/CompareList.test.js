@@ -42,7 +42,7 @@ beforeAll(async () => {
     browser = await puppeteer.launch(
         {
             headless: headless, // headless mode set to false so browser opens up with visual feedback
-            slowMo: 250, // how slow actions should be
+            slowMo: 20, // how slow actions should be
         }
     )
     // creates a new page in the opened browser   
@@ -55,14 +55,14 @@ describe('Compare list test', () => {
 
         await page.goto(baseUri);
 
-        await page.waitForSelector('[data-testid=house-card1]');
-        await page.waitForSelector('[data-testid=house-card2]');
-        await page.waitForSelector('[data-testid=house-card3]');
-        await page.waitForSelector('[data-testid=house-card4]');
+        await page.waitForSelector('[data-testid=house-card15]');
+        await page.waitForSelector('[data-testid=house-card16]');
+        await page.waitForSelector('[data-testid=house-card17]');
+        await page.waitForSelector('[data-testid=house-card18]');
 
-        await page.click('[data-testid=house-card2]');
-        await page.click('[data-testid=house-card3]');
-        await page.click('[data-testid=house-card4]');
+        await page.click('[data-testid=house-card16]');
+        await page.click('[data-testid=house-card17]');
+        await page.click('[data-testid=house-card18]');
 
         await page.waitForSelector('[data-testid=compare-list-label]');
 

@@ -77,7 +77,7 @@ class SignIn extends React.Component {
                     <div className="container">
                         <div className="row">
                             <div className="col-sm-12 text-center">
-                                <h4 style={{ color: "#3f51b5" }}>Sign In</h4>
+                                <h4 style={{ color: "#3f51b5" }} data-testid="sign-in-title">Sign In</h4>
                             </div>
                         </div>
                         <div className="row">
@@ -115,14 +115,14 @@ class SignIn extends React.Component {
                             <div className="col-sm-3"></div>
                             <div className="col-sm-6">
                                 <div className="signin-button" onClick={this.signIn}>
-                                    <span id="signin-button"><i className="fas fa-sign-in-alt"></i> Sign In</span>
+                                    <span id="signin-button" data-testid="signin-button"><i className="fas fa-sign-in-alt"></i> Sign In</span>
                                 </div>
                             </div>
                         </div>
                         <div className="row" style={{ marginTop: "30px" }}>
                             <div className="col-sm-3"></div>
                             <div className="col-sm-6 text-center">
-                                <h6 id="invalid-credentials" className="invalid-credentials">Invalid credentials!</h6>
+                                <h6 id="invalid-credentials" data-testid="invalid-credentials" className="invalid-credentials">Invalid credentials!</h6>
                             </div>
                         </div>
                     </div>

@@ -37,7 +37,7 @@ describe('Render test', () => {
         const html = await page.$eval('#sign-up-title', e => e.innerHTML);
         expect(html).toBe('Sign Up');
 
-    }, 1600000);
+    }, 160000000);
 });
 
 describe('Invalid register test', () => {
@@ -52,7 +52,7 @@ describe('Invalid register test', () => {
         const html = await page.$eval('#error-modal', e => e.innerHTML);
         expect(html).toBe('You need to correct the following errors to register:');
 
-    }, 1600000);
+    }, 160000000);
 });
 
 describe('Register test', () => {
@@ -85,7 +85,7 @@ describe('Register test', () => {
         const html = await page.$eval('#registered', e => e.innerHTML);
         expect(html).toBe('You will be redirected.');
 
-    }, 1600000);
+    }, 160000000);
 });
 
 

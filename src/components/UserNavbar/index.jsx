@@ -17,19 +17,19 @@ class UserNavbar extends React.Component {
         this.routerLocador = [
             <div onClick={() => this.setState({ redirect: true, page: "/locador" })}>Home</div>,
             <div onClick={() => this.setState({ redirect: true, page: "/locador/profile" })}>Profile</div>,
-            <div onClick={() => this.setState({ redirect: true, page: "/locador/houses" })}>My houses</div>,
+            <div onClick={() => this.setState({ redirect: true, page: "/locador/houses" })} data-testid="my-houses" >My houses</div>,
         ];
 
         this.navLocatario = [
-            <li style={{cursor: "pointer"}} onClick={() => this.setState({ redirect: true, page: "/houses" })}>All houses</li>,
-            <li style={{cursor: "pointer"}} onClick={() => this.setState({ redirect: true, page: "/home" })}>Search</li>,
-            <li style={{cursor: "pointer"}} onClick={() => this.setState({ redirect: true, page: "/locatario/favorite" })}>Favorites</li>,
+            <li data-testid="all-houses" style={{cursor: "pointer"}} onClick={() => this.setState({ redirect: true, page: "/houses" })}>All houses</li>,
+            <li data-testid="search" style={{cursor: "pointer"}} onClick={() => this.setState({ redirect: true, page: "/home" })}>Search</li>,
+            <li data-testid="favorites-link" style={{cursor: "pointer"}} onClick={() => this.setState({ redirect: true, page: "/locatario/favorite" })}>Favorites</li>,
         ];
 
         this.navLocador = [
-            <li style={{cursor: "pointer"}} onClick={() => this.setState({ redirect: true, page: "/houses" })}>All houses</li>,
-            <li style={{cursor: "pointer"}} onClick={() => this.setState({ redirect: true, page: "/home" })}>Search</li>,
-            <li style={{cursor: "pointer"}} onClick={() => this.setState({ redirect: true, page: "/locador/new-house" })}>New house</li>,
+            <li data-testid="all-houses" style={{cursor: "pointer"}} onClick={() => this.setState({ redirect: true, page: "/houses" })}>All houses</li>,
+            <li data-testid="search" style={{cursor: "pointer"}} onClick={() => this.setState({ redirect: true, page: "/home" })}>Search</li>,
+            <li data-testid="new-house" style={{cursor: "pointer"}} onClick={() => this.setState({ redirect: true, page: "/locador/new-house" })}>New house</li>,
         ];
 
 
@@ -69,7 +69,7 @@ class UserNavbar extends React.Component {
                                 })
                             }
                             <li>
-                                <div className="my-dropdown">
+                                <div className="my-dropdown" data-testid="user-navbar">
                                     <img src={"data:image;base64, " + this.authUser.user.photo} className="user-image" alt="Current user" />
                                     <div className="my-dropdown-content">
                                         {
@@ -77,7 +77,7 @@ class UserNavbar extends React.Component {
                                                 return link;
                                             })
                                         }
-                                        <div onClick={this.signOut}>Sign out</div>
+                                        <div onClick={this.signOut} data-testid="sign-out">Sign out</div>
                                     </div>
                                 </div>
                             </li>

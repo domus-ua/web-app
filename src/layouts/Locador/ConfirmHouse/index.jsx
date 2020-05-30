@@ -183,7 +183,7 @@ class ConfirmHouse extends React.Component {
                         <div className="row" style={{ marginTop: "15px" }}>
                             <div className="col-sm-6"></div>
                             <div className="col-sm-6">
-                                <div className="signin-button" onClick={this.uploadHouse}>
+                                <div className="signin-button" onClick={this.uploadHouse} data-testid="upload-house">
                                     <span><i className="fas fa-arrow-circle-up"></i> Upload house</span>
                                 </div>
                             </div>

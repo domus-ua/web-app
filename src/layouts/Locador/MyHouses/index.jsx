@@ -35,7 +35,7 @@ class MyHouses extends React.Component {
     fetchMyHouses() {
 
         let locadorId = this.authUser.id;
-
+        
         fetch(uris.restApi.locadores + "/houses/" + locadorId, {
             method: "GET",
             headers: {
@@ -58,7 +58,7 @@ class MyHouses extends React.Component {
 
             })
             .catch(error => {
-                console.log("Fetch error: " + error);
+                console.log("Fetch my houses error: " + error);
             })
 
     }

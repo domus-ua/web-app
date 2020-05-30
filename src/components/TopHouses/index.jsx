@@ -42,10 +42,10 @@ class TopHouses extends React.Component {
             .then(data => {
                 let aux = [];
 
-                data.forEach((house) => {
+                data.forEach((house, index) => {
                     aux.push(
                         <HouseCard
-                            id={house.id}
+                            id={(index+1)}
                             title={house.name}
                             city={house.city}
                             rooms={house.noRooms}
