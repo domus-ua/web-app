@@ -22,7 +22,8 @@ class Home extends React.Component {
 
 
     render() {
-        if(this.state.redirect && this.state.page === 1) return <Redirect to="/locador/profile"/>
+        if (this.state.redirect && this.state.page === 1) return <Redirect to="/locador/profile" />
+        if (this.state.redirect && this.state.page === 2) return <Redirect to="/locador/check-quality" />
         return (
             <div id="home-locador">
                 <header>
@@ -32,8 +33,13 @@ class Home extends React.Component {
                 <section style={{ marginTop: "20px" }}>
                     <div className="container">
                         <div className="row">
-                            <div className="col-sm-12">
-                                <h3 style={{ color: "#252525" }}>Welcome, <span className="user-name" onClick={() => this.setState({redirect: true, page: 1})}>{this.authUser.user.firstName + " " + this.authUser.user.lastName}!</span></h3>
+                            <div className="col-sm-9">
+                                <h3 style={{ color: "#252525" }}>Welcome, <span className="user-name" onClick={() => this.setState({ redirect: true, page: 1 })}>{this.authUser.user.firstName + " " + this.authUser.user.lastName}! {this.authUser.verified === true ? <i className="fas fa-check-circle"></i> : ""}</span> </h3>
+                            </div>
+                            <div className="col-sm-3">
+                                <div className="signin-button" onClick={() => this.setState({ redirect: true, page: 2 })} data-testid="review-button">
+                                    <span id="quality-check" data-testid="quality-check">Check quality <i className="fas fa-check-circle"></i></span>
+                                </div>
                             </div>
                         </div>
                         <div className="row">
@@ -43,18 +49,18 @@ class Home extends React.Component {
                         </div>
                         <div className="row">
                             <div className="col-sm-8">
-                                <DashboardCard 
-                                title="My houses"
-                                href="/locador/houses"
-                                description="See all your houses in Domus"
+                                <DashboardCard
+                                    title="My houses"
+                                    href="/locador/houses"
+                                    description="See all your houses in Domus"
                                 />
                             </div>
                             <div className="col-sm-4">
-                                <DashboardCard 
-                                title="New house"
-                                image={newHouse}
-                                href="/locador/new-house"
-                                description="Upload a new house to sell or rent"
+                                <DashboardCard
+                                    title="New house"
+                                    image={newHouse}
+                                    href="/locador/new-house"
+                                    description="Upload a new house to sell or rent"
                                 />
                             </div>
                         </div>
