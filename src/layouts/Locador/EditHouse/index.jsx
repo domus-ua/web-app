@@ -190,10 +190,9 @@ class EditHouse extends React.Component {
                 })
                 let noPhotos = this.state.house.photos.length < 4 ? this.state.house.photos.length : 4;
 
-                for (var i = 0; i < noPhotos; i++) {
+                for (let i = 0; i < noPhotos; i++) {
                     document.getElementById("photo" + (i + 1)).src = "data:image;base64, " + this.state.house.photos[i];
-                    this.housePhotos.push(document.getElementById("photo" + (i + 1)).src);
-                    console.log(this.housePhotos);
+                    this.housePhotos.push(this.state.house.photos[i]);
                 }
 
             })
