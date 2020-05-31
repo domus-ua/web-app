@@ -66,6 +66,49 @@ describe('House review test', () => {
 });
 
 
+
+describe('House edit review test', () => {
+    test('Locatario makes a review and edits it', async () => {
+        
+        await page.goto(baseUri + publicRouter.signin)
+
+        await page.click('#username')
+        await page.type('#username', 'locatario1@mail.com')
+        await page.click('#password')
+        await page.type('#password', 'locatario1')
+        await page.click("[data-testid=signin-button]")
+
+        await page.waitForSelector("[data-testid=all-houses]")
+        await page.click("[data-testid=all-houses]")
+
+        await page.waitForSelector("[data-testid=houseCard1]")
+        await page.click("[data-testid=houseCard1]")
+
+        await page.waitForSelector("[data-testid=review-comment]")
+        await page.click('[data-testid=review-comment]')
+        await page.type('[data-testid=review-comment]', 'Very good!')
+
+        await page.waitForSelector("[data-testid=review-button]")
+        await page.click('[data-testid=review-button]')
+
+        const html = await page.$eval("[data-testid=review-btn-text]", e => e.innerHTML);
+        expect(html).toBe('Update review');
+
+        await page.waitForSelector("[data-testid=review-comment]")
+        await page.click('[data-testid=review-comment]')
+        await page.type('[data-testid=review-comment]', 'Excellent!')
+
+        await page.waitForSelector("[data-testid=review-button]")
+        await page.click('[data-testid=review-button]')
+
+        const html = await page.$eval("[data-testid=review-btn-text]", e => e.innerHTML);
+        expect(html).toBe('Update review');
+
+
+
+    }, 160000000);
+});
+
 // This function occurs after the result of each tests, it closes the browser
 afterAll(() => {
     browser.close();
