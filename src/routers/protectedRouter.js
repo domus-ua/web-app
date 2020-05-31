@@ -16,6 +16,7 @@ import NewHouse from "layouts/Locador/NewHouse";
 import ConfirmHouse from "layouts/Locador/ConfirmHouse";
 import MyHouses from "layouts/Locador/MyHouses";
 import Profile from "layouts/Locador/Profile";
+import EditHouse from "layouts/Locador/EditHouse";
 import QualityCheck from "layouts/Locador/QualityCheck";
 
 function PrivateRoute(props) {
@@ -43,8 +44,10 @@ export default [
     { path: '/locador/houses', layout: <PrivateRoute path='/locador/houses' component={MyHouses} /> },
     { path: '/locador/confirm-house', layout: <PrivateRoute path='/locador/confirm-house' component={ConfirmHouse} /> },
     { path: '/locador/new-house', layout: <PrivateRoute path='/locador/new-house' component={NewHouse} /> },
+    { path: '/locador/edit-house', layout: <PrivateRoute path='/locador/edit-house' component={EditHouse} /> },
     { path: '/locador/auth', layout: <PrivateRoute path='/locador/auth' component={Auth} /> },
     { path: '/locatario/auth', layout: <PrivateRoute path='/locatario/auth' component={Auth} /> },
     { path: '/locador', layout: <PrivateRoute path='/locador' component={HomeLocador} /> },
     { path: '/locatario', layout: <PrivateRoute path='/locatario' component={HomeLocatario} /> },
+
 ]

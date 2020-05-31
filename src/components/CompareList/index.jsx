@@ -134,7 +134,7 @@ class CompareList extends React.Component {
                                     <div className="row">
                                         {this.state.fetchedHouses.map((house) => {
                                             return <div className="col-sm-4">
-                                                <img src={"data:image;base64, " + house.photos[0]} alt={house.name} className="new-house-small-photo" />
+                                                <img src={house.photos[0].includes("data") ? house.photos[0] : "data:image;base64, " + house.photos[0]} alt={house.name} className="new-house-small-photo" />
                                             </div>
                                         })}
                                     </div>

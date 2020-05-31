@@ -52,7 +52,7 @@ class TopHouses extends React.Component {
                             price={house.price}
                             area={house.habitableArea}
                             rating={house.averageRating}
-                            image={"data:image;base64, " + house.photos[0]}
+                            image={house.photos[0].includes("data") ? house.photos[0] : "data:image;base64, " + house.photos[0]}
                         />
                     );
                 })
