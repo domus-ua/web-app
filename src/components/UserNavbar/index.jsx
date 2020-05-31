@@ -21,15 +21,15 @@ class UserNavbar extends React.Component {
         ];
 
         this.navLocatario = [
-            <li data-testid="all-houses" style={{cursor: "pointer"}} onClick={() => this.setState({ redirect: true, page: "/houses" })}>All houses</li>,
-            <li data-testid="search" style={{cursor: "pointer"}} onClick={() => this.setState({ redirect: true, page: "/home" })}>Search</li>,
-            <li data-testid="favorites-link" style={{cursor: "pointer"}} onClick={() => this.setState({ redirect: true, page: "/locatario/favorite" })}>Favorites</li>,
+            <li data-testid="all-houses" style={{cursor: "pointer"}}><a href="/houses">All houses</a></li>,
+            <li data-testid="search" style={{cursor: "pointer"}}><a href="/home">Search</a></li>,
+            <li data-testid="favorites-link" style={{cursor: "pointer"}}><a href="/locatario/favorite">Favorites</a></li>,
         ];
 
         this.navLocador = [
-            <li data-testid="all-houses" style={{cursor: "pointer"}} onClick={() => this.setState({ redirect: true, page: "/houses" })}>All houses</li>,
-            <li data-testid="search" style={{cursor: "pointer"}} onClick={() => this.setState({ redirect: true, page: "/home" })}>Search</li>,
-            <li data-testid="new-house" style={{cursor: "pointer"}} onClick={() => this.setState({ redirect: true, page: "/locador/new-house" })}>New house</li>,
+            <li data-testid="all-houses" style={{cursor: "pointer"}} ><a href="/houses">All houses</a></li>,
+            <li data-testid="search" style={{cursor: "pointer"}}><a href="/home">Search</a></li>,
+            <li data-testid="new-house" style={{cursor: "pointer"}}><a href="/locador/new-house">New house</a></li>,
         ];
 
 
