@@ -19,7 +19,7 @@ const person = {
 const baseUri = 'http://localhost:3000';
 let browser;
 let page;
-let headless = false; // CHANGE TO 'true' IN EVERY COMMIT
+let headless = true; // CHANGE TO 'true' IN EVERY COMMIT
 
 beforeAll(async () => {
     // launch browser 
