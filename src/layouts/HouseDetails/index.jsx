@@ -477,7 +477,7 @@ class HouseDetails extends React.Component {
                                             </div>
                                             <div className="col-sm-10" style={{ marginLeft: "30px" }}>
                                                 <ul className="house-details-list">
-                                                    <li><i className="fas fa-user align-icons"></i> <span>{this.state.house.locador.user.firstName + " " + this.state.house.locador.user.lastName}</span></li>
+                                                    <li><i className="fas fa-user align-icons"></i> <span>{this.state.house.locador.user.firstName + " " + this.state.house.locador.user.lastName} {this.state.house.locador.verified === true ? <i className="fas fa-check-circle" style={{color: "#3f51b5"}}></i> : ""} </span></li>
                                                     <li><i className="fas fa-envelope align-icons"></i> <span>{this.state.house.locador.user.email}</span></li>
                                                     <li><i className="fas fa-phone align-icons"></i> <span>{this.state.house.locador.user.phoneNumber}</span></li>
                                                 </ul>

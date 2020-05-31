@@ -34,7 +34,7 @@ class Home extends React.Component {
                     <div className="container">
                         <div className="row">
                             <div className="col-sm-9">
-        <h3 style={{ color: "#252525" }}>Welcome, <span className="user-name" onClick={() => this.setState({ redirect: true, page: 1 })}>{this.authUser.user.firstName + " " + this.authUser.user.lastName}! {this.authUser.verified === true ? <i className="fas fa-check-circle"></i> : ""}</span> </h3>
+                                <h3 style={{ color: "#252525" }}>Welcome, <span className="user-name" onClick={() => this.setState({ redirect: true, page: 1 })}>{this.authUser.user.firstName + " " + this.authUser.user.lastName}! {this.authUser.verified === true ? <i className="fas fa-check-circle"></i> : ""}</span> </h3>
                             </div>
                             <div className="col-sm-3">
                                 <div className="signin-button" onClick={() => this.setState({ redirect: true, page: 2 })} data-testid="review-button">
