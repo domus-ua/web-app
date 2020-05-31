@@ -30,7 +30,7 @@ class ConfirmHouse extends React.Component {
     componentDidMount() {
         let imagesLenght = this.housePhotos.length <= 4 ? this.housePhotos.length : 4;
         for (var i = 0; i < imagesLenght; i++) {
-            document.getElementById("photo" + (i + 1)).src = this.housePhotos[i];
+            document.getElementById("photo" + (i + 1)).src = this.state.house.photos[i].includes("data") ? this.state.house.photos[i] : "data:image;base64, " + this.state.house.photos[i];
         }
     }
 

@@ -56,6 +56,8 @@ class MyHouses extends React.Component {
                     houseNotFound: data.length === 0
                 })
 
+                console.log(this.myHouses)
+
             })
             .catch(error => {
                 console.log("Fetch my houses error: " + error);
@@ -127,7 +129,7 @@ class MyHouses extends React.Component {
                                         price={house.price}
                                         area={house.habitableArea}
                                         rating={house.averageRating}
-                                        image={"data:image;base64, " + house.photos[0]}
+                                        image={house.photos[0].includes("data") ? house.photos[0] : "data:image;base64, " + house.photos[0]}
                                     />
                                 </div>
                             })}
