@@ -60,7 +60,7 @@ function HouseCard({ id, title, city, rooms, price, area, image, rating }) {
   if (editHouse) { return <Redirect to="edit-house" /> }
   return (
     <Card className={classes.root}>
-      <CardActionArea data-testid={"houseCard"}  onClick={() => { localStorage.setItem('currentHouse', JSON.stringify({ id: id })); setRedirect(true); }}>
+      <CardActionArea data-testid={"houseCard"}  onClick={() => { localStorage.setItem('currentHouse', JSON.stringify({ id: id})); setRedirect(true); }}>
         <CardMedia
           className={classes.media}
           image={image}
@@ -93,7 +93,7 @@ function HouseCard({ id, title, city, rooms, price, area, image, rating }) {
           <DeleteIcon
           />
         </IconButton>
-        <IconButton aria-label="edit house" onClick={() => { localStorage.setItem('currentHouse', JSON.stringify({ id: id })); setEdit(true); }}>
+        <IconButton aria-label="edit house" data-testid={"edit" + title} onClick={() => { localStorage.setItem('currentHouse', JSON.stringify({ id: id })); setEdit(true); }}>
           <EditIcon
           />
         </IconButton>
