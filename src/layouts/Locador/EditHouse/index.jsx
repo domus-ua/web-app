@@ -461,10 +461,11 @@ class EditHouse extends React.Component {
                         <div className="row" style={{ marginTop: "20px" }}>
                             <div className="col-sm-6">
                                 <TextField id="title" label="Title" variant="outlined" style={{ width: "100%" }} value={this.state.name}
-                                />
+                                           onChange={(event) => { this.setState({ name: event.target.value }) }}/>
                             </div>
                             <div className="col-sm-3">
-                                <TextField id="city" label="City" variant="outlined" style={{ width: "100%" }}  value={this.state.city}/>
+                                <TextField id="city" label="City" variant="outlined" style={{ width: "100%" }}  value={this.state.city}
+                                           onChange={(event) => { this.setState({ city: event.target.value }) }}/>
                             </div>
                             <div className="col-sm-3">
                                 <FormControl variant="outlined" style={{ width: "100%" }}>
@@ -488,10 +489,12 @@ class EditHouse extends React.Component {
                         </div>
                         <div className="row" style={{ marginTop: "20px" }}>
                             <div className="col-sm-6">
-                                <TextField id="description" label="Description" variant="outlined" style={{ width: "100%" }} value={this.state.description} />
+                                <TextField id="description" label="Description" variant="outlined" style={{ width: "100%" }} value={this.state.description}
+                                           onChange={(event) => { this.setState({ description: event.target.value }) }}/>
                             </div>
                             <div className="col-sm-3">
-                                <TextField id="street" label="Street" variant="outlined" style={{ width: "100%" }} value={this.state.street} />
+                                <TextField id="street" label="Street" variant="outlined" style={{ width: "100%" }} value={this.state.street}
+                                           onChange={(event) => { this.setState({ street: event.target.value }) }}/>
                             </div>
                             <div className="col-sm-3">
                                 <FormControl variant="outlined" style={{ width: "100%" }}>
@@ -514,13 +517,16 @@ class EditHouse extends React.Component {
                         </div>
                         <div className="row" style={{ marginTop: "20px" }}>
                             <div className="col-sm-6">
-                                <TextField id="habitable-area" label="Habitable Area" variant="outlined" style={{ width: "100%" }} value={this.state.habitableArea} />
+                                <TextField id="habitable-area" label="Habitable Area" variant="outlined" style={{ width: "100%" }} value={this.state.habitableArea}
+                                           onChange={(event) => { this.setState({ habitableArea: event.target.value }) }}/>
                             </div>
                             <div className="col-sm-2">
-                                <TextField id="postal-code-1" label="Postal" variant="outlined" style={{ width: "100%" }} value={this.state.postal} />
+                                <TextField id="postal-code-1" label="Postal" variant="outlined" style={{ width: "100%" }} value={this.state.postal}
+                                           onChange={(event) => { this.setState({ postal: event.target.value }) }}/>
                             </div>
                             <div className="col-sm-1">
-                                <TextField id="postal-code-2" label="Code" variant="outlined" style={{ width: "100%" }} value={this.state.code} />
+                                <TextField id="postal-code-2" label="Code" variant="outlined" style={{ width: "100%" }} value={this.state.code}
+                                           onChange={(event) => { this.setState({ code: event.target.value }) }}/>
                             </div>
                             <div className="col-sm-3">
                                 <FormControl variant="outlined" style={{ width: "100%" }}>
@@ -734,7 +740,7 @@ class EditHouse extends React.Component {
                                 </div>
                             </div>
                             <div className="col-sm-3">
-                                <div className="signin-button" onClick={this.fieldsValidation}>
+                                <div id="upload-button"className="signin-button" onClick={this.fieldsValidation}>
                                     <span>Update <i className="fas fa-arrow-circle-right"></i></span>
                                 </div>
                             </div>
@@ -778,7 +784,7 @@ class EditHouse extends React.Component {
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <h5>Your house was updated in our system.</h5>
+                        <h5 id="update-confirmation">Your house was updated in our system.</h5>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button onClick={() => this.setState({ updated: false })}>Close</Button>
