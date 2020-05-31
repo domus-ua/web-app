@@ -26,9 +26,8 @@ class TopHouses extends React.Component {
 
     fetchAllHouses() {
 
-        let parameters = "?desc=true&orderAttribute=rating";
 
-        fetch(uris.restApi.houses + parameters, {
+        fetch(uris.restApi.trending, {
             method: "GET",
             headers: {
                 "Accept": "application/json",
