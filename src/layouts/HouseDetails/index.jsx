@@ -226,7 +226,7 @@ class HouseDetails extends React.Component {
         if(this.state.alredyReviewd) uri += "/";
 
         fetch(uri, {
-            method: this.state.alredyReviewd == true ? "PUT" : "POST",
+            method: this.state.alredyReviewd === true ? "PUT" : "POST",
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json"
@@ -512,7 +512,7 @@ class HouseDetails extends React.Component {
                                             </div>
                                             <div className="col-sm-2">
                                                 <div className="signin-button" onClick={this.sendReviews} data-testid="review-button">
-                                                    <span id="comment-button"><i className="fas fa-comment"></i> <span data-testid="review-btn-text">{this.state.alredyReviewd == true ? "Update review" : "Send review"}</span></span>
+                                                    <span id="comment-button"><i className="fas fa-comment"></i> <span data-testid="review-btn-text">{this.state.alredyReviewd === true ? "Update review" : "Send review"}</span></span>
                                                 </div>
                                             </div>
 
