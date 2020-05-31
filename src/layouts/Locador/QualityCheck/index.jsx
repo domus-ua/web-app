@@ -81,7 +81,7 @@ class QualityCheck extends React.Component {
                         <>
                         <div className="row" style={{ marginTop: "50px" }}>
                             <div className="col-sm-12 text-center">
-                                <h2 style={{color: "#3f51b5"}}>{this.state.message}</h2>
+                                <h2 style={{color: "#3f51b5"}} data-testid="check-result">{this.state.message}</h2>
                             </div>
                         </div> 
                         <div className="row" style={{ marginTop: "20px" }}>

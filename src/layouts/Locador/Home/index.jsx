@@ -38,7 +38,7 @@ class Home extends React.Component {
                             </div>
                             <div className="col-sm-3">
                                 <div className="signin-button" onClick={() => this.setState({ redirect: true, page: 2 })} data-testid="review-button">
-                                    <span id="quality-check">Check quality <i className="fas fa-check-circle"></i></span>
+                                    <span id="quality-check" data-testid="quality-check">Check quality <i className="fas fa-check-circle"></i></span>
                                 </div>
                             </div>
                         </div>
