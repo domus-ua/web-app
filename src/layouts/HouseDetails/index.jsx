@@ -26,7 +26,8 @@ class HouseDetails extends React.Component {
             rating: 1,
             favorite: false,
             modalOpen: false,
-            alreadyRented: false
+            alreadyRented: false,
+            alredyReviewd: false,
         }
 
         this.authUser = JSON.parse(localStorage.getItem('authUser'));
@@ -97,9 +98,20 @@ class HouseDetails extends React.Component {
                     }
                 })
 
+                let alredyReviewd = false;
+                let rating = this.state.rating;
+                data.reviewsReceived.forEach((review) => {
+                    if (this.authUser !== null && this.authUser.id === review.locatario.id) {
+                        alredyReviewd = true;
+                        rating = review.rating;
+                    }
+                })
+
                 this.setState({
                     house: data,
-                    fetching: false
+                    fetching: false,
+                    alredyReviewd: alredyReviewd,
+                    rating: rating
                 })
 
             })
@@ -184,10 +196,10 @@ class HouseDetails extends React.Component {
 
     componentDidMount() {
         this.getHouseDetails();
-        if(this.authUser !== null && this.authUser.role === "locatario") {
+        if (this.authUser !== null && this.authUser.role === "locatario") {
             this.checkRented();
         }
-        
+
     }
 
     componentDidUpdate() {
@@ -210,8 +222,11 @@ class HouseDetails extends React.Component {
             rating: this.state.rating
         }
 
-        fetch(uris.restApi.reviews, {
-            method: "POST",
+        let uri = uris.restApi.reviews;
+        if(this.state.alredyReviewd) uri += "/";
+
+        fetch(uri, {
+            method: this.state.alredyReviewd == true ? "PUT" : "POST",
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json"
@@ -224,11 +239,20 @@ class HouseDetails extends React.Component {
 
             })
             .then(data => {
+
                 let house = this.state.house;
-                house.reviewsReceived.push(data);
+                let reviews = [data];
+                house.reviewsReceived.forEach((review) => {
+                    if (review.locatario.id !== this.authUser.id) {
+                        reviews.push(review);
+                    }
+                });
+
+                house.reviewsReceived = reviews;
 
                 this.setState({
                     house: house,
+                    alredyReviewd: true
                 })
             })
             .catch(error => {
@@ -255,7 +279,7 @@ class HouseDetails extends React.Component {
                 let house = this.state.house;
                 let reviews = [];
                 house.reviewsReceived.forEach((review) => {
-                    if (review.locatario.user.id !== this.authUser.id) {
+                    if (review.locatario.id !== this.authUser.id) {
                         reviews.push(review);
                     }
                 });
@@ -264,6 +288,7 @@ class HouseDetails extends React.Component {
 
                 this.setState({
                     house: house,
+                    alredyReviewd: false
                 })
             })
             .catch(error => {
@@ -409,7 +434,7 @@ class HouseDetails extends React.Component {
                                                         <li><i className="fas fa-star align-icons"></i> <span>{review.rating}</span></li>
                                                         <li><i className="fas fa-comment align-icons"></i> <span>"{review.comment}"</span></li>
                                                         <li><i className="fas fa-calendar-alt align-icons"></i> <span>{review.timestamp !== null && review.timestamp.split("T")[0]}</span></li>
-                                                        {this.authUser !== null && this.authUser.id === review.locatario.user.id && <li className="delete-review" onClick={this.deleteReviews} data-testid="delete-review"><i className="fas fa-times align-icons"></i> Delete review</li>}
+                                                        {this.authUser !== null && this.authUser.id === review.locatario.id && <li className="delete-review" onClick={this.deleteReviews} data-testid="delete-review"><i className="fas fa-times align-icons"></i> Delete review</li>}
                                                     </ul>
                                                 </div>
                                             </>
@@ -487,7 +512,7 @@ class HouseDetails extends React.Component {
                                             </div>
                                             <div className="col-sm-2">
                                                 <div className="signin-button" onClick={this.sendReviews} data-testid="review-button">
-                                                    <span id="comment-button"><i className="fas fa-comment"></i> Send review</span>
+                                                    <span id="comment-button"><i className="fas fa-comment"></i> {this.state.alredyReviewd == true ? "Update review" : "Send review"}</span>
                                                 </div>
                                             </div>
 
