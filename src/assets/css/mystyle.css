@@ -356,16 +356,18 @@ footer {
 }
 
 .profile-photo {
-    width: 100%;
+    width: 150px;
     height: 150px;
-    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid white;
+    background-color: white;
     content: url('../img/default-user.png');
 }
 
 .profile-photo:hover {
     cursor: pointer;
+    border: 2px solid rgb(167, 170, 209);
 }
-
 
 .compare-title {
     color: #3f51b5;
