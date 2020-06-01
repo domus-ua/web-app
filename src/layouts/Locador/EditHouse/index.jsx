@@ -192,7 +192,7 @@ class EditHouse extends React.Component {
 
                 for (let i = 0; i < noPhotos; i++) {
                     document.getElementById("photo" + (i + 1)).src = this.state.house.photos[i].includes("data") ? this.state.house.photos[i] : "data:image;base64, " + this.state.house.photos[i];
-                    this.housePhotos.push(this.state.house.photos[i]);
+                    this.housePhotos.push(this.state.house.photos[i].split(",")[1]);
                 }
 
             })
