@@ -13,4 +13,4 @@ RUN ls -la /app
 RUN npm install
 
 # start app
-CMD nohup npm start &
+CMD HOST='0.0.0.0' PORT=3000 npm start
