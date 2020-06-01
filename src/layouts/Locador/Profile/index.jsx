@@ -162,8 +162,8 @@ class Profile extends React.Component {
             .then(data => {
                 this.setState({
                     updated: true
-
                 })
+                localStorage.setItem('authUser', JSON.stringify(data));
             })
             .catch(error => {
                 console.log("Fetch error: " + error);
