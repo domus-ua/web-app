@@ -13,4 +13,4 @@ RUN ls -la /app
 RUN npm install
 
 # start app
-CMD ["npm", "start"]
+CMD nohup npm start &
