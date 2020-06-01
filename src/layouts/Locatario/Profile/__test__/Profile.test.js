@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 
 const publicRouter = {
-    profile: '/locador/profile',
+    profile: '/locatario/profile',
     signIn: '/signin',
     home: '/'
 }
@@ -55,11 +55,11 @@ describe('Render profile test', () => {
         //Login First
         await page.goto(baseUri + publicRouter.signIn);
         await page.click('#username');
-        await page.type('#username', 'locadortodelete@mail.com');
+        await page.type('#username', 'locatariotodelete@mail.com');
         await page.click('#password');
-        await page.type('#password', 'Locador123');
+        await page.type('#password', 'Locatario1');
         await page.click('#signin-button');
-        await page.waitForSelector('#home-locador');
+        await page.waitForSelector('#home-locatario');
 
         //Real test
         await page.goto(baseUri + publicRouter.profile);
@@ -67,7 +67,7 @@ describe('Render profile test', () => {
         await page.waitForSelector('#firstName');
         const input = await page.$('#firstName');
         await input.click({ clickCount: 3 })
-        await page.type("#firstName", 'Locador');
+        await page.type("#firstName", 'Locatario');
         await page.click('#upload-button');
         await page.waitForSelector("#update-confirmation")
 
