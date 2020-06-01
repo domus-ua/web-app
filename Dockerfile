@@ -12,5 +12,7 @@ RUN ls -la /app
 
 RUN npm install
 
+EXPOSE 3000
+
 # start app
-CMD HOST='0.0.0.0' PORT=3000 npm start
+CMD ["npm", "start"]
