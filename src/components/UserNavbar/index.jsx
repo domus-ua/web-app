@@ -70,7 +70,7 @@ class UserNavbar extends React.Component {
                             }
                             <li>
                                 <div className="my-dropdown" data-testid="user-navbar">
-                                    <img src={"data:image;base64, " + this.authUser.user.photo} className="user-image" alt="Current user" />
+                                    <img src={this.authUser.user.photo.includes("data") ? this.authUser.user.photo : "data:image;base64, " + this.authUser.user.photo} className="user-image" alt="Current user" />
                                     <div className="my-dropdown-content">
                                         {
                                             this.state.currentRouter.map((link) => {

@@ -116,7 +116,7 @@ class SignUp extends React.Component {
             lastName: lastName,
             password: password,
             phoneNumber: phoneNumber,
-            photo: photos[0],
+            photo: photos[0].split(",")[1],
             sex: gender
         }
 
@@ -164,7 +164,7 @@ class SignUp extends React.Component {
         const reader = new FileReader();
         reader.addEventListener('load', (event) => {
             document.getElementById(this.state.currentPic).src = event.target.result;
-            this.profilePhotos.push(document.getElementById(this.state.currentPic).src);
+            this.profilePhotos[0] = (document.getElementById(this.state.currentPic).src);
         });
         reader.readAsDataURL(file);
     }
