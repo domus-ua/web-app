@@ -194,7 +194,6 @@ class EditHouse extends React.Component {
 
                 for (let i = 0; i < noPhotos; i++) {
                     document.getElementById("photo" + (i + 1)).src = this.state.house.photos[i].includes("data") ? this.state.house.photos[i] : "data:image;base64, " + this.state.house.photos[i];
-                    this.housePhotos.push(this.state.house.photos[i].split(",")[1]);
                 }
 
             })
@@ -396,9 +395,6 @@ class EditHouse extends React.Component {
             street: this.house.street
         }
 
-        console.log(payload)
-
-        /*
         fetch(uris.restApi.houses + "/" + this.state.id, {
             method: "PUT",
             headers: {
@@ -420,7 +416,7 @@ class EditHouse extends React.Component {
             .catch(error => {
                 console.log("Fetch error: " + error);
             })
-            */
+
 
     }
 
