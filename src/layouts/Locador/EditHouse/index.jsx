@@ -159,6 +159,8 @@ class EditHouse extends React.Component {
                             break;
                     }
                 })
+                
+                this.housePhotos = data.photos;
 
                 this.setState({
                     house: data,
@@ -229,7 +231,6 @@ class EditHouse extends React.Component {
         let habitableArea = document.getElementById("habitable-area").value;
 
         let photos = this.housePhotos;
-
     
         // validations
         let emptyFields = [];
@@ -395,6 +396,9 @@ class EditHouse extends React.Component {
             street: this.house.street
         }
 
+        console.log(payload)
+
+        /*
         fetch(uris.restApi.houses + "/" + this.state.id, {
             method: "PUT",
             headers: {
@@ -416,6 +420,7 @@ class EditHouse extends React.Component {
             .catch(error => {
                 console.log("Fetch error: " + error);
             })
+            */
 
     }
 

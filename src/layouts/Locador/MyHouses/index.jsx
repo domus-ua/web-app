@@ -129,7 +129,7 @@ class MyHouses extends React.Component {
                                         price={house.price}
                                         area={house.habitableArea}
                                         rating={house.averageRating}
-                                        image={house.photos[0].includes("data") ? house.photos[0] : "data:image;base64, " + house.photos[0]}
+                                        image={house.photos.length !== 0 && house.photos[0].includes("data") ? house.photos[0] : "data:image;base64, " + house.photos[0]}
                                     />
                                 </div>
                             })}
