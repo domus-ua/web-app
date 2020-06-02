@@ -325,7 +325,7 @@ class EditHouse extends React.Component {
         const reader = new FileReader();
         reader.addEventListener('load', (event) => {
             document.getElementById(this.state.currentPic).src = event.target.result;
-            this.housePhotos.push(document.getElementById(this.state.currentPic).src);
+            this.housePhotos.push(document.getElementById(this.state.currentPic).src.split(",")[1]);
         });
         reader.readAsDataURL(file);
     }
